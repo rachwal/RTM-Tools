@@ -12,5 +12,6 @@ namespace RTM.Component.CameraImageViewer.ViewModel
     public interface ICameraPageViewModel
     {
         ImageSource CameraImage { get; set; }
+        string Fps { get; set; }
     }
 }

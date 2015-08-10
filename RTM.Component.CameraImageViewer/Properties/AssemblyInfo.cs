@@ -14,11 +14,11 @@ using System.Windows;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("RTM.Component.CameraImageViewer")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Created by Bartosz Rachwal")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("RTM.Component.CameraImageViewer")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCompany("The National Institute of Advanced Industrial Science and Technology, Japan")]
+[assembly: AssemblyProduct("RT Middleware CameraImage Viewer Component")]
+[assembly: AssemblyCopyright("Copyright © 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

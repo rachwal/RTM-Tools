@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="RTM CameraImage View Component">
-    <Grid>
+        Title="RTM CameraImage View Component" 
+        Background="Black">
+    <StackPanel Orientation="Vertical">
+        <Label Content="{Binding Fps}" Foreground="DarkOrange" FontSize="18"/>
         <Image Source="{Binding CameraImage}" Stretch="Uniform"/>
-    </Grid>
+    </StackPanel>
 </Window>

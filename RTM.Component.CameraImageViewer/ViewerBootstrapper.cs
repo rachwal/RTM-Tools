@@ -9,6 +9,8 @@ using System.Windows;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
 using RTM.Component.CameraImageViewer.ImageProvider;
+using RTM.Component.CameraImageViewer.Manager;
+using RTM.Component.CameraImageViewer.ViewModel;
 using RTM.Images.Factory;
 
 namespace RTM.Component.CameraImageViewer
@@ -19,6 +21,9 @@ namespace RTM.Component.CameraImageViewer
         {
             Container.RegisterType<IBitmapSourceFactory, BitmapSourceFactory>();
             Container.RegisterType<IImageProvider, ImageProvider.ImageProvider>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IComponentManager, ComponentManager>(new ContainerControlledLifetimeManager());
+
+            Container.RegisterType<ICameraPageViewModel, CameraPageViewModel>();
 
             base.ConfigureContainer();
         }
@@ -32,6 +37,8 @@ namespace RTM.Component.CameraImageViewer
         protected override void InitializeShell()
         {
             base.InitializeShell();
+
+            Container.Resolve<IComponentManager>().Start(null);
 
             Application.Current.MainWindow = (Window) Shell;
             Application.Current.MainWindow.Show();

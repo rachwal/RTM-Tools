@@ -7,7 +7,9 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Windows.Media;
 using RTM.Component.CameraImageViewer.Annotations;
 using RTM.Component.CameraImageViewer.ImageProvider;
@@ -20,17 +22,31 @@ namespace RTM.Component.CameraImageViewer.ViewModel
         private readonly IImageProvider provider;
         private readonly IBitmapSourceFactory factory;
 
+        private int frameCounter;
+
         public ImageSource CameraImage { get; set; }
+        public string Fps { get; set; }
 
         public CameraPageViewModel(IImageProvider imageProvider, IBitmapSourceFactory bitmapSourceFactory)
         {
+            var timer = new Timer(UpdateFpsLabel);
+            timer.Change(0, 1000);
+
             factory = bitmapSourceFactory;
             provider = imageProvider;
             provider.NewImage += OnNewImage;
         }
 
+        private void UpdateFpsLabel(object state)
+        {
+            Fps = $"{frameCounter} Fps";     
+            OnPropertyChanged(nameof(Fps));
+            frameCounter = 0;
+        }
+
         private void OnNewImage(object sender, EventArgs e)
         {
+            frameCounter++;
             var image = provider.Image;
             var bitmapSource = factory.Create(image);
             CameraImage = bitmapSource;

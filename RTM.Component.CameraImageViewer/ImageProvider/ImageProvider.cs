@@ -13,13 +13,9 @@ namespace RTM.Component.CameraImageViewer.ImageProvider
 {
     public class ImageProvider : IImageProvider
     {
-        private IPixelFormatConverter converter;
         private Image image;
 
-        public ImageProvider(IPixelFormatConverter pixelFormatConverter)
-        {
-            converter = pixelFormatConverter;
-        }
+        public event EventHandler NewImage;
 
         public Image Image
         {
@@ -31,10 +27,16 @@ namespace RTM.Component.CameraImageViewer.ImageProvider
             }
         }
 
-        public event EventHandler NewImage;
-
         public void SetImage(CameraImage cameraImage)
         {
+            Image = new Image
+            {
+                Bpp = cameraImage.Bpp,
+                Format = cameraImage.Format,
+                Height = cameraImage.Height,
+                Width = cameraImage.Width,
+                Pixels = cameraImage.Pixels.ToArray()
+            };
         }
     }
 }
