@@ -52,7 +52,7 @@ namespace RTM.Component.CameraImageViewer.ViewModel
             CameraImage.Freeze();
             OnPropertyChanged(nameof(CameraImage));
         }
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
