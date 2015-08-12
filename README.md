@@ -7,4 +7,6 @@ Prerequisites
 Server 2012.
 * Microsoft .NET Framework 4.5 or higher
 * [RTM Images](https://www.nuget.org/packages/RTM.Images/) library
+* [Accord.NET Framework](http://accord-framework.net/) framework
+* [AForge.NET](http://www.aforgenet.com/) framework
 * [OpenRTM.NET](http://www.sec.co.jp/robot/download_rtm.html) 1.3.1 or higher 
