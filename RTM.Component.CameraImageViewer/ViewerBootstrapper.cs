@@ -19,7 +19,7 @@ namespace RTM.Component.CameraImageViewer
     {
         protected override void ConfigureContainer()
         {
-            Container.RegisterType<IBitmapSourceFactory, BitmapSourceFactory>();
+            Container.RegisterType<IImageConverter, ImageConverter>();
             Container.RegisterType<IImageProvider, ImageProvider.ImageProvider>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IComponentManager, ComponentManager>(new ContainerControlledLifetimeManager());
 

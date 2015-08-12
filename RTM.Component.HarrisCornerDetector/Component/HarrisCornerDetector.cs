@@ -32,7 +32,7 @@ namespace RTM.Component.HarrisCornerDetector.Component
 
         private ConfigurationSet configurationSet;
 
-        public IFeaturesDetector Detector;
+        public IDetector Detector;
         public IComponentConfiguration Configuration;
 
         [Configuration(DefaultValue = "1.4", Name = "sigma")]

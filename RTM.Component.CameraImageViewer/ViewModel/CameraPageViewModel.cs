@@ -7,7 +7,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Media;
@@ -20,26 +19,26 @@ namespace RTM.Component.CameraImageViewer.ViewModel
     public class CameraPageViewModel : ICameraPageViewModel, INotifyPropertyChanged
     {
         private readonly IImageProvider provider;
-        private readonly IBitmapSourceFactory factory;
+        private readonly IImageConverter converter;
 
         private int frameCounter;
 
         public ImageSource CameraImage { get; set; }
         public string Fps { get; set; }
 
-        public CameraPageViewModel(IImageProvider imageProvider, IBitmapSourceFactory bitmapSourceFactory)
+        public CameraPageViewModel(IImageProvider imageProvider, IImageConverter imageConverter)
         {
             var timer = new Timer(UpdateFpsLabel);
             timer.Change(0, 1000);
 
-            factory = bitmapSourceFactory;
+            converter = imageConverter;
             provider = imageProvider;
             provider.NewImage += OnNewImage;
         }
 
         private void UpdateFpsLabel(object state)
         {
-            Fps = $"{frameCounter} Fps";     
+            Fps = $"{frameCounter} Fps";
             OnPropertyChanged(nameof(Fps));
             frameCounter = 0;
         }
@@ -48,7 +47,7 @@ namespace RTM.Component.CameraImageViewer.ViewModel
         {
             frameCounter++;
             var image = provider.Image;
-            var bitmapSource = factory.Create(image);
+            var bitmapSource = converter.ToBitmapSource(image);
             CameraImage = bitmapSource;
             CameraImage.Freeze();
             OnPropertyChanged(nameof(CameraImage));

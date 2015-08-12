@@ -7,10 +7,6 @@
 
 using System;
 using System.Drawing;
-using System.IO;
-using System.Windows;
-using System.Windows.Interop;
-using System.Windows.Media.Imaging;
 using Accord.Imaging;
 using AForge.Imaging.Filters;
 using RTM.Component.HarrisCornerDetector.Configuration;
@@ -19,20 +15,19 @@ using Image = RTM.Images.Factory.Image;
 
 namespace RTM.Component.HarrisCornerDetector.Detector
 {
-    public class HarrisDetector : IFeaturesDetector
+    public class HarrisDetector : IDetector
     {
         private readonly IComponentConfiguration configuration;
-        private readonly IBitmapSourceFactory bitmapSourceFactory;
+        private readonly IImageConverter converter;
         private readonly IImageFactory imageFactory;
         private HarrisCornersDetector harris;
         private CornersMarker corners;
-
-        public HarrisDetector(IComponentConfiguration componentConfiguration, IBitmapSourceFactory sourceFactory,
-            IImageFactory factory)
+        
+        public HarrisDetector(IComponentConfiguration componentConfiguration, IImageFactory factory, IImageConverter imageConverter)
         {
+            converter = imageConverter;
             imageFactory = factory;
-            bitmapSourceFactory = sourceFactory;
-
+            
             configuration = componentConfiguration;
             configuration.ConfigurationChanged += OnConfigurationChanged;
         }
@@ -50,32 +45,13 @@ namespace RTM.Component.HarrisCornerDetector.Detector
 
         public Image Detect(Image image)
         {
-            var source = bitmapSourceFactory.Create(image);
+            var source = converter.ToBitmap(image);
 
-            var markedSource = MarkFeatures(source);
+            var markedBitmap = corners.Apply(source);
 
-            var resultImage = imageFactory.Create(markedSource);
+            var resultImage = imageFactory.Create(markedBitmap);
 
             return resultImage;
-        }
-
-        private BitmapSource MarkFeatures(BitmapSource inImage)
-        {
-            Bitmap bitmap;
-            using (var outStream = new MemoryStream())
-            {
-                var encoder = new BmpBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(inImage));
-                encoder.Save(outStream);
-                bitmap = new Bitmap(outStream);
-            }
-
-            var markedBitmap = corners.Apply(bitmap);
-
-            var bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(markedBitmap.GetHbitmap(), IntPtr.Zero,
-                Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-            bitmapSource.Freeze();
-            return bitmapSource;
         }
     }
 }

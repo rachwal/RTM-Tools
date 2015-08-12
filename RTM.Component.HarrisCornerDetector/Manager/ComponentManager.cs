@@ -16,13 +16,13 @@ namespace RTM.Component.HarrisCornerDetector.Manager
 {
     public class ComponentManager : IComponentManager
     {
-        private readonly IFeaturesDetector featuresDetector;
+        private readonly IDetector detector;
         private readonly IComponentConfiguration componentConfiguration;
 
-        public ComponentManager(IFeaturesDetector features, IComponentConfiguration configuration)
+        public ComponentManager(IDetector features, IComponentConfiguration configuration)
         {
             componentConfiguration = configuration;
-            featuresDetector = features;
+            detector = features;
         }
 
         public void Start(string[] args)
@@ -36,7 +36,7 @@ namespace RTM.Component.HarrisCornerDetector.Manager
                 {
                     var comp = manager.CreateComponent<Component.HarrisCornerDetector>();
                     comp.Configuration = componentConfiguration;
-                    comp.Detector = featuresDetector;
+                    comp.Detector = detector;
 
                     Console.WriteLine(comp.GetComponentProfile().Format());
 
