@@ -26,14 +26,35 @@ namespace RTM.Component.HarrisCornerDetector.Component
     [CustomProfile("Author", "Bartosz Rachwal")]
     public class HarrisCornerDetector : DataFlowComponent
     {
-        [InPort(PortName = "in")] private readonly InPort<CameraImage> inport = new InPort<CameraImage>();
+        [InPort(PortName = "in")]
+        private readonly InPort<CameraImage> inport = new InPort<CameraImage>();
 
-        [OutPort(PortName = "out")] private readonly OutPort<CameraImage> outport = new OutPort<CameraImage>();
+        [OutPort(PortName = "out")]
+        private readonly OutPort<CameraImage> outport = new OutPort<CameraImage>();
 
         private ConfigurationSet configurationSet;
+        private IDetector detector;
 
-        public IDetector Detector;
-        public IComponentConfiguration Configuration;
+        public IDetector Detector
+        {
+            get { return detector; }
+            set
+            {
+                detector = value;
+                if (value != null)
+                {
+                    Detector.NewImage += OnNewImage;
+                }
+            }
+        }
+
+        private void OnNewImage(object sender, System.EventArgs e)
+        {
+            outport.Write(Detector.Image);
+        }
+
+        public IComponentConfiguration Configuration { get; set; }
+
 
         [Configuration(DefaultValue = "1.4", Name = "sigma")]
         public double Sigma
@@ -90,22 +111,13 @@ namespace RTM.Component.HarrisCornerDetector.Component
 
         private void OnWrite(CameraImage image)
         {
-            var outImage =
-                Detector.Detect(new Image
-                {
-                    Bpp = image.Bpp,
-                    Width = image.Width,
-                    Pixels = image.Pixels.ToArray(),
-                    Height = image.Height,
-                    Format = image.Format
-                });
-            outport.Write(new CameraImage
+            Detector.Detect(new Image
             {
-                Bpp = (ushort) outImage.Bpp,
-                Width = (ushort) outImage.Width,
-                Pixels = outImage.Pixels.ToList(),
-                Height = (ushort) outImage.Height,
-                Format = outImage.Format
+                Bpp = image.Bpp,
+                Width = image.Width,
+                Pixels = image.Pixels.ToArray(),
+                Height = image.Height,
+                Format = image.Format
             });
         }
 
