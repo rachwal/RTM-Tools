@@ -1,4 +1,4 @@
-﻿// RTM.Component.HarrisCornerDetector
+﻿// RTM.Tools
 // RTM.Component.HarrisCornerDetector
 // Program.cs
 // 
@@ -13,6 +13,7 @@ using Microsoft.Practices.Unity;
 using RTM.Component.HarrisCornerDetector.Configuration;
 using RTM.Component.HarrisCornerDetector.Detector;
 using RTM.Component.HarrisCornerDetector.Manager;
+using RTM.Converter.CameraImage;
 using RTM.Images.Decoder;
 using RTM.Images.Decoder.ImageSource;
 using RTM.Images.Factory;
@@ -41,6 +42,7 @@ namespace RTM.Component.HarrisCornerDetector
             container.RegisterType<IPixelFormatConverter<System.Windows.Media.PixelFormat?>, MediaPixelFormatConverter>();
             container.RegisterType<IImagesDecoder<BitmapImage>, BitmapImageDecoder>();
             container.RegisterType<IImagesDecoder<Bitmap>, Images.Decoder.Bitmap.BitmapDecoder>();
+            container.RegisterType<ICameraImageConverter, CameraImageConverter>();
 
             container.RegisterType<IDetector, HarrisDetector>(new ContainerControlledLifetimeManager());
             container.RegisterType<IComponentManager, ComponentManager>(new ContainerControlledLifetimeManager());

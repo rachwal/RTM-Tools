@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.Component.CameraImageVi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.Component.HarrisCornerDetector", "RTM.Component.HarrisCornerDetector\RTM.Component.HarrisCornerDetector.csproj", "{A64D7AED-2B3B-45B5-9DE5-D59E0CC8034D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.Converter.CameraImage", "RTM.Converter.CameraImage\RTM.Converter.CameraImage.csproj", "{0456936C-B92D-4D4D-8E3A-D655CB996C87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A64D7AED-2B3B-45B5-9DE5-D59E0CC8034D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A64D7AED-2B3B-45B5-9DE5-D59E0CC8034D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A64D7AED-2B3B-45B5-9DE5-D59E0CC8034D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0456936C-B92D-4D4D-8E3A-D655CB996C87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0456936C-B92D-4D4D-8E3A-D655CB996C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0456936C-B92D-4D4D-8E3A-D655CB996C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0456936C-B92D-4D4D-8E3A-D655CB996C87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

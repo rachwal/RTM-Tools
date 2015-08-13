@@ -1,4 +1,4 @@
-﻿// RTM.Component.HarrisCornerDetector
+﻿// RTM.Tools
 // RTM.Component.HarrisCornerDetector
 // HarrisCornerDetector.cs
 // 
@@ -26,11 +26,9 @@ namespace RTM.Component.HarrisCornerDetector.Component
     [CustomProfile("Author", "Bartosz Rachwal")]
     public class HarrisCornerDetector : DataFlowComponent
     {
-        [InPort(PortName = "in")]
-        private readonly InPort<CameraImage> inport = new InPort<CameraImage>();
+        [InPort(PortName = "in")] private readonly InPort<CameraImage> inport = new InPort<CameraImage>();
 
-        [OutPort(PortName = "out")]
-        private readonly OutPort<CameraImage> outport = new OutPort<CameraImage>();
+        [OutPort(PortName = "out")] private readonly OutPort<CameraImage> outport = new OutPort<CameraImage>();
 
         private ConfigurationSet configurationSet;
         private IDetector detector;
@@ -111,14 +109,7 @@ namespace RTM.Component.HarrisCornerDetector.Component
 
         private void OnWrite(CameraImage image)
         {
-            Detector.Detect(new Image
-            {
-                Bpp = image.Bpp,
-                Width = image.Width,
-                Pixels = image.Pixels.ToArray(),
-                Height = image.Height,
-                Format = image.Format
-            });
+            Detector.Detect(image);
         }
 
         protected override ReturnCode_t OnDeactivated(int execHandle)

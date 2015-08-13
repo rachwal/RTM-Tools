@@ -7,12 +7,14 @@
 
 using System;
 using OpenRTM.Core;
+using RTM.Converter.CameraImage;
 using RTM.Images.Factory;
 
 namespace RTM.Component.CameraImageViewer.ImageProvider
 {
     public class ImageProvider : IImageProvider
     {
+        private readonly ICameraImageConverter converter;
         private Image image;
 
         public event EventHandler NewImage;
@@ -27,16 +29,14 @@ namespace RTM.Component.CameraImageViewer.ImageProvider
             }
         }
 
+        public ImageProvider(ICameraImageConverter cameraImageConverter)
+        {
+            converter = cameraImageConverter;
+        }
+
         public void SetImage(CameraImage cameraImage)
         {
-            Image = new Image
-            {
-                Bpp = cameraImage.Bpp,
-                Format = cameraImage.Format,
-                Height = cameraImage.Height,
-                Width = cameraImage.Width,
-                Pixels = cameraImage.Pixels.ToArray()
-            };
+            Image = converter.Convert(cameraImage);
         }
     }
 }

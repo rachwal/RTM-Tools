@@ -11,6 +11,7 @@ using Microsoft.Practices.Unity;
 using RTM.Component.CameraImageViewer.ImageProvider;
 using RTM.Component.CameraImageViewer.Manager;
 using RTM.Component.CameraImageViewer.ViewModel;
+using RTM.Converter.CameraImage;
 using RTM.Images.Factory;
 
 namespace RTM.Component.CameraImageViewer
@@ -22,7 +23,7 @@ namespace RTM.Component.CameraImageViewer
             Container.RegisterType<IImageConverter, ImageConverter>();
             Container.RegisterType<IImageProvider, ImageProvider.ImageProvider>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IComponentManager, ComponentManager>(new ContainerControlledLifetimeManager());
-
+            Container.RegisterType<ICameraImageConverter, CameraImageConverter>();
             Container.RegisterType<ICameraPageViewModel, CameraPageViewModel>();
 
             base.ConfigureContainer();

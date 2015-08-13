@@ -1,5 +1,5 @@
 ﻿// RTM.Tools
-// RTM.Component.HarrisCornerDetector
+// RTM.Converter.CameraImage
 // AssemblyInfo.cs
 // 
 // Created by Bartosz Rachwal. 
@@ -12,11 +12,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("RTM.Component.HarrisCornerDetector")]
+[assembly: AssemblyTitle("RTM.Converter.CameraImage")]
 [assembly: AssemblyDescription("Created by Bartosz Rachwal")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The National Institute of Advanced Industrial Science and Technology, Japan")]
-[assembly: AssemblyProduct("RT Middleware Harris Corner Detector Component")]
+[assembly: AssemblyProduct("RT Middleware CameraImage Converter")]
 [assembly: AssemblyCopyright("Copyright © 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -29,7 +29,7 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
-[assembly: Guid("a64d7aed-2b3b-45b5-9de5-d59e0cc8034d")]
+[assembly: Guid("0456936c-b92d-4d4d-8e3a-d655cb996c87")]
 
 // Version information for an assembly consists of the following four values:
 //

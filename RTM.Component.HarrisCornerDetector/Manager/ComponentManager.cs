@@ -1,4 +1,4 @@
-﻿// RTM.Component.HarrisCornerDetector
+﻿// RTM.Tools
 // RTM.Component.HarrisCornerDetector
 // ComponentManager.cs
 // 

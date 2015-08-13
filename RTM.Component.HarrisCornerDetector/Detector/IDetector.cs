@@ -1,4 +1,4 @@
-﻿// RTM.Component.HarrisCornerDetector
+﻿// RTM.Tools
 // RTM.Component.HarrisCornerDetector
 // IDetector.cs
 // 
@@ -13,7 +13,7 @@ namespace RTM.Component.HarrisCornerDetector.Detector
 {
     public interface IDetector
     {
-        void Detect(Image image);
+        void Detect(CameraImage image);
         event EventHandler NewImage;
         CameraImage Image { get; set; }
     }
