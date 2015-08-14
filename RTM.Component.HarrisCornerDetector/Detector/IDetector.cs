@@ -7,7 +7,6 @@
 
 using System;
 using OpenRTM.Core;
-using RTM.Images.Factory;
 
 namespace RTM.Component.HarrisCornerDetector.Detector
 {

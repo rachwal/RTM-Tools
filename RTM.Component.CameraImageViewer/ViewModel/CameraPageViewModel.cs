@@ -20,7 +20,6 @@ namespace RTM.Component.CameraImageViewer.ViewModel
     {
         private readonly IImageProvider provider;
         private readonly IImageConverter converter;
-
         private int frameCounter;
 
         public ImageSource CameraImage { get; set; }
@@ -28,10 +27,10 @@ namespace RTM.Component.CameraImageViewer.ViewModel
 
         public CameraPageViewModel(IImageProvider imageProvider, IImageConverter imageConverter)
         {
+            converter = imageConverter;
             var timer = new Timer(UpdateFpsLabel);
             timer.Change(0, 1000);
 
-            converter = imageConverter;
             provider = imageProvider;
             provider.NewImage += OnNewImage;
         }

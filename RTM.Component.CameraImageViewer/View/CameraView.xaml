@@ -6,8 +6,12 @@
         mc:Ignorable="d"
         Title="RTM CameraImage View Component" 
         Background="Black">
-    <StackPanel Orientation="Vertical">
-        <Label Content="{Binding Fps}" Foreground="DarkOrange" FontSize="18"/>
-        <Image Source="{Binding CameraImage}" Stretch="Uniform"/>
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="{Binding Fps}" Foreground="DarkOrange" FontSize="18"/>
+        <Image Grid.Row="1" Source="{Binding CameraImage}" Stretch="Uniform"/>
+    </Grid>
 </Window>

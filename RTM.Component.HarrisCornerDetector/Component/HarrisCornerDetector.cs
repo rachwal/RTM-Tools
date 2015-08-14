@@ -5,18 +5,17 @@
 // Created by Bartosz Rachwal. 
 // Copyright (c) 2015 The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
 
-using System.Linq;
+using System;
 using OpenRTM.Core;
 using OpenRTM.Extension;
 using RTM.Component.HarrisCornerDetector.Configuration;
 using RTM.Component.HarrisCornerDetector.Detector;
-using RTM.Images.Factory;
 
 namespace RTM.Component.HarrisCornerDetector.Component
 {
     [Component(Category = "HarrisCornerDetector", Name = "HarrisCornerDetector")]
     [DetailProfile(
-        Description = "HarrisCornerDetector Component",
+        Description = "Harris Corner Detector Component",
         Language = "C#",
         LanguageType = "Compile",
         MaxInstance = 1,
@@ -46,7 +45,7 @@ namespace RTM.Component.HarrisCornerDetector.Component
             }
         }
 
-        private void OnNewImage(object sender, System.EventArgs e)
+        private void OnNewImage(object sender, EventArgs e)
         {
             outport.Write(Detector.Image);
         }
@@ -54,7 +53,7 @@ namespace RTM.Component.HarrisCornerDetector.Component
         public IComponentConfiguration Configuration { get; set; }
 
 
-        [Configuration(DefaultValue = "1.4", Name = "sigma")]
+        [Configuration(DefaultValue = "1.4", Name = "Sigma")]
         public double Sigma
         {
             get { return Configuration?.Sigma ?? 1.4; }
@@ -68,7 +67,7 @@ namespace RTM.Component.HarrisCornerDetector.Component
             }
         }
 
-        [Configuration(DefaultValue = "0.04", Name = "k")]
+        [Configuration(DefaultValue = "0.04", Name = "K")]
         public float K
         {
             get { return Configuration?.K ?? 0.04f; }
@@ -82,7 +81,7 @@ namespace RTM.Component.HarrisCornerDetector.Component
             }
         }
 
-        [Configuration(DefaultValue = "20000", Name = "threshold")]
+        [Configuration(DefaultValue = "20000", Name = "Threshold")]
         public float Threshold
         {
             get { return Configuration?.Threshold ?? 20000; }
@@ -93,6 +92,20 @@ namespace RTM.Component.HarrisCornerDetector.Component
                     return;
                 }
                 Configuration.Threshold = value;
+            }
+        }
+
+        [Configuration(DefaultValue = "3", Name = "Nearest Neighbor Matching")]
+        public int NoNearestNeighborMatching
+        {
+            get { return Configuration?.NoNearestNeighborMatching ?? 3; }
+            set
+            {
+                if (Configuration == null)
+                {
+                    return;
+                }
+                Configuration.NoNearestNeighborMatching = value;
             }
         }
 

@@ -9,19 +9,12 @@ using System;
 
 namespace RTM.Component.HarrisCornerDetector.Configuration
 {
-    public interface IComponentConfiguration
-    {
-        double Sigma { get; set; }
-        float K { get; set; }
-        float Threshold { get; set; }
-        event EventHandler ConfigurationChanged;
-    }
-
     public class ComponentConfiguration : IComponentConfiguration
     {
-        private double sigma;
-        private float k;
-        private float threshold;
+        private double sigma = 1.4;
+        private float k = 0.04f;
+        private float threshold = 20000;
+        private int noNearestNeighborMatching = 3;
         private const double Crit = 0.000001;
 
         public double Sigma
@@ -62,6 +55,20 @@ namespace RTM.Component.HarrisCornerDetector.Configuration
                     return;
                 }
                 threshold = value;
+                ConfigurationChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public int NoNearestNeighborMatching
+        {
+            get { return noNearestNeighborMatching; }
+            set
+            {
+                if (value == noNearestNeighborMatching)
+                {
+                    return;
+                }
+                noNearestNeighborMatching = value;
                 ConfigurationChanged?.Invoke(this, EventArgs.Empty);
             }
         }
