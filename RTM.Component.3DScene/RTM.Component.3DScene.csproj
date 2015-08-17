@@ -149,8 +149,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModel\SceneViewModel.cs" />
     <Compile Include="ViewModel\ISceneViewModel.cs" />
+    <Compile Include="ViewModel\SceneViewModel.cs" />
     <Compile Include="View\DSceneView.xaml.cs">
       <DependentUpon>DSceneView.xaml</DependentUpon>
       <SubType>Code</SubType>

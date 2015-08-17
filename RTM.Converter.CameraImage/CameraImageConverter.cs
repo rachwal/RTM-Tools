@@ -29,10 +29,31 @@ namespace RTM.Converter.CameraImage
 
         public Image Convert(OpenRTM.Core.CameraImage cameraImage)
         {
+            if (cameraImage == null)
+            {
+                return Image.Empty;
+            }
             var image = new Image(cameraImage.Bpp, cameraImage.Width, cameraImage.Height,
                 cameraImage.Pixels.AsReadOnly().ToArray(), cameraImage.Format);
             cameraImage.Pixels = new List<byte>();
             return image;
+        }
+    }
+
+    public static class CameraImageExtensions
+    {
+        public static OpenRTM.Core.CameraImage Copy(this OpenRTM.Core.CameraImage cameraImage)
+        {
+            return new OpenRTM.Core.CameraImage
+            {
+                Bpp = cameraImage.Bpp,
+                Pixels = new List<byte>(cameraImage.Pixels.AsReadOnly()),
+                Width = cameraImage.Width,
+                Format = cameraImage.Format,
+                Height = cameraImage.Height,
+                FDiv = cameraImage.FDiv,
+                Time = cameraImage.Time
+            };
         }
     }
 }
