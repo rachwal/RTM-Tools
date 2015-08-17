@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.Converter.CameraImage",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.Component.3DScene", "RTM.Component.3DScene\RTM.Component.3DScene.csproj", "{E8BE0526-1DD8-4080-8F73-AEC3B4BD6C85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.Component.CameraMovementDetector", "RTM.Component.SURFDetector\RTM.Component.CameraMovementDetector.csproj", "{A6D277D7-645E-4101-B996-D5F49132338F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.Component.CameraMovementDetector", "RTM.Component.CameraMovementDetector\RTM.Component.CameraMovementDetector.csproj", "{A6D277D7-645E-4101-B996-D5F49132338F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
