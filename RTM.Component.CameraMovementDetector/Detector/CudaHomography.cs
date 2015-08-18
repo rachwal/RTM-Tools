@@ -6,7 +6,6 @@
 // Copyright (c) 2015 The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
 //
 // SURF Feature Detector Reference 
-// Copyright (c) 2004-2015 by EMGU Corporation.All rights reserved.
 // http://www.emgu.com/wiki/index.php/SURF_feature_detector_in_CSharp
 
 using System;

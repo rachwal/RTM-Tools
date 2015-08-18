@@ -11,7 +11,7 @@ using RTM.Component.CameraMovementDetector.Detector;
 
 namespace RTM.Component.CameraMovementDetector.Component
 {
-    [Component(Category = "CameraMovement", Name = "SURFDetectorComponent")]
+    [Component(Category = "CameraMovement", Name = "CameraMovementDetectorComponent")]
     [DetailProfile(
         Description = "Camera Movement Detector Component",
         Language = "C#",
