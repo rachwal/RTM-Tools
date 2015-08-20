@@ -1,9 +1,9 @@
 ﻿// RTM.Tools
-// RTM.Component.SURFDetector
+// RTM.Component.CameraMovementDetector
 // Program.cs
 // 
 // Created by Bartosz Rachwal. 
-// Copyright (c) 2015 The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
+// Copyright (c) 2015 Bartosz Rachwal. The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
 
 using System;
 using System.Drawing;
@@ -35,6 +35,9 @@ namespace RTM.Component.CameraMovementDetector
         {
             var container = new UnityContainer();
 
+            container.RegisterType<IHomographyCalculator, HomographyCalculator>();
+            container.RegisterType<ITranslationCalculator, TranslationCalculator>();
+            container.RegisterType<ITransformationDrawer, TransformationDrawer>();
             container.RegisterType<IImageFactory, ImageFactory>();
             container.RegisterType<IImageConverter, ImageConverter>();
             container.RegisterType<IBitmapFactory, BitmapFactory>();
@@ -45,16 +48,19 @@ namespace RTM.Component.CameraMovementDetector
             container.RegisterType<IImagesDecoder<Bitmap>, BitmapDecoder>();
             container.RegisterType<ICameraImageConverter, CameraImageConverter>();
 
-            container.RegisterType<IDetector, CameraMovementDetector.Detector.Detector>(new ContainerControlledLifetimeManager());
+            container.RegisterType<ICameraMovementDetector, Detector.CameraMovementDetector>(
+                new ContainerControlledLifetimeManager());
             container.RegisterType<IComponentManager, ComponentManager>(new ContainerControlledLifetimeManager());
 
             if (CudaInvoke.HasCuda)
             {
-                container.RegisterType<IHomography, CudaHomography>(new ContainerControlledLifetimeManager());
+                container.RegisterType<IHomographyCalculator, CudaHomographyCalculator>(
+                    new ContainerControlledLifetimeManager());
             }
             else
             {
-                container.RegisterType<IHomography, Homography>(new ContainerControlledLifetimeManager());
+                container.RegisterType<IHomographyCalculator, HomographyCalculator>(
+                    new ContainerControlledLifetimeManager());
             }
 
             container.Resolve<IComponentManager>().Start(args);

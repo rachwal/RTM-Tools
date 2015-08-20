@@ -3,11 +3,12 @@
 // DSceneView.xaml.cs
 // 
 // Created by Bartosz Rachwal. 
-// Copyright (c) 2015 The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
+// Copyright (c) 2015 Bartosz Rachwal. The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
 
 using RTM.Component._3DScene.ViewModel;
 using SharpGL;
 using SharpGL.SceneGraph;
+using SharpGL.SceneGraph.Primitives;
 
 namespace RTM.Component._3DScene
 {
@@ -45,8 +46,8 @@ namespace RTM.Component._3DScene
             var light0Ambient = new[] {0.2f, 0.2f, 0.2f, 1.0f};
             var light0Diffuse = new[] {0.3f, 0.3f, 0.3f, 1.0f};
             var light0Specular = new[] {0.8f, 0.8f, 0.8f, 1.0f};
-
             var lmodelAmbient = new[] {0.2f, 0.2f, 0.2f, 1.0f};
+
             gl.LightModel(OpenGL.GL_LIGHT_MODEL_AMBIENT, lmodelAmbient);
 
             gl.LightModel(OpenGL.GL_LIGHT_MODEL_AMBIENT, globalAmbient);
@@ -58,6 +59,9 @@ namespace RTM.Component._3DScene
             gl.Enable(OpenGL.GL_LIGHT0);
 
             gl.ShadeModel(OpenGL.GL_SMOOTH);
+
+            var tp = new Teapot();
+            tp.Draw(gl, 14, 2, OpenGL.GL_FILL);
         }
     }
 }

@@ -3,7 +3,7 @@
 // SceneViewer.cs
 // 
 // Created by Bartosz Rachwal. 
-// Copyright (c) 2015 The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
+// Copyright (c) 2015 Bartosz Rachwal. The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
 
 using OpenRTM.Core;
 using RTM.Component._3DScene.DataProvider;
@@ -22,7 +22,7 @@ namespace RTM.Component._3DScene.Component
     [CustomProfile("Author", "Bartosz Rachwal")]
     public class SceneViewer : DataFlowComponent
     {
-        [InPort(PortName = "in")] private readonly InPort<CameraImage> inport = new InPort<CameraImage>();
+        [InPort(PortName = "in")] private readonly InPort<Vector3D> inport = new InPort<Vector3D>();
 
         public IDataProvider DataProvider { get; set; }
 
@@ -32,8 +32,9 @@ namespace RTM.Component._3DScene.Component
             return base.OnActivated(execHandle);
         }
 
-        private void OnWrite(CameraImage image)
+        private void OnWrite(Vector3D vector)
         {
+            DataProvider.Vector = vector;
         }
 
         protected override ReturnCode_t OnDeactivated(int execHandle)

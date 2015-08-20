@@ -10,6 +10,6 @@
     <Grid>
         <wpf:OpenGLControl 
             OpenGLDraw="OpenGLControl_OpenGLDraw" OpenGLInitialized="OpenGLControl_OpenGLInitialized"
-            RenderContextType="FBO" />
+            RenderContextType="FBO" IsManipulationEnabled="True" ForceCursor="True" DrawFPS="True" />
     </Grid>
 </Window>

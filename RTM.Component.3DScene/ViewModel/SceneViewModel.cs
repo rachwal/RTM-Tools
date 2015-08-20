@@ -3,10 +3,11 @@
 // SceneViewModel.cs
 // 
 // Created by Bartosz Rachwal. 
-// Copyright (c) 2015 The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
+// Copyright (c) 2015 Bartosz Rachwal. The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using OpenRTM.Core;
 using RTM.Component._3DScene.Annotations;
 using RTM.Component._3DScene.DataProvider;
 
@@ -16,14 +17,17 @@ namespace RTM.Component._3DScene.ViewModel
     {
         private readonly IDataProvider provider;
 
+        public Vector3D Vector { get; set; }
+
         public SceneViewModel(IDataProvider imageProvider)
         {
             provider = imageProvider;
-            provider.NewData += OnNewData;
+            provider.NewVector += OnNewVector;
         }
 
-        private void OnNewData(object sender, System.EventArgs e)
+        private void OnNewVector(object sender, System.EventArgs e)
         {
+            Vector = provider.Vector;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

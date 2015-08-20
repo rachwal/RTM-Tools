@@ -1,9 +1,9 @@
 // RTM.Tools
-// RTM.Component.SURFDetector
-// Homography.cs
+// RTM.Component.CameraMovementDetector
+// HomographyCalculator.cs
 // 
 // Created by Bartosz Rachwal. 
-// Copyright (c) 2015 The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
+// Copyright (c) 2015 Bartosz Rachwal. The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
 //
 // SURF Feature Detector Reference 
 // http://www.emgu.com/wiki/index.php/SURF_feature_detector_in_CSharp
@@ -19,7 +19,7 @@ using Emgu.CV.XFeatures2D;
 
 namespace RTM.Component.CameraMovementDetector.Detector
 {
-    public class Homography : IHomography
+    public class HomographyCalculator : IHomographyCalculator
     {
         private const int k = 2;
         private const int hessianThresh = 600;
@@ -38,13 +38,13 @@ namespace RTM.Component.CameraMovementDetector.Detector
                 using (var uModelImage = reference.Mat.ToUMat(AccessType.Read))
                 using (var uObservedImage = current.Mat.ToUMat(AccessType.Read))
                 {
-                    var surfCPU = new SURF(hessianThresh);
+                    var surfCpu = new SURF(hessianThresh);
 
                     var modelDescriptors = new UMat();
-                    surfCPU.DetectAndCompute(uModelImage, null, modelKeyPoints, modelDescriptors, false);
+                    surfCpu.DetectAndCompute(uModelImage, null, modelKeyPoints, modelDescriptors, false);
 
                     var observedDescriptors = new UMat();
-                    surfCPU.DetectAndCompute(uObservedImage, null, observedKeyPoints, observedDescriptors, false);
+                    surfCpu.DetectAndCompute(uObservedImage, null, observedKeyPoints, observedDescriptors, false);
 
                     var matcher = new BFMatcher(DistanceType.L2);
                     matcher.Add(modelDescriptors);

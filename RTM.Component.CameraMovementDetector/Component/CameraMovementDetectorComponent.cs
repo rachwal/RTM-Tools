@@ -1,9 +1,9 @@
 ﻿// RTM.Tools
-// RTM.Component.SURFDetector
-// SURFDetectorComponent.cs
+// RTM.Component.CameraMovementDetector
+// CameraMovementDetectorComponent.cs
 // 
 // Created by Bartosz Rachwal. 
-// Copyright (c) 2015 The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
+// Copyright (c) 2015 Bartosz Rachwal. The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
 
 using System;
 using OpenRTM.Core;
@@ -24,25 +24,38 @@ namespace RTM.Component.CameraMovementDetector.Component
     public class CameraMovementDetectorComponent : DataFlowComponent
     {
         [InPort(PortName = "in")] private readonly InPort<CameraImage> inport = new InPort<CameraImage>();
-        [OutPort(PortName = "out")] private readonly OutPort<CameraImage> outport = new OutPort<CameraImage>();
-        private IDetector detector;
 
-        public IDetector Detector
+        [OutPort(PortName = "outCamera")] private readonly OutPort<CameraImage> outportCamera =
+            new OutPort<CameraImage>();
+
+        [OutPort(PortName = "outTranslation")] private readonly OutPort<Vector3D> outportTranslation =
+            new OutPort<Vector3D>();
+
+        private ICameraMovementDetector cameraMovementDetector;
+
+        public ICameraMovementDetector CameraMovementDetector
         {
-            get { return detector; }
+            get { return cameraMovementDetector; }
             set
             {
-                detector = value;
-                if (value != null)
+                cameraMovementDetector = value;
+                if (value == null)
                 {
-                    Detector.NewImage += OnNewImage;
+                    return;
                 }
+                CameraMovementDetector.NewImage += OnNewImage;
+                CameraMovementDetector.NewTranslationVector += OnNewTranslationVector;
             }
+        }
+
+        private void OnNewTranslationVector(object sender, EventArgs e)
+        {
+            outportTranslation.Write(CameraMovementDetector.TranslationVector);
         }
 
         private void OnNewImage(object sender, EventArgs e)
         {
-            outport.Write(Detector.Image);
+            outportCamera.Write(CameraMovementDetector.Image);
         }
 
         protected override ReturnCode_t OnActivated(int execHandle)
@@ -53,7 +66,7 @@ namespace RTM.Component.CameraMovementDetector.Component
 
         private void OnWrite(CameraImage image)
         {
-            Detector.Detect(image);
+            CameraMovementDetector.ProcessImage(image);
         }
 
         protected override ReturnCode_t OnDeactivated(int execHandle)

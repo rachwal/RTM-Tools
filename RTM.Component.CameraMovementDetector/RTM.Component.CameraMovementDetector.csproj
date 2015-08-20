@@ -135,11 +135,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Component\CameraMovementDetectorComponent.cs" />
-    <Compile Include="Detector\CudaHomography.cs" />
-    <Compile Include="Detector\Homography.cs" />
-    <Compile Include="Detector\IHomography.cs" />
-    <Compile Include="Detector\Detector.cs" />
-    <Compile Include="Detector\IDetector.cs" />
+    <Compile Include="Detector\CudaHomographyCalculator.cs" />
+    <Compile Include="Detector\HomographyCalculator.cs" />
+    <Compile Include="Detector\IHomographyCalculator.cs" />
+    <Compile Include="Detector\CameraMovementDetector.cs" />
+    <Compile Include="Detector\ICameraMovementDetector.cs" />
+    <Compile Include="Detector\ITransformationDrawer.cs" />
+    <Compile Include="Detector\ITranslationCalculator.cs" />
+    <Compile Include="Detector\TransformationDrawer.cs" />
+    <Compile Include="Detector\TranslationCalculator.cs" />
     <Compile Include="Manager\ComponentManager.cs" />
     <Compile Include="Manager\IComponentManager.cs" />
     <Compile Include="Program.cs" />
