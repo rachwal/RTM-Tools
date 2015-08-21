@@ -16,7 +16,7 @@ namespace RTM.Component._3DScene
     {
         private ISceneViewModel ViewModel
         {
-            get { return (ISceneViewModel) DataContext; }
+            get { return (ISceneViewModel)DataContext; }
             set { DataContext = value; }
         }
 
@@ -29,14 +29,24 @@ namespace RTM.Component._3DScene
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.X.SetXYMapping(p => p);
-            plotter.AddLineGraph(ViewModel.X, Colors.Red, 1, "X");
-
-            ViewModel.Y.SetXYMapping(p => p);
-            plotter.AddLineGraph(ViewModel.Y, Colors.Green, 1, "Y");
-
-            ViewModel.Z.SetXYMapping(p => p);
-            plotter.AddLineGraph(ViewModel.Z, Colors.Blue, 2, "Z");
+            var x = new LineGraph(ViewModel.X)
+            {
+                LinePen = new Pen(new SolidColorBrush(Colors.Red), 1),
+                Description = new PenDescription("X")
+            };
+            plotter.Children.Add(x);
+            var y = new LineGraph(ViewModel.Y)
+            {
+                LinePen = new Pen(new SolidColorBrush(Colors.Green), 1),
+                Description = new PenDescription("Y")
+            };
+            plotter.Children.Add(y);
+            var z = new LineGraph(ViewModel.Z)
+            {
+                LinePen = new Pen(new SolidColorBrush(Colors.Blue), 1),
+                Description = new PenDescription("Z")
+            };
+            plotter.Children.Add(z);
         }
     }
 }

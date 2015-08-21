@@ -35,20 +35,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DynamicDataDisplay">
-      <HintPath>..\..\..\..\Desktop\controls\Samples\v0.3\Simulation\DynamicDataDisplay.dll</HintPath>
+    <Reference Include="DynamicDataDisplay, Version=0.3.0.1, Culture=neutral, PublicKeyToken=5b7d744a7263923f, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamicDataDisplay.0.3.0.1\lib\net45\DynamicDataDisplay.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Emgu.CV">
-      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.dll</HintPath>
+    <Reference Include="DynamicDataDisplay.Maps, Version=0.1.0.0, Culture=neutral, PublicKeyToken=5b7d744a7263923f, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamicDataDisplayWpf.0.4.0\lib\DynamicDataDisplay.Maps.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Emgu.CV.Contrib">
-      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.Contrib.dll</HintPath>
+    <Reference Include="DynamicDataDisplay.Markers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5b7d744a7263923f, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamicDataDisplayWpf.0.4.0\lib\DynamicDataDisplay.Markers.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Emgu.CV.Cuda">
-      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.Cuda.dll</HintPath>
-    </Reference>
-    <Reference Include="Emgu.Util">
-      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.Util.dll</HintPath>
+    <Reference Include="DynamicDataDisplay.Markers2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5b7d744a7263923f, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamicDataDisplayWpf.0.4.0\lib\DynamicDataDisplay.Markers2.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.Prism.Composition, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Composition.5.0.0\lib\NET45\Microsoft.Practices.Prism.Composition.dll</HintPath>
@@ -97,6 +98,10 @@
     <Reference Include="OpenRTM.Core, Version=1.3.0.0, Culture=neutral, PublicKeyToken=9107744efe29c21e, processorArchitecture=MSIL" />
     <Reference Include="OpenRTM.Extension, Version=1.3.0.0, Culture=neutral, PublicKeyToken=9107744efe29c21e, processorArchitecture=MSIL" />
     <Reference Include="OpenRTM.IIOP, Version=1.3.0.0, Culture=neutral, PublicKeyToken=9107744efe29c21e, processorArchitecture=MSIL" />
+    <Reference Include="Parser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5b7d744a7263923f, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamicDataDisplayWpf.0.4.0\lib\Parser.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="RTM.Images, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RTM.Images.1.0.1.5\lib\net30\RTM.Images.dll</HintPath>
       <Private>True</Private>
