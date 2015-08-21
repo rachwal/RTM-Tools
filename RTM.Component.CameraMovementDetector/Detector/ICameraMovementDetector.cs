@@ -7,6 +7,7 @@
 
 using System;
 using OpenRTM.Core;
+using RTM.DTO;
 
 namespace RTM.Component.CameraMovementDetector.Detector
 {
@@ -18,6 +19,6 @@ namespace RTM.Component.CameraMovementDetector.Detector
         CameraImage Image { get; set; }
 
         event EventHandler NewTranslationVector;
-        Vector3D TranslationVector { get; set; }
+        Quadrilateral Quadrilateral { get; set; }
     }
 }

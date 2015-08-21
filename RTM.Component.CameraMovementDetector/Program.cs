@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using Emgu.CV.Cuda;
 using Microsoft.Practices.Unity;
 using RTM.Component.CameraMovementDetector.Detector;
+using RTM.Component.CameraMovementDetector.Drawer;
+using RTM.Component.CameraMovementDetector.Homography;
 using RTM.Component.CameraMovementDetector.Manager;
 using RTM.Converter.CameraImage;
 using RTM.Images.Decoder;
@@ -36,7 +38,6 @@ namespace RTM.Component.CameraMovementDetector
             var container = new UnityContainer();
 
             container.RegisterType<IHomographyCalculator, HomographyCalculator>();
-            container.RegisterType<ITranslationCalculator, TranslationCalculator>();
             container.RegisterType<ITransformationDrawer, TransformationDrawer>();
             container.RegisterType<IImageFactory, ImageFactory>();
             container.RegisterType<IImageConverter, ImageConverter>();

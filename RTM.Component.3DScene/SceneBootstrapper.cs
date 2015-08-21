@@ -8,6 +8,8 @@
 using System.Windows;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
+using RTM.Component.CameraMovementDetector.Utils;
+using RTM.Component._3DScene.Calculator;
 using RTM.Component._3DScene.DataProvider;
 using RTM.Component._3DScene.Manager;
 using RTM.Component._3DScene.ViewModel;
@@ -19,6 +21,9 @@ namespace RTM.Component._3DScene
         protected override void ConfigureContainer()
         {
             Container.RegisterType<IDataProvider, DataProvider.DataProvider>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IVectorsCalculator, VectorsCalculator>();
+            Container.RegisterType<IMathUtils, MathUtils>();
+            
             Container.RegisterType<IComponentManager, ComponentManager>(new ContainerControlledLifetimeManager());
 
             Container.RegisterType<ISceneViewModel, SceneViewModel>();

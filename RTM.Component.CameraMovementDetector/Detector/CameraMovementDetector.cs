@@ -9,7 +9,10 @@ using System;
 using System.Drawing;
 using Emgu.CV;
 using OpenRTM.Core;
+using RTM.Component.CameraMovementDetector.Drawer;
+using RTM.Component.CameraMovementDetector.Homography;
 using RTM.Converter.CameraImage;
+using RTM.DTO;
 using RTM.Images.Factory;
 
 namespace RTM.Component.CameraMovementDetector.Detector
@@ -17,7 +20,6 @@ namespace RTM.Component.CameraMovementDetector.Detector
     public class CameraMovementDetector : ICameraMovementDetector
     {
         private readonly IHomographyCalculator homography;
-        private readonly ITranslationCalculator translation;
         private readonly ITransformationDrawer transformationDrawer;
 
         private readonly ICameraImageConverter cameraConverter;
@@ -26,16 +28,22 @@ namespace RTM.Component.CameraMovementDetector.Detector
 
         private CameraImage image;
         private CameraImage lastCameraImage;
-        private Vector3D translationVector;
+        private Quadrilateral quadrilateral;
+
+        private readonly PointF[] initialPoints =
+        {
+            new PointF(-1, -1), new PointF(1, -1), new PointF(1, 1),
+            new PointF(-1, 1)
+        };
 
         public event EventHandler NewTranslationVector;
 
-        public Vector3D TranslationVector
+        public Quadrilateral Quadrilateral
         {
-            get { return translationVector; }
+            get { return quadrilateral; }
             set
             {
-                translationVector = value;
+                quadrilateral = value;
                 NewTranslationVector?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -53,12 +61,11 @@ namespace RTM.Component.CameraMovementDetector.Detector
         }
 
         public CameraMovementDetector(IHomographyCalculator homographyCalculator,
-            ITranslationCalculator translationCalculator, ITransformationDrawer drawer, IImageFactory factory,
+            ITransformationDrawer drawer, IImageFactory factory,
             IImageConverter imageConverter,
             ICameraImageConverter cameraImageConverter)
         {
             transformationDrawer = drawer;
-            translation = translationCalculator;
             homography = homographyCalculator;
             cameraConverter = cameraImageConverter;
             converter = imageConverter;
@@ -86,14 +93,20 @@ namespace RTM.Component.CameraMovementDetector.Detector
                 return;
             }
 
-            UpdateVector(cameraImage, transformation);
-            UpdateImage(referenceBitmap, transformation);
+            UpdateQuadrilateral(transformation);
+            UpdateImage(currentBitmap, transformation);
         }
 
-        private void UpdateVector(CameraImage cameraImage, Mat transformation)
+        private void UpdateQuadrilateral(Mat transformation)
         {
-            var vector = translation.Calculate(transformation, cameraImage.Width, cameraImage.Height);
-            TranslationVector = new Vector3D {X = vector[0], Y = vector[1], Z = vector[2]};
+            var points = CvInvoke.PerspectiveTransform(initialPoints, transformation);
+            Quadrilateral = new Quadrilateral
+            {
+                Point1 = new Point2D {X = points[0].X, Y = points[0].Y},
+                Point2 = new Point2D {X = points[1].X, Y = points[1].Y},
+                Point3 = new Point2D {X = points[2].X, Y = points[2].Y},
+                Point4 = new Point2D {X = points[3].X, Y = points[3].Y}
+            };
         }
 
         private void UpdateImage(Bitmap referenceBitmap, Mat transformation)

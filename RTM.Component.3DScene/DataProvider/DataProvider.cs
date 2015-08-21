@@ -7,21 +7,22 @@
 
 using System;
 using OpenRTM.Core;
+using RTM.DTO;
 
 namespace RTM.Component._3DScene.DataProvider
 {
     public class DataProvider : IDataProvider
     {
-        private Vector3D vector;
+        private Quadrilateral quadrilateral;
 
         public event EventHandler NewVector;
 
-        public Vector3D Vector
+        public Quadrilateral Quadrilateral
         {
-            get { return vector; }
+            get { return quadrilateral; }
             set
             {
-                vector = value;
+                quadrilateral = value;
                 NewVector?.Invoke(this, EventArgs.Empty);
             }
         }

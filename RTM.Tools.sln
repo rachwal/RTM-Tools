@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.Component.3DScene", "RT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.Component.CameraMovementDetector", "RTM.Component.CameraMovementDetector\RTM.Component.CameraMovementDetector.csproj", "{A6D277D7-645E-4101-B996-D5F49132338F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.DTO", "RTM.DTO\RTM.DTO.csproj", "{19A09A07-34FF-40AE-A3CC-5E6CCFC29BDA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A6D277D7-645E-4101-B996-D5F49132338F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6D277D7-645E-4101-B996-D5F49132338F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6D277D7-645E-4101-B996-D5F49132338F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19A09A07-34FF-40AE-A3CC-5E6CCFC29BDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19A09A07-34FF-40AE-A3CC-5E6CCFC29BDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19A09A07-34FF-40AE-A3CC-5E6CCFC29BDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19A09A07-34FF-40AE-A3CC-5E6CCFC29BDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

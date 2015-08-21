@@ -8,6 +8,7 @@
 using System;
 using OpenRTM.Core;
 using RTM.Component.CameraMovementDetector.Detector;
+using RTM.DTO;
 
 namespace RTM.Component.CameraMovementDetector.Component
 {
@@ -25,11 +26,11 @@ namespace RTM.Component.CameraMovementDetector.Component
     {
         [InPort(PortName = "in")] private readonly InPort<CameraImage> inport = new InPort<CameraImage>();
 
-        [OutPort(PortName = "outCamera")] private readonly OutPort<CameraImage> outportCamera =
+        [OutPort(PortName = "out")] private readonly OutPort<CameraImage> outportCamera =
             new OutPort<CameraImage>();
 
-        [OutPort(PortName = "outTranslation")] private readonly OutPort<Vector3D> outportTranslation =
-            new OutPort<Vector3D>();
+        [OutPort(PortName = "quadrilateral")] private readonly OutPort<Quadrilateral> outportTranslation =
+            new OutPort<Quadrilateral>();
 
         private ICameraMovementDetector cameraMovementDetector;
 
@@ -50,7 +51,7 @@ namespace RTM.Component.CameraMovementDetector.Component
 
         private void OnNewTranslationVector(object sender, EventArgs e)
         {
-            outportTranslation.Write(CameraMovementDetector.TranslationVector);
+            outportTranslation.Write(CameraMovementDetector.Quadrilateral);
         }
 
         private void OnNewImage(object sender, EventArgs e)

@@ -7,6 +7,7 @@
 
 using OpenRTM.Core;
 using RTM.Component._3DScene.DataProvider;
+using RTM.DTO;
 
 namespace RTM.Component._3DScene.Component
 {
@@ -22,7 +23,7 @@ namespace RTM.Component._3DScene.Component
     [CustomProfile("Author", "Bartosz Rachwal")]
     public class SceneViewer : DataFlowComponent
     {
-        [InPort(PortName = "in")] private readonly InPort<Vector3D> inport = new InPort<Vector3D>();
+        [InPort(PortName = "in")] private readonly InPort<Quadrilateral> inport = new InPort<Quadrilateral>();
 
         public IDataProvider DataProvider { get; set; }
 
@@ -32,9 +33,9 @@ namespace RTM.Component._3DScene.Component
             return base.OnActivated(execHandle);
         }
 
-        private void OnWrite(Vector3D vector)
+        private void OnWrite(Quadrilateral vector)
         {
-            DataProvider.Vector = vector;
+            DataProvider.Quadrilateral = vector;
         }
 
         protected override ReturnCode_t OnDeactivated(int execHandle)

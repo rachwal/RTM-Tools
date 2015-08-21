@@ -11,7 +11,7 @@ using Emgu.CV;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
 
-namespace RTM.Component.CameraMovementDetector.Detector
+namespace RTM.Component.CameraMovementDetector.Drawer
 {
     public class TransformationDrawer : ITransformationDrawer
     {
@@ -23,16 +23,17 @@ namespace RTM.Component.CameraMovementDetector.Detector
             float width = referenceBitmap.Width;
             float height = referenceBitmap.Height;
 
-            var offsetX = (int) (width/2.5);
-            var offsetY = (int) (height/2.5);
+            var side = (float) (Math.Min(width, height)*0.1);
+            var offsetX = result.Width*0.5f;
+            var offsetY = result.Height*0.5f;
 
             var currentViewPoints = new[]
             {
-                new PointF(offsetX, height - offsetY),
-                new PointF(width - offsetX, height - offsetY),
-                new PointF(width - offsetX, height - offsetY),
-                new PointF(width - offsetX, offsetY),
-                new PointF(offsetX, offsetY)
+                new PointF(offsetX - side, offsetY - side),
+                new PointF(offsetX + side, offsetY - side),
+                new PointF(offsetX + side, offsetY + side),
+                new PointF(offsetX - side, offsetY + side),
+                new PointF(offsetX - side, offsetY - side)
             };
 
             var previousViewPoints = (PointF[]) currentViewPoints.Clone();
