@@ -13,18 +13,15 @@ using RTM.Component.CameraMovementDetector.Drawer;
 using RTM.Component.CameraMovementDetector.Homography;
 using RTM.Converter.CameraImage;
 using RTM.DTO;
-using RTM.Images.Factory;
 
 namespace RTM.Component.CameraMovementDetector.Detector
 {
     public class CameraMovementDetector : ICameraMovementDetector
     {
         private readonly IHomographyCalculator homography;
-        private readonly ITransformationDrawer transformationDrawer;
+        private readonly ITransformationDrawer transformation;
 
-        private readonly ICameraImageConverter cameraConverter;
-        private readonly IImageConverter converter;
-        private readonly IImageFactory imageFactory;
+        private readonly ICameraImageConverter converter;
 
         private CameraImage image;
         private CameraImage lastCameraImage;
@@ -60,16 +57,12 @@ namespace RTM.Component.CameraMovementDetector.Detector
             }
         }
 
-        public CameraMovementDetector(IHomographyCalculator homographyCalculator,
-            ITransformationDrawer drawer, IImageFactory factory,
-            IImageConverter imageConverter,
-            ICameraImageConverter cameraImageConverter)
+        public CameraMovementDetector(IHomographyCalculator calculator,
+            ITransformationDrawer drawer, ICameraImageConverter imageConverter)
         {
-            transformationDrawer = drawer;
-            homography = homographyCalculator;
-            cameraConverter = cameraImageConverter;
+            transformation = drawer;
+            homography = calculator;
             converter = imageConverter;
-            imageFactory = factory;
         }
 
         public void ProcessImage(CameraImage cameraImage)
@@ -80,26 +73,23 @@ namespace RTM.Component.CameraMovementDetector.Detector
                 return;
             }
 
-            var referenceImage = cameraConverter.Convert(lastCameraImage);
+            var referenceBitmap = converter.ToBitmap(lastCameraImage);
             lastCameraImage = cameraImage.Copy();
-            var referenceBitmap = converter.ToBitmap(referenceImage);
+            var currentBitmap = converter.ToBitmap(cameraImage);
 
-            var currentImage = cameraConverter.Convert(cameraImage);
-            var currentBitmap = converter.ToBitmap(currentImage);
-
-            var transformation = homography.Calculate(referenceBitmap, currentBitmap);
-            if (transformation == null)
+            var matrix = homography.Calculate(referenceBitmap, currentBitmap);
+            if (matrix == null)
             {
                 return;
             }
 
-            UpdateQuadrilateral(transformation);
-            UpdateImage(currentBitmap, transformation);
+            UpdateQuadrilateral(matrix);
+            UpdateImage(currentBitmap, matrix);
         }
 
-        private void UpdateQuadrilateral(Mat transformation)
+        private void UpdateQuadrilateral(IInputArray matrix)
         {
-            var points = CvInvoke.PerspectiveTransform(initialPoints, transformation);
+            var points = CvInvoke.PerspectiveTransform(initialPoints, matrix);
             Quadrilateral = new Quadrilateral
             {
                 Point1 = new Point2D {X = points[0].X, Y = points[0].Y},
@@ -109,11 +99,10 @@ namespace RTM.Component.CameraMovementDetector.Detector
             };
         }
 
-        private void UpdateImage(Bitmap referenceBitmap, Mat transformation)
+        private void UpdateImage(Bitmap referenceBitmap, Mat matrix)
         {
-            var finalBitmap = transformationDrawer.Draw(referenceBitmap, transformation);
-            var newImage = imageFactory.Create(finalBitmap);
-            Image = cameraConverter.Convert(newImage);
+            var finalBitmap = transformation.Draw(referenceBitmap, matrix);
+            Image = converter.Convert(finalBitmap);
         }
     }
 }

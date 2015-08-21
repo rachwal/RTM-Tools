@@ -42,7 +42,11 @@ namespace RTM.Component.CameraMovementDetector.Homography
             using (var observedKeyPointsRaw = detector.DetectKeyPointsRaw(observedMat))
             using (var observedKeyPoints = new VectorOfKeyPoint())
             using (var observedDescriptorsRaw = detector.ComputeDescriptorsRaw(observedMat, null, observedKeyPointsRaw))
-            using (var matcher = new CudaBFMatcher(modelDescriptorsRaw.Depth == DepthType.Cv8U ? DistanceType.Hamming : DistanceType.L2))
+            using (
+                var matcher =
+                    new CudaBFMatcher(modelDescriptorsRaw.Depth == DepthType.Cv8U
+                        ? DistanceType.Hamming
+                        : DistanceType.L2))
             using (var matches = new VectorOfVectorOfDMatch())
             {
                 matcher.KnnMatch(observedDescriptorsRaw, modelDescriptorsRaw, matches, K);
@@ -56,11 +60,12 @@ namespace RTM.Component.CameraMovementDetector.Homography
             return homography;
         }
 
-        private Mat TryFindHomography(VectorOfKeyPoint modelKeyPoints, VectorOfKeyPoint observedKeyPoints, VectorOfVectorOfDMatch matches)
+        private Mat TryFindHomography(VectorOfKeyPoint modelKeyPoints, VectorOfKeyPoint observedKeyPoints,
+            VectorOfVectorOfDMatch matches)
         {
             var mask = new Mat(matches.Size, 1, DepthType.Cv8U, 1);
             mask.SetTo(new MCvScalar(255));
-            
+
             try
             {
                 Features2DToolbox.VoteForUniqueness(matches, UniquenessThreshold, mask);

@@ -23,7 +23,7 @@ namespace RTM.Component._3DScene
             Container.RegisterType<IDataProvider, DataProvider.DataProvider>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IVectorsCalculator, VectorsCalculator>();
             Container.RegisterType<IMathUtils, MathUtils>();
-            
+
             Container.RegisterType<IComponentManager, ComponentManager>(new ContainerControlledLifetimeManager());
 
             Container.RegisterType<ISceneViewModel, SceneViewModel>();

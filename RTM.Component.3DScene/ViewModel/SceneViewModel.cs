@@ -36,7 +36,7 @@ namespace RTM.Component._3DScene.ViewModel
         private void OnNewVector(object sender, EventArgs e)
         {
             var vector = calculator.GetTranslationVector(provider.Quadrilateral);
-            
+
             X.AppendAsync(Application.Current.Dispatcher, new Point(X.Collection.Count, vector.X));
             Y.AppendAsync(Application.Current.Dispatcher, new Point(Y.Collection.Count, vector.Y));
             Z.AppendAsync(Application.Current.Dispatcher, new Point(Z.Collection.Count, vector.Z));

@@ -25,7 +25,7 @@ namespace RTM.Component.CameraMovementDetector.Homography
         public Mat Calculate(Bitmap referenceBitmap, Bitmap currentBitmap)
         {
             Mat homography;
-            using(var detector = new SURF(HessianThresh))
+            using (var detector = new SURF(HessianThresh))
             using (var model = new Image<Gray, byte>(referenceBitmap))
             using (var modelMat = model.Mat.ToUMat(AccessType.Read))
             using (var modelKeyPoints = new VectorOfKeyPoint())
@@ -43,13 +43,14 @@ namespace RTM.Component.CameraMovementDetector.Homography
                 matcher.Add(modelDescriptors);
                 matcher.KnnMatch(observedDescriptors, matches, K, null);
 
-                homography = TryCalculateHomography(modelKeyPoints, observedKeyPoints, matches);
+                homography = TryFindHomography(modelKeyPoints, observedKeyPoints, matches);
             }
 
             return homography;
         }
 
-        private Mat TryCalculateHomography(VectorOfKeyPoint modelKeyPoints, VectorOfKeyPoint observedKeyPoints, VectorOfVectorOfDMatch matches)
+        private Mat TryFindHomography(VectorOfKeyPoint modelKeyPoints, VectorOfKeyPoint observedKeyPoints,
+            VectorOfVectorOfDMatch matches)
         {
             var mask = new Mat(matches.Size, 1, DepthType.Cv8U, 1);
             mask.SetTo(new MCvScalar(255));

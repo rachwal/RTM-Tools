@@ -36,7 +36,7 @@ namespace RTM.Component.CameraImageViewer.ImageProvider
 
         public void SetImage(CameraImage cameraImage)
         {
-            Image = converter.Convert(cameraImage);
+            Image = converter.ToImage(cameraImage);
         }
     }
 }

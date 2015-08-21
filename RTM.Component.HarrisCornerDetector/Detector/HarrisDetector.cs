@@ -57,7 +57,7 @@ namespace RTM.Component.HarrisCornerDetector.Detector
 
         public void Detect(CameraImage cameraImage)
         {
-            var partial = cameraConverter.Convert(cameraImage);
+            var partial = cameraConverter.ToImage(cameraImage);
             var sourceBitmap = converter.ToBitmap(partial);
 
             var blur = new Blur();
