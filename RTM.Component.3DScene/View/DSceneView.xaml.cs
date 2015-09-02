@@ -6,6 +6,7 @@
 // Copyright (c) 2015 Bartosz Rachwal. The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
 
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Research.DynamicDataDisplay;
 using RTM.Component._3DScene.ViewModel;
@@ -16,7 +17,7 @@ namespace RTM.Component._3DScene
     {
         private ISceneViewModel ViewModel
         {
-            get { return (ISceneViewModel)DataContext; }
+            get { return (ISceneViewModel) DataContext; }
             set { DataContext = value; }
         }
 
@@ -47,6 +48,35 @@ namespace RTM.Component._3DScene
                 Description = new PenDescription("Z")
             };
             plotter.Children.Add(z);
+
+            var alpha = new LineGraph(ViewModel.Alpha)
+            {
+                LinePen = new Pen(new SolidColorBrush(Colors.DarkGoldenrod), 1),
+                Description = new PenDescription("Alpha")
+            };
+            plotter.Children.Add(alpha);
+
+            var beta = new LineGraph(ViewModel.Beta)
+            {
+                LinePen = new Pen(new SolidColorBrush(Colors.Violet), 1),
+                Description = new PenDescription("Beta")
+            };
+            plotter.Children.Add(beta);
+
+            var gamma = new LineGraph(ViewModel.Gamma)
+            {
+                LinePen = new Pen(new SolidColorBrush(Colors.DarkCyan), 1),
+                Description = new PenDescription("Gamma")
+            };
+            plotter.Children.Add(gamma);
+        }
+
+        private void plotter_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                ViewModel.Clear();
+            }
         }
     }
 }

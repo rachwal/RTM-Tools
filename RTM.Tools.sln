@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.Component.CameraMovemen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.DTO", "RTM.DTO\RTM.DTO.csproj", "{19A09A07-34FF-40AE-A3CC-5E6CCFC29BDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.Component.CameraStabilizer", "RTM.Component.CameraStabilizer\RTM.Component.CameraStabilizer.csproj", "{988F652A-41AE-4F0A-AE1B-C16A01254985}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{19A09A07-34FF-40AE-A3CC-5E6CCFC29BDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19A09A07-34FF-40AE-A3CC-5E6CCFC29BDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19A09A07-34FF-40AE-A3CC-5E6CCFC29BDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{988F652A-41AE-4F0A-AE1B-C16A01254985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{988F652A-41AE-4F0A-AE1B-C16A01254985}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{988F652A-41AE-4F0A-AE1B-C16A01254985}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{988F652A-41AE-4F0A-AE1B-C16A01254985}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

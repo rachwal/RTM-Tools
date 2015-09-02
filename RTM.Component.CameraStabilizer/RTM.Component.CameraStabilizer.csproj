@@ -4,17 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A6D277D7-645E-4101-B996-D5F49132338F}</ProjectGuid>
+    <ProjectGuid>{988F652A-41AE-4F0A-AE1B-C16A01254985}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RTM.Component.CameraMovementDetector</RootNamespace>
-    <AssemblyName>RTM.Component.CameraMovementDetector</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>RTM.Component.CameraStabilizer</RootNamespace>
+    <AssemblyName>RTM.Component.CameraStabilizer</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,60 +33,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
-      <HintPath>..\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="AForge.Imaging, Version=2.2.5.0, Culture=neutral, PublicKeyToken=ba8ddea9676ca48b, processorArchitecture=MSIL">
-      <HintPath>..\packages\AForge.Imaging.2.2.5\lib\AForge.Imaging.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="AForge.Math, Version=2.2.5.0, Culture=neutral, PublicKeyToken=abba2e25397ee8c9, processorArchitecture=MSIL">
-      <HintPath>..\packages\AForge.Math.2.2.5\lib\AForge.Math.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Emgu.CV, Version=3.0.0.2158, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Emgu.CV">
       <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.dll</HintPath>
-    </Reference>
-    <Reference Include="Emgu.CV.Contrib, Version=3.0.0.2158, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.Contrib.dll</HintPath>
-    </Reference>
-    <Reference Include="Emgu.CV.Cuda, Version=3.0.0.2158, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.Cuda.dll</HintPath>
-    </Reference>
-    <Reference Include="Emgu.CV.DebuggerVisualizers.VS2015">
-      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.DebuggerVisualizers.VS2015.dll</HintPath>
-    </Reference>
-    <Reference Include="Emgu.CV.ML">
-      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.ML.dll</HintPath>
-    </Reference>
-    <Reference Include="Emgu.CV.OCR">
-      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.OCR.dll</HintPath>
-    </Reference>
-    <Reference Include="Emgu.CV.Shape">
-      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.Shape.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.Stitching">
       <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.Stitching.dll</HintPath>
     </Reference>
-    <Reference Include="Emgu.CV.Superres">
-      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.Superres.dll</HintPath>
-    </Reference>
-    <Reference Include="Emgu.CV.UI, Version=3.0.0.2158, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Emgu.CV.UI">
       <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Emgu.CV.UI.GL">
-      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.UI.GL.dll</HintPath>
-    </Reference>
-    <Reference Include="Emgu.CV.VideoStab">
-      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.VideoStab.dll</HintPath>
-    </Reference>
-    <Reference Include="Emgu.Util, Version=3.0.0.2158, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Emgu.Util">
       <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.Util.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -111,9 +64,6 @@
     <Reference Include="OpenRTM.Core, Version=1.3.0.0, Culture=neutral, PublicKeyToken=9107744efe29c21e, processorArchitecture=MSIL" />
     <Reference Include="OpenRTM.Extension, Version=1.3.0.0, Culture=neutral, PublicKeyToken=9107744efe29c21e, processorArchitecture=MSIL" />
     <Reference Include="OpenRTM.IIOP, Version=1.3.0.0, Culture=neutral, PublicKeyToken=9107744efe29c21e, processorArchitecture=MSIL" />
-    <Reference Include="PresentationCore">
-      <Private>True</Private>
-    </Reference>
     <Reference Include="RTM.Images, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RTM.Images.1.0.1.5\lib\net30\RTM.Images.dll</HintPath>
       <Private>True</Private>
@@ -134,59 +84,20 @@
       <HintPath>..\packages\RTM.Images.1.0.1.5\lib\net30\RTM.Images.Factory.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Core">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Drawing">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Numerics">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Windows.Forms">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Xaml">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Xml.Linq">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.CSharp">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Data">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net.Http">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Xml">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="WindowsBase">
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Component\CameraMovementDetectorComponent.cs" />
-    <Compile Include="Detector\GoodFeaturesToTrackDetector.cs" />
-    <Compile Include="Detector\IFeaturesDetector.cs" />
-    <Compile Include="Detector\IOpticalFlow.cs" />
-    <Compile Include="Detector\OpticalFlowPyrLk.cs" />
-    <Compile Include="Homography\CudaHomographyCalculator.cs" />
-    <Compile Include="Homography\HomographyCalculator.cs" />
-    <Compile Include="Homography\IHomographyCalculator.cs" />
-    <Compile Include="Detector\CameraMovementDetector.cs" />
-    <Compile Include="Detector\ICameraMovementDetector.cs" />
-    <Compile Include="Drawer\ITransformationDrawer.cs" />
-    <Compile Include="Drawer\TransformationDrawer.cs" />
+    <Compile Include="Component\CameraStabilizerComponent.cs" />
+    <Compile Include="Stabilizer\CameraStabilizer.cs" />
+    <Compile Include="Stabilizer\ICameraStabilizer.cs" />
     <Compile Include="Manager\ComponentManager.cs" />
     <Compile Include="Manager\IComponentManager.cs" />
     <Compile Include="Program.cs" />
@@ -201,13 +112,6 @@
       <Project>{0456936c-b92d-4d4d-8e3a-d655cb996c87}</Project>
       <Name>RTM.Converter.CameraImage</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RTM.DTO\RTM.DTO.csproj">
-      <Project>{19a09a07-34ff-40ae-a3cc-5e6ccfc29bda}</Project>
-      <Name>RTM.DTO</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="OpticalFlow\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

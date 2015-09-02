@@ -23,7 +23,7 @@ namespace RTM.Component._3DScene.Component
     [CustomProfile("Author", "Bartosz Rachwal")]
     public class SceneViewer : DataFlowComponent
     {
-        [InPort(PortName = "in")] private readonly InPort<Quadrilateral> inport = new InPort<Quadrilateral>();
+        [InPort(PortName = "in")] private readonly InPort<Vectors> inport = new InPort<Vectors>();
 
         public IDataProvider DataProvider { get; set; }
 
@@ -33,9 +33,9 @@ namespace RTM.Component._3DScene.Component
             return base.OnActivated(execHandle);
         }
 
-        private void OnWrite(Quadrilateral vector)
+        private void OnWrite(Vectors vectors)
         {
-            DataProvider.Quadrilateral = vector;
+            DataProvider.Vectors = vectors;
         }
 
         protected override ReturnCode_t OnDeactivated(int execHandle)

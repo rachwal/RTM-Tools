@@ -12,6 +12,6 @@ namespace RTM.Component._3DScene.Calculator
 {
     public interface IVectorsCalculator
     {
-        Vector3D GetTranslationVector(Quadrilateral quadrilateral);
+        Vector3D[] GetTranslationVector(Quadrilateral quadrilateral);
     }
 }

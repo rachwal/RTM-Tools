@@ -12,7 +12,7 @@ namespace RTM.Component._3DScene.DataProvider
 {
     public interface IDataProvider
     {
-        event EventHandler NewVector;
-        Quadrilateral Quadrilateral { get; set; }
+        event EventHandler NewVectors;
+        Vectors Vectors { get; set; }
     }
 }

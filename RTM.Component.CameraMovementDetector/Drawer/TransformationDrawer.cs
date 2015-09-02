@@ -15,7 +15,7 @@ namespace RTM.Component.CameraMovementDetector.Drawer
 {
     public class TransformationDrawer : ITransformationDrawer
     {
-        public Bitmap Draw(Bitmap referenceBitmap, Mat transformation)
+        public Bitmap Transformation(Bitmap referenceBitmap, Mat transformation)
         {
             var result = new Image<Bgr, byte>(referenceBitmap);
             var rect = new Rectangle(Point.Empty, referenceBitmap.Size);
@@ -56,6 +56,24 @@ namespace RTM.Component.CameraMovementDetector.Drawer
             CvInvoke.Line(result, new Point(0, rect.Size.Height/2), new Point(rect.Size.Width, result.Size.Height/2),
                 new MCvScalar(255, 255, 255, 255));
             return result.Bitmap;
+        }
+
+        public Bitmap Arrows(Bitmap bitmap, PointF[][] prevKeyPoints, PointF[] currentKeyPoints)
+        {
+            var image = new Image<Bgr, byte>(bitmap);
+            for (var i = 0; i < currentKeyPoints.Length; i++)
+            {
+                var start = prevKeyPoints[0][i];
+                var end = currentKeyPoints[i];
+
+                image.Draw(new LineSegment2DF(start, end), new Bgr(Color.Green), 1);
+                var startRectangle = new Rectangle((int) start.X - 1, (int) start.Y - 1, 3, 3);
+                image.Draw(startRectangle, new Bgr(Color.Blue));
+                var endRectangle = new Rectangle((int) end.X - 1, (int) end.Y - 1, 3, 3);
+                image.Draw(endRectangle, new Bgr(Color.Red));
+            }
+
+            return image.Bitmap;
         }
     }
 }

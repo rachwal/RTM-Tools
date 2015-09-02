@@ -1,52 +1,51 @@
 ﻿// RTM.Tools
-// RTM.Component.CameraMovementDetector
-// CameraMovementDetectorComponent.cs
+// RTM.Component.CameraStabilizer
+// CameraStabilizerComponent.cs
 // 
 // Created by Bartosz Rachwal. 
 // Copyright (c) 2015 Bartosz Rachwal. The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
 
 using System;
 using OpenRTM.Core;
-using RTM.Component.CameraMovementDetector.Detector;
+using RTM.Component.CameraStabilizer.Stabilizer;
 
-namespace RTM.Component.CameraMovementDetector.Component
+namespace RTM.Component.CameraStabilizer.Component
 {
-    [Component(Category = "CameraMovement", Name = "CameraMovementDetector")]
+    [Component(Category = "CameraStabilizer", Name = "CameraStabilizer")]
     [DetailProfile(
-        Description = "Camera Movement Detector Component",
+        Description = "Camera Stabilizer Component",
         Language = "C#",
         LanguageType = "Compile",
         MaxInstance = 1,
         Vendor = "AIST",
         Version = "1.0.0")]
-    [CustomProfile("CreationDate", "2015/08/11")]
+    [CustomProfile("CreationDate", "2015/08/31")]
     [CustomProfile("Author", "Bartosz Rachwal")]
-    public class CameraMovementDetectorComponent : DataFlowComponent
+    public class CameraStabilizerComponent : DataFlowComponent
     {
         [InPort(PortName = "in")] private readonly InPort<CameraImage> inport = new InPort<CameraImage>();
 
-        [OutPort(PortName = "out")] private readonly OutPort<CameraImage> outportCamera =
-            new OutPort<CameraImage>();
+        [OutPort(PortName = "out")] private readonly OutPort<CameraImage> outport = new OutPort<CameraImage>();
 
-        private ICameraMovementDetector cameraMovementDetector;
+        private ICameraStabilizer cameraStabilizer;
 
-        public ICameraMovementDetector CameraMovementDetector
+        public ICameraStabilizer CameraStabilizer
         {
-            get { return cameraMovementDetector; }
+            get { return cameraStabilizer; }
             set
             {
-                cameraMovementDetector = value;
+                cameraStabilizer = value;
                 if (value == null)
                 {
                     return;
                 }
-                CameraMovementDetector.NewImage += OnNewImage;
+                CameraStabilizer.NewImage += OnNewImage;
             }
         }
 
         private void OnNewImage(object sender, EventArgs e)
         {
-            outportCamera.Write(CameraMovementDetector.Image);
+            outport.Write(CameraStabilizer.Image);
         }
 
         protected override ReturnCode_t OnActivated(int execHandle)
@@ -57,7 +56,7 @@ namespace RTM.Component.CameraMovementDetector.Component
 
         private void OnWrite(CameraImage image)
         {
-            CameraMovementDetector.ProcessImage(image);
+            CameraStabilizer.ProcessImage(image);
         }
 
         protected override ReturnCode_t OnDeactivated(int execHandle)

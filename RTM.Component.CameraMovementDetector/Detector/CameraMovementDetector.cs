@@ -8,42 +8,22 @@
 using System;
 using System.Drawing;
 using Emgu.CV;
+using Emgu.CV.Structure;
 using OpenRTM.Core;
 using RTM.Component.CameraMovementDetector.Drawer;
-using RTM.Component.CameraMovementDetector.Homography;
 using RTM.Converter.CameraImage;
-using RTM.DTO;
 
 namespace RTM.Component.CameraMovementDetector.Detector
 {
     public class CameraMovementDetector : ICameraMovementDetector
     {
-        private readonly IHomographyCalculator homography;
-        private readonly ITransformationDrawer transformation;
-
+        private readonly ITransformationDrawer transformationDrawer;
         private readonly ICameraImageConverter converter;
+        private readonly IFeaturesDetector featuresDetector;
+        private readonly IOpticalFlow opticalFlow;
 
+        private CameraImage prevCameraImage;
         private CameraImage image;
-        private CameraImage lastCameraImage;
-        private Quadrilateral quadrilateral;
-
-        private readonly PointF[] initialPoints =
-        {
-            new PointF(-1, -1), new PointF(1, -1), new PointF(1, 1),
-            new PointF(-1, 1)
-        };
-
-        public event EventHandler NewTranslationVector;
-
-        public Quadrilateral Quadrilateral
-        {
-            get { return quadrilateral; }
-            set
-            {
-                quadrilateral = value;
-                NewTranslationVector?.Invoke(this, EventArgs.Empty);
-            }
-        }
 
         public event EventHandler NewImage;
 
@@ -57,51 +37,42 @@ namespace RTM.Component.CameraMovementDetector.Detector
             }
         }
 
-        public CameraMovementDetector(IHomographyCalculator calculator,
-            ITransformationDrawer drawer, ICameraImageConverter imageConverter)
+        public CameraMovementDetector(ITransformationDrawer drawer, ICameraImageConverter imageConverter,
+            IFeaturesDetector detector, IOpticalFlow opticalFlowCalculator)
         {
-            transformation = drawer;
-            homography = calculator;
+            opticalFlow = opticalFlowCalculator;
+            featuresDetector = detector;
+            transformationDrawer = drawer;
             converter = imageConverter;
         }
 
         public void ProcessImage(CameraImage cameraImage)
         {
-            if (lastCameraImage == null)
+            if (prevCameraImage == null || cameraImage.Width != prevCameraImage.Width ||
+                cameraImage.Height != prevCameraImage.Height)
             {
-                lastCameraImage = cameraImage;
+                prevCameraImage = cameraImage;
                 return;
             }
 
-            var referenceBitmap = converter.ToBitmap(lastCameraImage);
-            lastCameraImage = cameraImage.Copy();
+            var referenceBitmap = converter.ToBitmap(prevCameraImage);
+            prevCameraImage = cameraImage.Copy();
             var currentBitmap = converter.ToBitmap(cameraImage);
 
-            var matrix = homography.Calculate(referenceBitmap, currentBitmap);
-            if (matrix == null)
-            {
-                return;
-            }
+            var prev = new Image<Gray, byte>(referenceBitmap);
+            prev.SmoothGaussian(3, 3, 34.3, 45.3);
+            var curr = new Image<Gray, byte>(currentBitmap);
+            curr.SmoothGaussian(3, 3, 34.3, 45.3);
 
-            UpdateQuadrilateral(matrix);
-            UpdateImage(currentBitmap, matrix);
+            var prevFeatures = featuresDetector.Detect(prev);
+            var currFeatures = opticalFlow.Calculate(prev, curr, prevFeatures);
+
+            UpdateImage(currentBitmap, prevFeatures, currFeatures);
         }
 
-        private void UpdateQuadrilateral(IInputArray matrix)
+        private void UpdateImage(Bitmap bitmap, PointF[][] prevKeyPoints, PointF[] currentKeyPoints)
         {
-            var points = CvInvoke.PerspectiveTransform(initialPoints, matrix);
-            Quadrilateral = new Quadrilateral
-            {
-                Point1 = new Point2D {X = points[0].X, Y = points[0].Y},
-                Point2 = new Point2D {X = points[1].X, Y = points[1].Y},
-                Point3 = new Point2D {X = points[2].X, Y = points[2].Y},
-                Point4 = new Point2D {X = points[3].X, Y = points[3].Y}
-            };
-        }
-
-        private void UpdateImage(Bitmap referenceBitmap, Mat matrix)
-        {
-            var finalBitmap = transformation.Draw(referenceBitmap, matrix);
+            var finalBitmap = transformationDrawer.Arrows(bitmap, prevKeyPoints, currentKeyPoints);
             Image = converter.Convert(finalBitmap);
         }
     }

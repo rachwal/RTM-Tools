@@ -12,6 +12,7 @@ namespace RTM.Component.CameraMovementDetector.Drawer
 {
     public interface ITransformationDrawer
     {
-        Bitmap Draw(Bitmap referenceBitmap, Mat transformation);
+        Bitmap Transformation(Bitmap referenceBitmap, Mat transformation);
+        Bitmap Arrows(Bitmap bitmap, PointF[][] prevKeyPoints, PointF[] currentKeyPoints);
     }
 }

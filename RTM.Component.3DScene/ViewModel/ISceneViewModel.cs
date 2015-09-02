@@ -17,5 +17,9 @@ namespace RTM.Component._3DScene.ViewModel
         ObservableDataSource<Point> X { get; set; }
         ObservableDataSource<Point> Y { get; set; }
         ObservableDataSource<Point> Z { get; set; }
+        ObservableDataSource<Point> Alpha { get; set; }
+        ObservableDataSource<Point> Beta { get; set; }
+        ObservableDataSource<Point> Gamma { get; set; }
+        void Clear();
     }
 }

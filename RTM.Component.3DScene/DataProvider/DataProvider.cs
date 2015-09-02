@@ -12,17 +12,17 @@ namespace RTM.Component._3DScene.DataProvider
 {
     public class DataProvider : IDataProvider
     {
-        private Quadrilateral quadrilateral;
+        private Vectors vectors;
 
-        public event EventHandler NewVector;
+        public event EventHandler NewVectors;
 
-        public Quadrilateral Quadrilateral
+        public Vectors Vectors
         {
-            get { return quadrilateral; }
+            get { return vectors; }
             set
             {
-                quadrilateral = value;
-                NewVector?.Invoke(this, EventArgs.Empty);
+                vectors = value;
+                NewVectors?.Invoke(this, EventArgs.Empty);
             }
         }
     }
