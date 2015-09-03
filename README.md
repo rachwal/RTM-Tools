@@ -1,5 +1,5 @@
 # RTM-Tools
-RT-Middleware Tools (Small Utility Components)
+RT-Middleware Tools
 
 Prerequisites
 ---------------
