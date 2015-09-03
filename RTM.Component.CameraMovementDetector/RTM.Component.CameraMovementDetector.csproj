@@ -176,9 +176,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Component\CameraMovementDetectorComponent.cs" />
-    <Compile Include="MovementDetector\CameraMovementDetector.cs" />
-    <Compile Include="CornersDetector\ChessboardCornersDetector.cs" />
     <Compile Include="Configuration\ComponentConfiguration.cs" />
+    <Compile Include="CornersDetector\ChessboardCornersDetector.cs" />
+    <Compile Include="MovementDetector\CameraMovementDetector.cs" />
     <Compile Include="MovementDetector\ICameraMovementDetector.cs" />
     <Compile Include="Configuration\IComponentConfiguration.cs" />
     <Compile Include="CornersDetector\ICornersDetector.cs" />
