@@ -42,6 +42,9 @@
     <Reference Include="Emgu.CV.UI">
       <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.UI.dll</HintPath>
     </Reference>
+    <Reference Include="Emgu.CV.VideoStab">
+      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.VideoStab.dll</HintPath>
+    </Reference>
     <Reference Include="Emgu.Util">
       <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.Util.dll</HintPath>
     </Reference>

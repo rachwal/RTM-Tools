@@ -1,17 +1,18 @@
 ﻿// RTM.Tools
-// RTM.Component.3DScene
+// RTM.Component.CameraMovementDetector
 // IVectorsCalculator.cs
 // 
 // Created by Bartosz Rachwal. 
 // Copyright (c) 2015 Bartosz Rachwal. The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
 
-using System.Windows.Media.Media3D;
+using System.Drawing;
+using Emgu.CV.Util;
 using RTM.DTO;
 
-namespace RTM.Component._3DScene.Calculator
+namespace RTM.Component.CameraMovementDetector.VectorsCalculator
 {
     public interface IVectorsCalculator
     {
-        Vector3D[] GetTranslationVector(Quadrilateral quadrilateral);
+        Vectors Calculate(VectorOfVectorOfPointF corners, Bitmap bitmap);
     }
 }

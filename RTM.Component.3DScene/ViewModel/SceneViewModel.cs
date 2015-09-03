@@ -9,7 +9,6 @@ using System;
 using System.Windows;
 using Microsoft.Research.DynamicDataDisplay.DataSources;
 using OpenRTM.Core;
-using RTM.Component._3DScene.Calculator;
 using RTM.Component._3DScene.DataProvider;
 
 namespace RTM.Component._3DScene.ViewModel
@@ -17,7 +16,13 @@ namespace RTM.Component._3DScene.ViewModel
     public class SceneViewModel : ISceneViewModel
     {
         private readonly IDataProvider provider;
-        private readonly IVectorsCalculator calculator;
+
+        public SceneViewModel(IDataProvider imageProvider)
+        {
+            provider = imageProvider;
+            provider.NewVectors += OnNewVectors;
+        }
+
         public Vector3D Vector { get; set; } = new Vector3D();
         public ObservableDataSource<Point> X { get; set; } = new ObservableDataSource<Point>();
         public ObservableDataSource<Point> Y { get; set; } = new ObservableDataSource<Point>();
@@ -37,13 +42,6 @@ namespace RTM.Component._3DScene.ViewModel
             Gamma.Collection.Clear();
         }
 
-        public SceneViewModel(IDataProvider imageProvider, IVectorsCalculator vectorsCalculator)
-        {
-            calculator = vectorsCalculator;
-            provider = imageProvider;
-            provider.NewVectors += OnNewVectors;
-        }
-
         private void OnNewVectors(object sender, EventArgs e)
         {
             var vectors = provider.Vectors;
@@ -52,9 +50,12 @@ namespace RTM.Component._3DScene.ViewModel
             Y.AppendAsync(Application.Current.Dispatcher, new Point(Y.Collection.Count, vectors.Translation.Y));
             Z.AppendAsync(Application.Current.Dispatcher, new Point(Z.Collection.Count, vectors.Translation.Z));
 
-            Alpha.AppendAsync(Application.Current.Dispatcher, new Point(Alpha.Collection.Count, vectors.Rotation.X));
-            Beta.AppendAsync(Application.Current.Dispatcher, new Point(Beta.Collection.Count, vectors.Rotation.Y));
-            Gamma.AppendAsync(Application.Current.Dispatcher, new Point(Gamma.Collection.Count, vectors.Rotation.Z));
+            Alpha.AppendAsync(Application.Current.Dispatcher,
+                new Point(Alpha.Collection.Count, vectors.Rotation.X));
+            Beta.AppendAsync(Application.Current.Dispatcher,
+                new Point(Beta.Collection.Count, vectors.Rotation.Y));
+            Gamma.AppendAsync(Application.Current.Dispatcher,
+                new Point(Gamma.Collection.Count, vectors.Rotation.Z));
         }
     }
 }

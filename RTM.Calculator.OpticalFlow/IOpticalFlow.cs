@@ -1,18 +1,19 @@
 ﻿// RTM.Tools
-// RTM.Component.CameraMovementDetector
+// RTM.Calculator.OpticalFlow
 // IOpticalFlow.cs
 // 
 // Created by Bartosz Rachwal. 
 // Copyright (c) 2015 Bartosz Rachwal. The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
 
-using System.Collections.Generic;
 using System.Drawing;
 using Emgu.CV;
+using Emgu.CV.Structure;
 
-namespace RTM.Component.CameraMovementDetector.Detector
+namespace RTM.Calculator.OpticalFlow
 {
     public interface IOpticalFlow
     {
-        PointF[] Calculate(IInputArray prev, IInputArray curr, IReadOnlyList<PointF[]> prevFeatures);
+        void Initialize(int searchWindowSize, int maximalPyramidLevel, int maxIterations, double maxEps);
+        PointF[] Calculate(IImage prev, IImage curr, MKeyPoint[] prevFeatures);
     }
 }

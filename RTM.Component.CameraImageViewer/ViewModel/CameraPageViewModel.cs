@@ -18,12 +18,9 @@ namespace RTM.Component.CameraImageViewer.ViewModel
 {
     public class CameraPageViewModel : ICameraPageViewModel, INotifyPropertyChanged
     {
-        private readonly IImageProvider provider;
         private readonly IImageConverter converter;
+        private readonly IImageProvider provider;
         private int frameCounter;
-
-        public ImageSource CameraImage { get; set; }
-        public string Fps { get; set; }
 
         public CameraPageViewModel(IImageProvider imageProvider, IImageConverter imageConverter)
         {
@@ -34,6 +31,11 @@ namespace RTM.Component.CameraImageViewer.ViewModel
             provider = imageProvider;
             provider.NewImage += OnNewImage;
         }
+
+        public ImageSource CameraImage { get; set; }
+        public string Fps { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private void UpdateFpsLabel(object state)
         {
@@ -51,8 +53,6 @@ namespace RTM.Component.CameraImageViewer.ViewModel
             CameraImage.Freeze();
             OnPropertyChanged(nameof(CameraImage));
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -16,8 +16,8 @@ namespace RTM.Component.HarrisCornerDetector.Manager
 {
     public class ComponentManager : IComponentManager
     {
-        private readonly IDetector detector;
         private readonly IComponentConfiguration componentConfiguration;
+        private readonly IDetector detector;
 
         public ComponentManager(IDetector features, IComponentConfiguration configuration)
         {

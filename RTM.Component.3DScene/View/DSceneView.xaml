@@ -6,7 +6,7 @@
         xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0"
         mc:Ignorable="d"
         Title="MainWindow">
-    <Grid  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <d3:ChartPlotter x:Name="plotter" KeyDown="plotter_KeyDown"/>
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <d3:ChartPlotter x:Name="plotter" KeyDown="plotter_KeyDown" />
     </Grid>
 </Window>

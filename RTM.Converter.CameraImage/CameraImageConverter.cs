@@ -16,8 +16,8 @@ namespace RTM.Converter.CameraImage
 {
     public class CameraImageConverter : ICameraImageConverter
     {
-        private readonly IImageFactory imageFactory = new ImageFactory(new BitmapImageDecoder());
         private readonly IImageConverter imageConverter = new Images.Factory.ImageConverter();
+        private readonly IImageFactory imageFactory = new ImageFactory(new BitmapImageDecoder());
 
         public OpenRTM.Core.CameraImage Convert(Image image)
         {

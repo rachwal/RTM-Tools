@@ -155,8 +155,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Calculator\IVectorsCalculator.cs" />
-    <Compile Include="Calculator\VectorsCalculator.cs" />
     <Compile Include="Component\SceneViewer.cs" />
     <Compile Include="DataProvider\DataProvider.cs" />
     <Compile Include="Manager\ComponentManager.cs" />
@@ -172,8 +170,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utils\IMathUtils.cs" />
-    <Compile Include="Utils\MathUtils.cs" />
     <Compile Include="ViewModel\ISceneViewModel.cs" />
     <Compile Include="ViewModel\SceneViewModel.cs" />
     <Compile Include="View\DSceneView.xaml.cs">

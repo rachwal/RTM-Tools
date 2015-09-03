@@ -176,17 +176,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Component\CameraMovementDetectorComponent.cs" />
-    <Compile Include="Detector\GoodFeaturesToTrackDetector.cs" />
-    <Compile Include="Detector\IFeaturesDetector.cs" />
-    <Compile Include="Detector\IOpticalFlow.cs" />
-    <Compile Include="Detector\OpticalFlowPyrLk.cs" />
-    <Compile Include="Homography\CudaHomographyCalculator.cs" />
-    <Compile Include="Homography\HomographyCalculator.cs" />
-    <Compile Include="Homography\IHomographyCalculator.cs" />
-    <Compile Include="Detector\CameraMovementDetector.cs" />
-    <Compile Include="Detector\ICameraMovementDetector.cs" />
-    <Compile Include="Drawer\ITransformationDrawer.cs" />
-    <Compile Include="Drawer\TransformationDrawer.cs" />
+    <Compile Include="MovementDetector\CameraMovementDetector.cs" />
+    <Compile Include="CornersDetector\ChessboardCornersDetector.cs" />
+    <Compile Include="Configuration\ComponentConfiguration.cs" />
+    <Compile Include="MovementDetector\ICameraMovementDetector.cs" />
+    <Compile Include="Configuration\IComponentConfiguration.cs" />
+    <Compile Include="CornersDetector\ICornersDetector.cs" />
+    <Compile Include="VectorsCalculator\IVectorsCalculator.cs" />
+    <Compile Include="VectorsCalculator\VectorsCalculator.cs" />
     <Compile Include="Manager\ComponentManager.cs" />
     <Compile Include="Manager\IComponentManager.cs" />
     <Compile Include="Program.cs" />
@@ -206,9 +203,7 @@
       <Name>RTM.DTO</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="OpticalFlow\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

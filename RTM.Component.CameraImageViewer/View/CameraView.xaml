@@ -4,14 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="RTM CameraImage View Component" 
+        Title="RTM CameraImage View Component"
         Background="Black">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Content="{Binding Fps}" Foreground="DarkOrange" FontSize="18"/>
-        <Image Grid.Row="1" Source="{Binding CameraImage}" Stretch="Uniform"/>
+        <Label Grid.Row="0" Content="{Binding Fps}" Foreground="DarkOrange" FontSize="18" />
+        <Image Grid.Row="1" Source="{Binding CameraImage}" Stretch="Uniform" />
     </Grid>
 </Window>

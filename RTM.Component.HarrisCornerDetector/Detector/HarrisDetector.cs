@@ -20,27 +20,15 @@ namespace RTM.Component.HarrisCornerDetector.Detector
 {
     public class HarrisDetector : IDetector
     {
-        private readonly IComponentConfiguration configuration;
         private readonly ICameraImageConverter cameraConverter;
+        private readonly IComponentConfiguration configuration;
         private readonly IImageConverter converter;
         private readonly IImageFactory imageFactory;
-
-        public event EventHandler NewImage;
-
-        public CameraImage Image
-        {
-            get { return image; }
-            set
-            {
-                image = value;
-                NewImage?.Invoke(this, EventArgs.Empty);
-            }
-        }
+        private readonly List<IFeaturePoint> oldPoints = new List<IFeaturePoint>();
 
         private HarrisCornersDetector harris;
-        private KNearestNeighborMatching matcher;
-        private readonly List<IFeaturePoint> oldPoints = new List<IFeaturePoint>();
         private CameraImage image;
+        private KNearestNeighborMatching matcher;
 
         public HarrisDetector(IComponentConfiguration componentConfiguration, IImageFactory factory,
             IImageConverter imageConverter, ICameraImageConverter cameraImageConverter)
@@ -53,6 +41,18 @@ namespace RTM.Component.HarrisCornerDetector.Detector
             UpdateDetector();
 
             configuration.ConfigurationChanged += OnConfigurationChanged;
+        }
+
+        public event EventHandler NewImage;
+
+        public CameraImage Image
+        {
+            get { return image; }
+            set
+            {
+                image = value;
+                NewImage?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         public void Detect(CameraImage cameraImage)

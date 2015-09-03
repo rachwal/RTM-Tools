@@ -32,6 +32,11 @@ namespace RTM.Component.HarrisCornerDetector.Component
         private ConfigurationSet configurationSet;
         private IDetector detector;
 
+        public HarrisCornerDetector()
+        {
+            Config.OnSetConfigurationSet += OnSetConfigurationSet;
+        }
+
         public IDetector Detector
         {
             get { return detector; }
@@ -43,11 +48,6 @@ namespace RTM.Component.HarrisCornerDetector.Component
                     Detector.NewImage += OnNewImage;
                 }
             }
-        }
-
-        private void OnNewImage(object sender, EventArgs e)
-        {
-            outport.Write(Detector.Image);
         }
 
         public IComponentConfiguration Configuration { get; set; }
@@ -109,9 +109,9 @@ namespace RTM.Component.HarrisCornerDetector.Component
             }
         }
 
-        public HarrisCornerDetector()
+        private void OnNewImage(object sender, EventArgs e)
         {
-            Config.OnSetConfigurationSet += OnSetConfigurationSet;
+            outport.Write(Detector.Image);
         }
 
         protected override ReturnCode_t OnActivated(int execHandle)

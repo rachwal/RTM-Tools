@@ -11,16 +11,16 @@ namespace RTM.Component.CameraImageViewer
 {
     public partial class CameraView
     {
-        private ICameraPageViewModel ViewModel
-        {
-            get { return (ICameraPageViewModel) DataContext; }
-            set { DataContext = value; }
-        }
-
         public CameraView(ICameraPageViewModel viewModel)
         {
             InitializeComponent();
             ViewModel = viewModel;
+        }
+
+        private ICameraPageViewModel ViewModel
+        {
+            get { return (ICameraPageViewModel) DataContext; }
+            set { DataContext = value; }
         }
     }
 }

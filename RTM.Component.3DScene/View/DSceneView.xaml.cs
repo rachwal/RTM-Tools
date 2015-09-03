@@ -15,17 +15,17 @@ namespace RTM.Component._3DScene
 {
     public partial class DSceneView
     {
-        private ISceneViewModel ViewModel
-        {
-            get { return (ISceneViewModel) DataContext; }
-            set { DataContext = value; }
-        }
-
         public DSceneView(ISceneViewModel viewModel)
         {
             InitializeComponent();
             ViewModel = viewModel;
             Loaded += Window_Loaded;
+        }
+
+        private ISceneViewModel ViewModel
+        {
+            get { return (ISceneViewModel) DataContext; }
+            set { DataContext = value; }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -52,21 +52,21 @@ namespace RTM.Component._3DScene
             var alpha = new LineGraph(ViewModel.Alpha)
             {
                 LinePen = new Pen(new SolidColorBrush(Colors.DarkGoldenrod), 1),
-                Description = new PenDescription("Alpha")
+                Description = new PenDescription("Roll")
             };
             plotter.Children.Add(alpha);
 
             var beta = new LineGraph(ViewModel.Beta)
             {
                 LinePen = new Pen(new SolidColorBrush(Colors.Violet), 1),
-                Description = new PenDescription("Beta")
+                Description = new PenDescription("Yaw")
             };
             plotter.Children.Add(beta);
 
             var gamma = new LineGraph(ViewModel.Gamma)
             {
                 LinePen = new Pen(new SolidColorBrush(Colors.DarkCyan), 1),
-                Description = new PenDescription("Gamma")
+                Description = new PenDescription("Pitch")
             };
             plotter.Children.Add(gamma);
         }

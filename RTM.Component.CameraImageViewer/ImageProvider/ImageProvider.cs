@@ -17,6 +17,11 @@ namespace RTM.Component.CameraImageViewer.ImageProvider
         private readonly ICameraImageConverter converter;
         private Image image;
 
+        public ImageProvider(ICameraImageConverter cameraImageConverter)
+        {
+            converter = cameraImageConverter;
+        }
+
         public event EventHandler NewImage;
 
         public Image Image
@@ -27,11 +32,6 @@ namespace RTM.Component.CameraImageViewer.ImageProvider
                 image = value;
                 NewImage?.Invoke(this, EventArgs.Empty);
             }
-        }
-
-        public ImageProvider(ICameraImageConverter cameraImageConverter)
-        {
-            converter = cameraImageConverter;
         }
 
         public void SetImage(CameraImage cameraImage)

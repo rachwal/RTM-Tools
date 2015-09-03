@@ -7,14 +7,18 @@
 
 using System;
 using OpenRTM.Core;
+using RTM.DTO;
 
-namespace RTM.Component.CameraMovementDetector.Detector
+namespace RTM.Component.CameraMovementDetector.MovementDetector
 {
     public interface ICameraMovementDetector
     {
+        CameraImage Image { get; set; }
+
+        Vectors Vectors { get; set; }
         void ProcessImage(CameraImage image);
 
         event EventHandler NewImage;
-        CameraImage Image { get; set; }
+        event EventHandler NewVectors;
     }
 }

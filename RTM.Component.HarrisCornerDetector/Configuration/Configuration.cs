@@ -11,11 +11,11 @@ namespace RTM.Component.HarrisCornerDetector.Configuration
 {
     public class ComponentConfiguration : IComponentConfiguration
     {
-        private double sigma = 1.4;
-        private float k = 0.04f;
-        private float threshold = 20000;
-        private int noNearestNeighborMatching = 3;
         private const double Crit = 0.000001;
+        private float k = 0.04f;
+        private int noNearestNeighborMatching = 3;
+        private double sigma = 1.4;
+        private float threshold = 20000;
 
         public double Sigma
         {

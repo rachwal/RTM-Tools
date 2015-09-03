@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using OpenRTM.Extension;
 using OpenRTM.IIOP;
 using RTM.Component.CameraMovementDetector.Component;
-using RTM.Component.CameraMovementDetector.Detector;
+using RTM.Component.CameraMovementDetector.MovementDetector;
 
 namespace RTM.Component.CameraMovementDetector.Manager
 {
