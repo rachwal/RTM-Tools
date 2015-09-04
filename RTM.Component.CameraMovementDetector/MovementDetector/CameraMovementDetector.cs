@@ -25,6 +25,7 @@ namespace RTM.Component.CameraMovementDetector.MovementDetector
         private readonly ICameraImageConverter converter;
         private readonly ICornersDetector cornersDetector;
         private readonly IVectorsCalculator vectorsCalculator;
+
         private CameraImage image;
         private Vectors vectors;
 
@@ -69,7 +70,7 @@ namespace RTM.Component.CameraMovementDetector.MovementDetector
 
             if (cornersDetector.MatchFound(corners))
             {
-                Vectors = vectorsCalculator.Calculate(corners, bitmap);
+                Vectors = vectorsCalculator.Calculate(corners, bitmap.Size);
                 var colorImage = MarkChessboard(bitmap, corners);
                 Image = converter.Convert(colorImage.ToBitmap());
             }
@@ -83,6 +84,7 @@ namespace RTM.Component.CameraMovementDetector.MovementDetector
         {
             var width = configuration.InnerCornersPerChessboardCols;
             var height = configuration.InnerCornersPerChessboardRows;
+
             var colorImage = new Image<Bgr, byte>(bitmap);
             colorImage.Draw(new LineSegment2DF(corners[0][0], corners[0][width - 1]), new Bgr(Color.Lime), 2);
             colorImage.Draw(new LineSegment2DF(corners[0][width - 1], corners[0][width*height - 1]), new Bgr(Color.Lime),
@@ -90,6 +92,7 @@ namespace RTM.Component.CameraMovementDetector.MovementDetector
             colorImage.Draw(new LineSegment2DF(corners[0][width*height - 1], corners[0][width*(height - 1)]),
                 new Bgr(Color.Lime), 2);
             colorImage.Draw(new LineSegment2DF(corners[0][width*(height - 1)], corners[0][0]), new Bgr(Color.Lime), 2);
+
             return colorImage;
         }
     }

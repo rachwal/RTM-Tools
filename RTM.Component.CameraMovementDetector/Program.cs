@@ -9,6 +9,7 @@ using System;
 using Microsoft.Practices.Unity;
 using RTM.Component.CameraMovementDetector.Configuration;
 using RTM.Component.CameraMovementDetector.CornersDetector;
+using RTM.Component.CameraMovementDetector.Filter;
 using RTM.Component.CameraMovementDetector.Manager;
 using RTM.Component.CameraMovementDetector.MovementDetector;
 using RTM.Component.CameraMovementDetector.VectorsCalculator;
@@ -29,6 +30,8 @@ namespace RTM.Component.CameraMovementDetector
             var container = new UnityContainer();
 
             container.RegisterType<ICameraImageConverter, CameraImageConverter>();
+            container.RegisterType<IVectorsFilter, VectorFilter>();
+            container.RegisterType<IFiltersFactory, FiltersFactory>();
             container.RegisterType<ICameraMovementDetector, MovementDetector.CameraMovementDetector>(
                 new ContainerControlledLifetimeManager());
             container.RegisterType<ICornersDetector, ChessboardCornersDetector>();

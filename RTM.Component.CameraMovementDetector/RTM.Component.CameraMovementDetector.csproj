@@ -178,11 +178,15 @@
     <Compile Include="Component\CameraMovementDetectorComponent.cs" />
     <Compile Include="Configuration\ComponentConfiguration.cs" />
     <Compile Include="CornersDetector\ChessboardCornersDetector.cs" />
+    <Compile Include="Filter\FiltersFactory.cs" />
+    <Compile Include="Filter\IFiltersFactory.cs" />
     <Compile Include="MovementDetector\CameraMovementDetector.cs" />
     <Compile Include="MovementDetector\ICameraMovementDetector.cs" />
     <Compile Include="Configuration\IComponentConfiguration.cs" />
     <Compile Include="CornersDetector\ICornersDetector.cs" />
     <Compile Include="VectorsCalculator\IVectorsCalculator.cs" />
+    <Compile Include="Filter\IVectorsFilter.cs" />
+    <Compile Include="Filter\VectorFilter.cs" />
     <Compile Include="VectorsCalculator\VectorsCalculator.cs" />
     <Compile Include="Manager\ComponentManager.cs" />
     <Compile Include="Manager\IComponentManager.cs" />

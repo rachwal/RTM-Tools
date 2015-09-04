@@ -11,8 +11,8 @@ using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
-using OpenRTM.Core;
 using RTM.Component.CameraMovementDetector.Configuration;
+using RTM.Component.CameraMovementDetector.Filter;
 using RTM.DTO;
 
 namespace RTM.Component.CameraMovementDetector.VectorsCalculator
@@ -20,49 +20,43 @@ namespace RTM.Component.CameraMovementDetector.VectorsCalculator
     public class VectorsCalculator : IVectorsCalculator
     {
         private readonly IComponentConfiguration configuration;
+        private readonly IVectorsFilter vectorsFilter;
+        private Matrix<double> cameraMatrix = new Matrix<double>(3, 3);
+        private Matrix<double> distortionCoeffs = new Matrix<double>(5, 1);
 
         private VectorOfVectorOfPoint3D32F model;
 
-        public VectorsCalculator(IComponentConfiguration componentConfiguration)
+        private VectorOfMat rotationVectors = new VectorOfMat();
+        private VectorOfMat translationVectors = new VectorOfMat();
+
+        public VectorsCalculator(IComponentConfiguration componentConfiguration, IVectorsFilter filter)
         {
+            vectorsFilter = filter;
             configuration = componentConfiguration;
         }
 
         private int Width => configuration.InnerCornersPerChessboardCols;
         private int Height => configuration.InnerCornersPerChessboardRows;
 
-        public Vectors Calculate(VectorOfVectorOfPointF corners, Bitmap bitmap)
+        public Vectors Calculate(VectorOfVectorOfPointF corners, Size size)
         {
             if (model == null)
             {
                 model = GenerateModel(Width, Height);
             }
 
-            var cameraMatrix = new Matrix<double>(3, 3);
-            var distortionCoeffs = new Matrix<double>(5, 1);
-
-            var rotationVectors = new VectorOfMat();
-            var translationVectors = new VectorOfMat();
-
-            CvInvoke.CalibrateCamera(model, corners, bitmap.Size, cameraMatrix, distortionCoeffs,
-                rotationVectors, translationVectors, CalibType.FixFocalLength, new MCvTermCriteria(10));
+            CvInvoke.CalibrateCamera(model, corners, size, cameraMatrix, distortionCoeffs,
+                rotationVectors, translationVectors, CalibType.Default, new MCvTermCriteria(10));
 
             var translation = new Matrix<double>(translationVectors[0].Rows, translationVectors[0].Cols,
                 translationVectors[0].DataPointer);
+
             var rotation = new Matrix<double>(rotationVectors[0].Rows, rotationVectors[0].Cols,
                 rotationVectors[0].DataPointer);
 
-            return new Vectors
-            {
-                Translation = new Vector3D {X = translation[0, 0], Y = translation[1, 0], Z = translation[2, 0]},
-                Rotation =
-                    new Vector3D
-                    {
-                        X = rotation[0, 0]*57.2957795,
-                        Y = rotation[1, 0]*57.2957795,
-                        Z = rotation[2, 0]*57.2957795
-                    }
-            };
+            var vectors = vectorsFilter.Correct(rotation, translation);
+
+            return vectors;
         }
 
         private VectorOfVectorOfPoint3D32F GenerateModel(int width, int height)
