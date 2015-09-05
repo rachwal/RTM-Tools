@@ -36,6 +36,10 @@
     <Reference Include="Emgu.CV">
       <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.dll</HintPath>
     </Reference>
+    <Reference Include="Emgu.CV.Contrib, Version=3.0.0.2158, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.Contrib.dll</HintPath>
+    </Reference>
     <Reference Include="Emgu.CV.Stitching">
       <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.Stitching.dll</HintPath>
     </Reference>
@@ -111,9 +115,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RTM.Calculator.Homography\RTM.Calculator.Homography.csproj">
+      <Project>{69eb4472-ce18-4671-bef7-bb6ed32a1992}</Project>
+      <Name>RTM.Calculator.Homography</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RTM.Calculator.OpticalFlow\RTM.Calculator.OpticalFlow.csproj">
+      <Project>{e6bcce92-c189-466c-a579-e895fab4988c}</Project>
+      <Name>RTM.Calculator.OpticalFlow</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RTM.Converter.CameraImage\RTM.Converter.CameraImage.csproj">
       <Project>{0456936c-b92d-4d4d-8e3a-d655cb996c87}</Project>
       <Name>RTM.Converter.CameraImage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RTM.Detector.Features\RTM.Detector.Features.csproj">
+      <Project>{3ef05bf5-56cd-4c56-a7e4-23f22e88c3ac}</Project>
+      <Name>RTM.Detector.Features</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

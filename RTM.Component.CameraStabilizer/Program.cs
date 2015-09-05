@@ -7,8 +7,11 @@
 
 using System;
 using Microsoft.Practices.Unity;
+using RTM.Calculator.OpticalFlow;
 using RTM.Component.CameraStabilizer.Manager;
 using RTM.Component.CameraStabilizer.Stabilizer;
+using RTM.Converter.CameraImage;
+using RTM.Detector.Features;
 
 namespace RTM.Component.CameraStabilizer
 {
@@ -24,8 +27,10 @@ namespace RTM.Component.CameraStabilizer
         {
             var container = new UnityContainer();
 
-            container.RegisterType<ICameraStabilizer, Stabilizer.CameraStabilizer>(
-                new ContainerControlledLifetimeManager());
+            container.RegisterType<ICameraStabilizer, Stabilizer.CameraStabilizer>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IOpticalFlow, OpticalFlowPyrLk>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IFeaturesDetector, FeaturesDetector>(new ContainerControlledLifetimeManager());
+            container.RegisterType<ICameraImageConverter, CameraImageConverter>(new ContainerControlledLifetimeManager());
             container.RegisterType<IComponentManager, ComponentManager>(new ContainerControlledLifetimeManager());
 
             container.Resolve<IComponentManager>().Start(args);
