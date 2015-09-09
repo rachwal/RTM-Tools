@@ -1,5 +1,5 @@
 ﻿// RTM.Tools
-// RTM.Component.CameraStabilizer
+// RTM.Component.StereoImaging
 // ComponentManager.cs
 // 
 // Created by Bartosz Rachwal. 
@@ -9,18 +9,18 @@ using System;
 using System.Threading.Tasks;
 using OpenRTM.Extension;
 using OpenRTM.IIOP;
-using RTM.Component.CameraStabilizer.Component;
-using RTM.Component.CameraStabilizer.Stabilizer;
+using RTM.Component.StereoImaging.Component;
+using RTM.Component.StereoImaging.Stereo;
 
-namespace RTM.Component.CameraStabilizer.Manager
+namespace RTM.Component.StereoImaging.Manager
 {
     public class ComponentManager : IComponentManager
     {
-        private readonly ICameraStabilizer cameraStabilizer;
+        private readonly IStereoImaging stereoImaging;
 
-        public ComponentManager(ICameraStabilizer stabilizer)
+        public ComponentManager(IStereoImaging stabilizer)
         {
-            cameraStabilizer = stabilizer;
+            stereoImaging = stabilizer;
         }
 
         public void Start(string[] args)
@@ -32,8 +32,8 @@ namespace RTM.Component.CameraStabilizer.Manager
                 manager.Activate();
                 try
                 {
-                    var comp = manager.CreateComponent<CameraStabilizerComponent>();
-                    comp.CameraStabilizer = cameraStabilizer;
+                    var comp = manager.CreateComponent<StereoImagingComponent>();
+                    comp.StereoImaging = stereoImaging;
 
                     Console.WriteLine(comp.GetComponentProfile().Format());
 

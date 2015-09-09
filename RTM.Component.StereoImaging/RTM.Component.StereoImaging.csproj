@@ -7,8 +7,8 @@
     <ProjectGuid>{988F652A-41AE-4F0A-AE1B-C16A01254985}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RTM.Component.CameraStabilizer</RootNamespace>
-    <AssemblyName>RTM.Component.CameraStabilizer</AssemblyName>
+    <RootNamespace>RTM.Component.StereoImaging</RootNamespace>
+    <AssemblyName>RTM.Component.StereoImaging</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -102,9 +102,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Component\CameraStabilizerComponent.cs" />
-    <Compile Include="Stabilizer\CameraStabilizer.cs" />
-    <Compile Include="Stabilizer\ICameraStabilizer.cs" />
+    <Compile Include="Component\StereoImagingComponent.cs" />
+    <Compile Include="Stereo\StereoImaging.cs" />
+    <Compile Include="Stereo\IStereoImaging.cs" />
     <Compile Include="Manager\ComponentManager.cs" />
     <Compile Include="Manager\IComponentManager.cs" />
     <Compile Include="Program.cs" />

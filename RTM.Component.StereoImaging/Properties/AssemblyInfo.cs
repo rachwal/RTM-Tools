@@ -1,5 +1,5 @@
 ﻿// RTM.Tools
-// RTM.Component.CameraStabilizer
+// RTM.Component.stereoImaging
 // AssemblyInfo.cs
 // 
 // Created by Bartosz Rachwal. 
@@ -12,11 +12,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("RTM.Component.CameraStabilizer")]
+[assembly: AssemblyTitle("RTM.Component.StereoImaging")]
 [assembly: AssemblyDescription("Created by Bartosz Rachwal")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The National Institute of Advanced Industrial Science and Technology, Japan")]
-[assembly: AssemblyProduct("RT Middleware Camera Stabilizer Component")]
+[assembly: AssemblyProduct("RT Middleware Stereo Imaging Component")]
 [assembly: AssemblyCopyright("Copyright © 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
