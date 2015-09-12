@@ -14,11 +14,11 @@ namespace RTM.Component.CameraMovementDetector.MovementDetector
     public interface ICameraMovementDetector
     {
         CameraImage Image { get; set; }
+        event EventHandler NewImage;
 
         Vectors Vectors { get; set; }
-        void ProcessImage(CameraImage image);
-
-        event EventHandler NewImage;
         event EventHandler NewVectors;
+
+        void ProcessImage(CameraImage image);
     }
 }

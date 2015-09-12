@@ -1,5 +1,5 @@
 ﻿// RTM.Tools
-// RTM.Component.stereoImaging
+// RTM.Component.StereoImaging
 // AssemblyInfo.cs
 // 
 // Created by Bartosz Rachwal. 

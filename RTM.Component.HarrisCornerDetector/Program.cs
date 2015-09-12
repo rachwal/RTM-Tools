@@ -44,7 +44,7 @@ namespace RTM.Component.HarrisCornerDetector
             container.RegisterType<IImagesDecoder<Bitmap>, Images.Decoder.Bitmap.BitmapDecoder>();
             container.RegisterType<ICameraImageConverter, CameraImageConverter>();
 
-            container.RegisterType<IDetector, HarrisDetector>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IHarrisDetector, HarrisDetector>(new ContainerControlledLifetimeManager());
             container.RegisterType<IComponentManager, ComponentManager>(new ContainerControlledLifetimeManager());
             container.RegisterType<IComponentConfiguration, ComponentConfiguration>(
                 new ContainerControlledLifetimeManager());

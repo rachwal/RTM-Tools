@@ -27,7 +27,7 @@ namespace RTM.Component._3DScene
 
         protected override DependencyObject CreateShell()
         {
-            var view = Container.TryResolve<DSceneView>();
+            var view = Container.TryResolve<SceneView>();
             return view;
         }
 

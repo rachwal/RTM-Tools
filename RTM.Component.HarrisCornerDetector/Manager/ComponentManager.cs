@@ -17,9 +17,9 @@ namespace RTM.Component.HarrisCornerDetector.Manager
     public class ComponentManager : IComponentManager
     {
         private readonly IComponentConfiguration componentConfiguration;
-        private readonly IDetector detector;
+        private readonly IHarrisDetector detector;
 
-        public ComponentManager(IDetector features, IComponentConfiguration configuration)
+        public ComponentManager(IHarrisDetector features, IComponentConfiguration configuration)
         {
             componentConfiguration = configuration;
             detector = features;
@@ -45,7 +45,7 @@ namespace RTM.Component.HarrisCornerDetector.Manager
                 catch (Exception)
                 {
                     Console.WriteLine();
-                    Console.WriteLine("Start naming service before running component");
+                    Console.WriteLine(@"Start naming service before running component");
                     Console.WriteLine(@"More info at http://www.openrtm.org/openrtm/en/node/1420");
                 }
             });

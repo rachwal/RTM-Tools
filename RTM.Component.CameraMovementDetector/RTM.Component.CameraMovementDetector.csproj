@@ -48,13 +48,11 @@
       <HintPath>..\packages\AForge.Math.2.2.5\lib\AForge.Math.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Emgu.CV, Version=3.0.0.2157, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\MyBuild\Debug\Emgu.CV.dll</HintPath>
+    <Reference Include="Emgu.CV">
+      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.CV.dll</HintPath>
     </Reference>
-    <Reference Include="Emgu.Util, Version=3.0.0.2157, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\MyBuild\Debug\Emgu.Util.dll</HintPath>
+    <Reference Include="Emgu.Util">
+      <HintPath>..\..\..\..\..\..\Emgu\emgucv-windows-universal-cuda 3.0.0.2158\bin\Emgu.Util.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -141,30 +139,36 @@
   <ItemGroup>
     <Compile Include="Component\CameraMovementDetectorComponent.cs" />
     <Compile Include="Configuration\ComponentConfiguration.cs" />
-    <Compile Include="CornersDetector\ChessboardCornersDetector.cs" />
     <Compile Include="Filter\FiltersFactory.cs" />
     <Compile Include="Filter\IFiltersFactory.cs" />
     <Compile Include="MovementDetector\CameraMovementDetector.cs" />
     <Compile Include="MovementDetector\ICameraMovementDetector.cs" />
     <Compile Include="Configuration\IComponentConfiguration.cs" />
-    <Compile Include="CornersDetector\ICornersDetector.cs" />
-    <Compile Include="VectorsCalculator\IVectorsCalculator.cs" />
     <Compile Include="Filter\IVectorsFilter.cs" />
     <Compile Include="Filter\VectorFilter.cs" />
-    <Compile Include="VectorsCalculator\VectorsCalculator.cs" />
     <Compile Include="Manager\ComponentManager.cs" />
     <Compile Include="Manager\IComponentManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VectorsCalculator\IVectorsCalculator.cs" />
+    <Compile Include="VectorsCalculator\VectorsCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RTM.Calculator.CameraCalibration\RTM.Calculator.CameraCalibration.csproj">
+      <Project>{6e8fe6ad-2463-459b-89d9-4c23b3c1a598}</Project>
+      <Name>RTM.Calculator.CameraCalibration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RTM.Converter.CameraImage\RTM.Converter.CameraImage.csproj">
       <Project>{0456936c-b92d-4d4d-8e3a-d655cb996c87}</Project>
       <Name>RTM.Converter.CameraImage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RTM.Detector.ChessboardCorners\RTM.Detector.ChessboardCorners.csproj">
+      <Project>{f6ee0986-c083-403b-84b0-af304218ba44}</Project>
+      <Name>RTM.Detector.ChessboardCorners</Name>
     </ProjectReference>
     <ProjectReference Include="..\RTM.DTO\RTM.DTO.csproj">
       <Project>{19a09a07-34ff-40ae-a3cc-5e6ccfc29bda}</Project>

@@ -15,15 +15,16 @@ namespace RTM.Component.CameraImageViewer.ImageProvider
     public class ImageProvider : IImageProvider
     {
         private readonly ICameraImageConverter converter;
+
         private Image image;
+
+        public event EventHandler NewImage;
 
         public ImageProvider(ICameraImageConverter cameraImageConverter)
         {
             converter = cameraImageConverter;
         }
-
-        public event EventHandler NewImage;
-
+        
         public Image Image
         {
             get { return image; }

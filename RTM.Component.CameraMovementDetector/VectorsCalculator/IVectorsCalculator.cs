@@ -13,6 +13,6 @@ namespace RTM.Component.CameraMovementDetector.VectorsCalculator
 {
     public interface IVectorsCalculator
     {
-        Vectors Calculate(VectorOfVectorOfPointF corners, Size size);
+        Vectors Calculate(VectorOfPointF cornerPoints, Size imageSize);
     }
 }

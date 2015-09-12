@@ -23,7 +23,8 @@ namespace RTM.Component._3DScene.Component
     [CustomProfile("Author", "Bartosz Rachwal")]
     public class SceneViewer : DataFlowComponent
     {
-        [InPort(PortName = "in")] private readonly InPort<Vectors> inport = new InPort<Vectors>();
+        [InPort(PortName = "vectors")]
+        private readonly InPort<Vectors> inport = new InPort<Vectors>();
 
         public IDataProvider DataProvider { get; set; }
 

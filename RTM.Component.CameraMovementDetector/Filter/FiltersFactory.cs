@@ -13,10 +13,10 @@ namespace RTM.Component.CameraMovementDetector.Filter
     public class FiltersFactory : IFiltersFactory
     {
         private readonly Matrix<float> errorCovPost = new Matrix<float>(2, 2);
-        private readonly Matrix<float> measurementMatrix = new Matrix<float>(new float[,] { { 1, 0 } });
+        private readonly Matrix<float> measurementMatrix = new Matrix<float>(new float[,] {{1, 0}});
         private readonly Matrix<float> measurementNoiseCov = new Matrix<float>(1, 1);
         private readonly Matrix<float> processNoiseCov = new Matrix<float>(2, 2);
-        private readonly Matrix<float> transitionMatrix = new Matrix<float>(new float[,] { { 1, 1 }, { 0, 1 } });
+        private readonly Matrix<float> transitionMatrix = new Matrix<float>(new float[,] {{1, 1}, {0, 1}});
 
         public KalmanFilter Create()
         {

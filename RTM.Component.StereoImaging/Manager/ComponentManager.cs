@@ -30,6 +30,7 @@ namespace RTM.Component.StereoImaging.Manager
                 var manager = new OpenRTM.Core.Manager(args);
                 manager.AddTypes(typeof (CorbaProtocolManager));
                 manager.Activate();
+
                 try
                 {
                     var comp = manager.CreateComponent<StereoImagingComponent>();
@@ -42,7 +43,7 @@ namespace RTM.Component.StereoImaging.Manager
                 catch (Exception)
                 {
                     Console.WriteLine();
-                    Console.WriteLine("Start naming service before running component");
+                    Console.WriteLine(@"Start naming service before running component");
                     Console.WriteLine(@"More info at http://www.openrtm.org/openrtm/en/node/1420");
                 }
             });

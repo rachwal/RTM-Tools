@@ -7,13 +7,14 @@
 
 using System;
 using Microsoft.Practices.Unity;
+using RTM.Calculator.CameraCalibration;
 using RTM.Component.CameraMovementDetector.Configuration;
-using RTM.Component.CameraMovementDetector.CornersDetector;
 using RTM.Component.CameraMovementDetector.Filter;
 using RTM.Component.CameraMovementDetector.Manager;
 using RTM.Component.CameraMovementDetector.MovementDetector;
 using RTM.Component.CameraMovementDetector.VectorsCalculator;
 using RTM.Converter.CameraImage;
+using RTM.Detector.ChessboardCorners;
 
 namespace RTM.Component.CameraMovementDetector
 {
@@ -32,12 +33,11 @@ namespace RTM.Component.CameraMovementDetector
             container.RegisterType<ICameraImageConverter, CameraImageConverter>();
             container.RegisterType<IVectorsFilter, VectorFilter>();
             container.RegisterType<IFiltersFactory, FiltersFactory>();
-            container.RegisterType<ICameraMovementDetector, MovementDetector.CameraMovementDetector>(
-                new ContainerControlledLifetimeManager());
-            container.RegisterType<ICornersDetector, ChessboardCornersDetector>();
+            container.RegisterType<ICameraMovementDetector, MovementDetector.CameraMovementDetector>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IChessboardCornersDetector, ChessboardCornersDetector>();
             container.RegisterType<IVectorsCalculator, VectorsCalculator.VectorsCalculator>();
-            container.RegisterType<IComponentConfiguration, ComponentConfiguration>(
-                new ContainerControlledLifetimeManager());
+            container.RegisterType<ICameraCalibration, CameraCalibration>();
+            container.RegisterType<IComponentConfiguration, ComponentConfiguration>(new ContainerControlledLifetimeManager());
             container.RegisterType<IComponentManager, ComponentManager>(new ContainerControlledLifetimeManager());
             container.Resolve<IComponentManager>().Start(args);
         }

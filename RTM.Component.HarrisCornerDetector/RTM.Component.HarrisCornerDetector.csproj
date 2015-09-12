@@ -121,10 +121,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Component\HarrisCornerDetector.cs" />
-    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Configuration\ComponentConfiguration.cs" />
     <Compile Include="Configuration\IComponentConfiguration.cs" />
     <Compile Include="Detector\HarrisDetector.cs" />
-    <Compile Include="Detector\IDetector.cs" />
+    <Compile Include="Detector\IHarrisDetector.cs" />
     <Compile Include="Manager\ComponentManager.cs" />
     <Compile Include="Manager\IComponentManager.cs" />
     <Compile Include="Program.cs" />

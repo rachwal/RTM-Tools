@@ -10,7 +10,7 @@ using OpenRTM.Core;
 
 namespace RTM.Component.HarrisCornerDetector.Detector
 {
-    public interface IDetector
+    public interface IHarrisDetector
     {
         CameraImage Image { get; set; }
         void Detect(CameraImage image);

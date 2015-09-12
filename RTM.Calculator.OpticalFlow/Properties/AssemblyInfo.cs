@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Created by Bartosz Rachwal")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The National Institute of Advanced Industrial Science and Technology, Japan")]
-[assembly: AssemblyProduct("RT Middleware OpticalFlow Calculator")]
+[assembly: AssemblyProduct("RT Middleware Optical Flow Calculator")]
 [assembly: AssemblyCopyright("Copyright © 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -13,9 +13,9 @@ using RTM.Component._3DScene.ViewModel;
 
 namespace RTM.Component._3DScene
 {
-    public partial class DSceneView
+    public partial class SceneView
     {
-        public DSceneView(ISceneViewModel viewModel)
+        public SceneView(ISceneViewModel viewModel)
         {
             InitializeComponent();
             ViewModel = viewModel;

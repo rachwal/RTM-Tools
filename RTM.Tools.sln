@@ -33,6 +33,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{9C644083-F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.Component.StereoImaging", "RTM.Component.StereoImaging\RTM.Component.StereoImaging.csproj", "{988F652A-41AE-4F0A-AE1B-C16A01254985}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.Calculator.StereoCalibration", "RTM.Calculator.StereoCalibration\RTM.Calculator.StereoCalibration.csproj", "{028DA264-2E37-4C62-9947-AC4C2F842E53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.Detector.ChessboardCorners", "RTM.Detector.ChessboardCorners\RTM.Detector.ChessboardCorners.csproj", "{F6EE0986-C083-403B-84B0-AF304218BA44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTM.Calculator.CameraCalibration", "RTM.Calculator.CameraCalibration\RTM.Calculator.CameraCalibration.csproj", "{6E8FE6AD-2463-459B-89D9-4C23B3C1A598}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +85,18 @@ Global
 		{988F652A-41AE-4F0A-AE1B-C16A01254985}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{988F652A-41AE-4F0A-AE1B-C16A01254985}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{988F652A-41AE-4F0A-AE1B-C16A01254985}.Release|Any CPU.Build.0 = Release|Any CPU
+		{028DA264-2E37-4C62-9947-AC4C2F842E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{028DA264-2E37-4C62-9947-AC4C2F842E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{028DA264-2E37-4C62-9947-AC4C2F842E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{028DA264-2E37-4C62-9947-AC4C2F842E53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6EE0986-C083-403B-84B0-AF304218BA44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6EE0986-C083-403B-84B0-AF304218BA44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6EE0986-C083-403B-84B0-AF304218BA44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6EE0986-C083-403B-84B0-AF304218BA44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E8FE6AD-2463-459B-89D9-4C23B3C1A598}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E8FE6AD-2463-459B-89D9-4C23B3C1A598}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E8FE6AD-2463-459B-89D9-4C23B3C1A598}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E8FE6AD-2463-459B-89D9-4C23B3C1A598}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,5 +112,8 @@ Global
 		{69EB4472-CE18-4671-BEF7-BB6ED32A1992} = {B42F34B9-F70C-44B2-AFF5-D5427BBDE1D4}
 		{3EF05BF5-56CD-4C56-A7E4-23F22E88C3AC} = {223A4CFC-F5A5-4708-BC14-86ECA3F521D2}
 		{988F652A-41AE-4F0A-AE1B-C16A01254985} = {2B5A0707-25E4-44C1-89B2-518C86292B4F}
+		{028DA264-2E37-4C62-9947-AC4C2F842E53} = {B42F34B9-F70C-44B2-AFF5-D5427BBDE1D4}
+		{F6EE0986-C083-403B-84B0-AF304218BA44} = {223A4CFC-F5A5-4708-BC14-86ECA3F521D2}
+		{6E8FE6AD-2463-459B-89D9-4C23B3C1A598} = {B42F34B9-F70C-44B2-AFF5-D5427BBDE1D4}
 	EndGlobalSection
 EndGlobal

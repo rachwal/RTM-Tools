@@ -12,9 +12,9 @@ using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using OpenRTM.Core;
 using RTM.Component.CameraMovementDetector.Configuration;
-using RTM.Component.CameraMovementDetector.CornersDetector;
 using RTM.Component.CameraMovementDetector.VectorsCalculator;
 using RTM.Converter.CameraImage;
+using RTM.Detector.ChessboardCorners;
 using RTM.DTO;
 
 namespace RTM.Component.CameraMovementDetector.MovementDetector
@@ -23,13 +23,16 @@ namespace RTM.Component.CameraMovementDetector.MovementDetector
     {
         private readonly IComponentConfiguration configuration;
         private readonly ICameraImageConverter converter;
-        private readonly ICornersDetector cornersDetector;
+        private readonly IChessboardCornersDetector cornersDetector;
         private readonly IVectorsCalculator vectorsCalculator;
+
+        public event EventHandler NewVectors;
+        public event EventHandler NewImage;
 
         private CameraImage image;
         private Vectors vectors;
 
-        public CameraMovementDetector(ICameraImageConverter imageConverter, ICornersDetector detector,
+        public CameraMovementDetector(ICameraImageConverter imageConverter, IChessboardCornersDetector detector,
             IVectorsCalculator calculator, IComponentConfiguration componentConfiguration)
         {
             converter = imageConverter;
@@ -37,8 +40,6 @@ namespace RTM.Component.CameraMovementDetector.MovementDetector
             cornersDetector = detector;
             configuration = componentConfiguration;
         }
-
-        public event EventHandler NewImage;
 
         public CameraImage Image
         {
@@ -60,18 +61,17 @@ namespace RTM.Component.CameraMovementDetector.MovementDetector
             }
         }
 
-        public event EventHandler NewVectors;
-
         public void ProcessImage(CameraImage cameraImage)
         {
             var bitmap = converter.ToBitmap(cameraImage);
+            var greyImage = new Image<Gray, byte>(bitmap);
 
-            var corners = cornersDetector.Detect(bitmap);
+            var cornerPoints = cornersDetector.Detect(greyImage, configuration.InnerCornersPerChessboardCols, configuration.InnerCornersPerChessboardRows);
 
-            if (cornersDetector.MatchFound(corners))
+            if (cornerPoints.Size > 1)
             {
-                Vectors = vectorsCalculator.Calculate(corners, bitmap.Size);
-                var colorImage = MarkChessboard(bitmap, corners);
+                Vectors = vectorsCalculator.Calculate(cornerPoints, greyImage.Size);
+                var colorImage = MarkChessboard(bitmap, cornerPoints);
                 Image = converter.Convert(colorImage.ToBitmap());
             }
             else
@@ -80,18 +80,18 @@ namespace RTM.Component.CameraMovementDetector.MovementDetector
             }
         }
 
-        private Image<Bgr, byte> MarkChessboard(Bitmap bitmap, VectorOfVectorOfPointF corners)
+        private Image<Bgr, byte> MarkChessboard(Bitmap bitmap, VectorOfPointF corners)
         {
             var width = configuration.InnerCornersPerChessboardCols;
             var height = configuration.InnerCornersPerChessboardRows;
 
             var colorImage = new Image<Bgr, byte>(bitmap);
-            colorImage.Draw(new LineSegment2DF(corners[0][0], corners[0][width - 1]), new Bgr(Color.Lime), 2);
-            colorImage.Draw(new LineSegment2DF(corners[0][width - 1], corners[0][width*height - 1]), new Bgr(Color.Lime),
+            colorImage.Draw(new LineSegment2DF(corners[0], corners[width - 1]), new Bgr(Color.Lime), 2);
+            colorImage.Draw(new LineSegment2DF(corners[width - 1], corners[width * height - 1]), new Bgr(Color.Lime),
                 2);
-            colorImage.Draw(new LineSegment2DF(corners[0][width*height - 1], corners[0][width*(height - 1)]),
+            colorImage.Draw(new LineSegment2DF(corners[width * height - 1], corners[width * (height - 1)]),
                 new Bgr(Color.Lime), 2);
-            colorImage.Draw(new LineSegment2DF(corners[0][width*(height - 1)], corners[0][0]), new Bgr(Color.Lime), 2);
+            colorImage.Draw(new LineSegment2DF(corners[width * (height - 1)], corners[0]), new Bgr(Color.Lime), 2);
 
             return colorImage;
         }

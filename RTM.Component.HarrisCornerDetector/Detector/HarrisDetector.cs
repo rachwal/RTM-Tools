@@ -18,7 +18,7 @@ using RTM.Images.Factory;
 
 namespace RTM.Component.HarrisCornerDetector.Detector
 {
-    public class HarrisDetector : IDetector
+    public class HarrisDetector : IHarrisDetector
     {
         private readonly ICameraImageConverter cameraConverter;
         private readonly IComponentConfiguration configuration;

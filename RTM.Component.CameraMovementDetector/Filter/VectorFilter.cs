@@ -21,7 +21,7 @@ namespace RTM.Component.CameraMovementDetector.Filter
         private KalmanFilter yawFilter;
         private KalmanFilter yFilter;
         private KalmanFilter zFilter;
-        
+
         public VectorFilter(IFiltersFactory filtersFactory)
         {
             factory = filtersFactory;
@@ -39,13 +39,13 @@ namespace RTM.Component.CameraMovementDetector.Filter
 
             return new Vectors
             {
-                Translation = new Vector3D { X = x, Y = y, Z = z },
+                Translation = new Vector3D {X = x, Y = y, Z = z},
                 Rotation =
                     new Vector3D
                     {
-                        X = roll * 57.2957795,
-                        Y = yaw * 57.2957795,
-                        Z = pitch * 57.2957795
+                        X = roll*57.2957795,
+                        Y = yaw*57.2957795,
+                        Z = pitch*57.2957795
                     }
             };
         }
@@ -60,7 +60,7 @@ namespace RTM.Component.CameraMovementDetector.Filter
             var corrected = new float[2, 1];
             var measurement = new Matrix<float>(1, 1)
             {
-                [0, 0] = (float)value
+                [0, 0] = (float) value
             };
 
             filter.Correct(measurement.Mat);

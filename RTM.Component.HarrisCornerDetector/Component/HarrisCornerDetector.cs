@@ -25,19 +25,23 @@ namespace RTM.Component.HarrisCornerDetector.Component
     [CustomProfile("Author", "Bartosz Rachwal")]
     public class HarrisCornerDetector : DataFlowComponent
     {
-        [InPort(PortName = "in")] private readonly InPort<CameraImage> inport = new InPort<CameraImage>();
+        [InPort(PortName = "camera")]
+        private readonly InPort<CameraImage> inport = new InPort<CameraImage>();
 
-        [OutPort(PortName = "out")] private readonly OutPort<CameraImage> outport = new OutPort<CameraImage>();
+        [OutPort(PortName = "camera")]
+        private readonly OutPort<CameraImage> outport = new OutPort<CameraImage>();
+
+        public IComponentConfiguration Configuration { get; set; }
 
         private ConfigurationSet configurationSet;
-        private IDetector detector;
-
+        private IHarrisDetector detector;
+        
         public HarrisCornerDetector()
         {
             Config.OnSetConfigurationSet += OnSetConfigurationSet;
         }
 
-        public IDetector Detector
+        public IHarrisDetector Detector
         {
             get { return detector; }
             set
@@ -49,10 +53,7 @@ namespace RTM.Component.HarrisCornerDetector.Component
                 }
             }
         }
-
-        public IComponentConfiguration Configuration { get; set; }
-
-
+        
         [Configuration(DefaultValue = "1.4", Name = "Sigma")]
         public double Sigma
         {

@@ -1,0 +1,75 @@
+﻿<Window x:Class="RTM.Component.StereoImaging.Settings.View.SettingsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        Height="620" Width="300"
+        Title="Stereo Imaging Settings">
+    <Grid>
+        <ScrollViewer>
+            <StackPanel Margin="10">
+
+                <StackPanel>
+                    <Label Content="{Binding MinDisparityLabel}" />
+                    <Slider Minimum="0" Maximum="100" SmallChange="1" Value="{Binding MinDisparity, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="{Binding NumDisparitiesLabel}" />
+                    <Slider Minimum="16" Maximum="360" SmallChange="16" Value="{Binding NumDisparities}" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="{Binding BlockSizeLabel}" />
+                    <Slider Minimum="0" Maximum="21" SmallChange="1" Value="{Binding BlockSize}" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="{Binding P1Label}" />
+                    <Slider Minimum="0" Maximum="2000" SmallChange="1" Value="{Binding P1}" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="{Binding P2Label}" />
+                    <Slider Minimum="0" Maximum="2000" SmallChange="1" Value="{Binding P2}" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="{Binding Disp12MaxDiffLabel}" />
+                    <Slider Minimum="-1" Maximum="100" SmallChange="1" Value="{Binding Disp12MaxDiff}" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="{Binding PreFilterCapLabel}" />
+                    <Slider Minimum="0" Maximum="255" SmallChange="1" Value="{Binding PreFilterCap}" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="{Binding UniquenessRatioLabel}" />
+                    <Slider Minimum="0" Maximum="100" SmallChange="1" Value="{Binding UniquenessRatio}" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="{Binding SpeckleWindowSizeLabel}" />
+                    <Slider Minimum="0" Maximum="400" SmallChange="20" Value="{Binding SpeckleWindowSize}" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="{Binding SpeckleRangeLabel}" />
+                    <Slider Minimum="1" Maximum="10" SmallChange="1" Value="{Binding SpeckleRange}" />
+                </StackPanel>
+
+                <Separator Margin="10,10,0,01" />
+                <StackPanel>
+                    <Label Content="{Binding CalibrationFramesLabel}" />
+                    <Slider Minimum="1" Maximum="100" SmallChange="5" Value="{Binding NumCalibFrames, Mode=TwoWay}" />
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="{Binding CalibrationStatusLabel}" />
+                    <Button Margin="10" Content="Calibrate" Command="{Binding Calibrate}" />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

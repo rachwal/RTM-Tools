@@ -12,9 +12,16 @@ namespace RTM.Component.StereoImaging.Stereo
 {
     public interface IStereoImaging
     {
-        CameraImage Image { get; set; }
+        CameraImage DisparityMap { get; set; }
+        CameraImage Camera1Image { get; set; }
+        CameraImage Camera2Image { get; set; }
 
-        event EventHandler NewImage;
+        event EventHandler NewDisparityMap;
+
+        event EventHandler NewCamera1Image;
+
+        event EventHandler NewCamera2Image;
+
         void ProcessImage1(CameraImage image);
         void ProcessImage2(CameraImage image);
     }
