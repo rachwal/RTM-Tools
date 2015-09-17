@@ -20,7 +20,7 @@ namespace RTM.Component.StereoImaging.Disparity
             configuration = componentConfiguration;
         }
 
-        public Image<Gray, short> Solve(Image<Gray, byte> left, Image<Gray, byte> right)
+        public Image<Gray, byte> Solve(Image<Gray, byte> left, Image<Gray, byte> right)
         {
             using (var stereoSolver = new StereoSGBM(configuration.MinDisparity, configuration.NumDisparities,
                 configuration.BlockSize, configuration.P1, configuration.P2, configuration.Disp12MaxDiff,
@@ -28,7 +28,7 @@ namespace RTM.Component.StereoImaging.Disparity
             {
                 var disparity = new Image<Gray, short>(left.Size);
                 stereoSolver.Compute(left, right, disparity);
-                return disparity;
+                return disparity.Convert<Gray, byte>();
             }
         }
     }

@@ -24,6 +24,11 @@ namespace RTM.Component.StereoImaging.CameraCalibration
         private readonly VectorOfVectorOfPointF cornersPointsLeft = new VectorOfVectorOfPointF();
         private readonly VectorOfVectorOfPointF cornersPointsRight = new VectorOfVectorOfPointF();
 
+        public IInputArray LeftMapX => stereo.LeftMapX;
+        public IInputArray LeftMapY => stereo.LeftMapY;
+        public IInputArray RightMapX => stereo.RightMapX;
+        public IInputArray RightMapY => stereo.RightMapY;
+
         public Calibration(IComponentConfiguration componentConfiguration, IChessboardCornersDetector cornersDetector,
             IStereoCalibration stereoCalibration)
         {

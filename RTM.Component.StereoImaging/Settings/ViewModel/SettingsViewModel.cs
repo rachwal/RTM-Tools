@@ -25,7 +25,7 @@ namespace RTM.Component.StereoImaging.Settings.ViewModel
             configuration.CalibrationStatusChanged += OnCalibrationStatusFramesChanged;
         }
 
-        private void OnCalibrationStatusFramesChanged(object sender, System.EventArgs e)
+        private void OnCalibrationStatusFramesChanged(object sender, EventArgs e)
         {
             OnPropertyChanged(nameof(CalibrationStatusLabel));
         }

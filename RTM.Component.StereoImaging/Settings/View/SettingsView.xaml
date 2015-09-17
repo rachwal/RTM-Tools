@@ -17,12 +17,12 @@
 
                 <StackPanel>
                     <Label Content="{Binding NumDisparitiesLabel}" />
-                    <Slider Minimum="16" Maximum="360" SmallChange="16" Value="{Binding NumDisparities}" />
+                    <Slider Minimum="32" Maximum="256" SmallChange="16" Value="{Binding NumDisparities}" />
                 </StackPanel>
 
                 <StackPanel>
                     <Label Content="{Binding BlockSizeLabel}" />
-                    <Slider Minimum="0" Maximum="21" SmallChange="1" Value="{Binding BlockSize}" />
+                    <Slider Minimum="3" Maximum="21" SmallChange="1" Value="{Binding BlockSize}" />
                 </StackPanel>
 
                 <StackPanel>

@@ -13,5 +13,9 @@ namespace RTM.Component.StereoImaging.CameraCalibration
     public interface ICalibration
     {
         void Calibrate(Image<Gray, byte> leftGrayImage, Image<Gray, byte> rightGrayImage);
+        IInputArray LeftMapX { get; }
+        IInputArray LeftMapY { get; }
+        IInputArray RightMapX { get; }
+        IInputArray RightMapY { get; }
     }
 }

@@ -7,6 +7,7 @@
 
 using System;
 using Emgu.CV;
+using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using OpenRTM.Core;
 using RTM.Component.StereoImaging.CameraCalibration;
@@ -119,8 +120,20 @@ namespace RTM.Component.StereoImaging.Stereo
 
         private void Process(Image<Gray, byte> left, Image<Gray, byte> right)
         {
+            if (configuration.CalibrationStatus == CalibrationStatus.Calibrated)
+            {
+                var leftImage = left.CopyBlank();
+                CvInvoke.Remap(left, leftImage, calibration.LeftMapX, calibration.LeftMapY,
+                    Inter.Linear);
+
+                var rightImage = right.CopyBlank();
+                CvInvoke.Remap(right, rightImage, calibration.RightMapX, calibration.RightMapY,
+                    Inter.Linear);
+            }
+
             var disparityImage = disparity.Solve(left, right);
-            UpdateResult(disparityImage);
+
+            UpdateResult(disparityImage.Copy());
         }
 
         private void UpdateResult(IImage disparityImage)

@@ -96,7 +96,7 @@ namespace RTM.Component.StereoImaging.Configuration
         {
             MinDisparity = 0;
             NumDisparities = 128;
-            BlockSize = 1;
+            BlockSize = 7;
             Disp12MaxDiff = -1;
             PreFilterCap = 0;
             UniquenessRatio = 0;

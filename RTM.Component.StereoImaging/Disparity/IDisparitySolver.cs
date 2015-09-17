@@ -12,6 +12,6 @@ namespace RTM.Component.StereoImaging.Disparity
 {
     public interface IDisparitySolver
     {
-        Image<Gray, short> Solve(Image<Gray, byte> left, Image<Gray, byte> right);
+        Image<Gray, byte> Solve(Image<Gray, byte> left, Image<Gray, byte> right);
     }
 }

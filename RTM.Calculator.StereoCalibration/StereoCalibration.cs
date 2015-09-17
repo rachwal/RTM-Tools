@@ -17,67 +17,105 @@ namespace RTM.Calculator.StereoCalibration
 {
     public class StereoCalibration : IStereoCalibration
     {
-        private Matrix<double> camera1DistortionCoeffs = new Matrix<double>(5, 1);
-        private Matrix<double> camera1Matrix = new Matrix<double>(3, 3);
-        private Matrix<double> camera1Projection = new Matrix<double>(3, 4);
-        private Matrix<double> camera1Rectification = new Matrix<double>(3, 3);
+        public Matrix<double> LeftCameraMatrix { get; private set; }
+        public Matrix<double> LeftCameraDistortionCoeffs { get; private set; }
+        public Matrix<double> LeftCameraProjection { get; private set; }
+        public Matrix<double> LeftCameraRectification { get; private set; }
 
-        private Matrix<double> camera2DistortionCoeffs = new Matrix<double>(5, 1);
-        private Matrix<double> camera2Matrix = new Matrix<double>(3, 3);
-        private Matrix<double> camera2Projection = new Matrix<double>(3, 4);
-        private Matrix<double> camera2Rectification = new Matrix<double>(3, 3);
+        public Rectangle LeftImageROI
+        {
+            get { return leftImageRoi; }
+            private set { leftImageRoi = value; }
+        }
 
-        private Matrix<double> disparityToDepth = new Matrix<double>(4, 4);
-        private Matrix<double> essential = new Matrix<double>(3, 3);
+        public Matrix<float> LeftMapX { get; private set; }
+        public Matrix<float> LeftMapY { get; private set; }
 
-        private Matrix<double> fundamental = new Matrix<double>(3, 3);
+        public Matrix<double> RightCameraMatrix { get; private set; }
+        public Matrix<double> RightCameraDistortionCoeffs { get; private set; }
+        public Matrix<double> RightCameraProjection { get; private set; }
+        public Matrix<double> RightCameraRectification { get; private set; }
+        public Matrix<float> RightMapX { get; private set; }
+        public Matrix<float> RightMapY { get; private set; }
 
-        private Rectangle image1ROI;
-        private Rectangle image2ROI;
+        public Matrix<double> Rotation { get; private set; }
+        public Matrix<double> Translation { get; private set; }
+        public Matrix<double> Fundamental { get; private set; }
+        public Matrix<double> Essential { get; private set; }
+        public Matrix<double> DisparityToDepth { get; private set; }
+
+        public Rectangle RightImageROI
+        {
+            get { return rightImageRoi; }
+            private set { rightImageRoi = value; }
+        }
 
         private MCvPoint3D32f[][] modelPoints;
-
-        private RotationVector3D rotation = new RotationVector3D();
-        private Matrix<double> translation = new Matrix<double>(3, 1);
-
-        public Matrix<double> Camera1Matrix => camera1Matrix;
-        public Matrix<double> Camera1DistortionCoeffs => camera1DistortionCoeffs;
-        public Matrix<double> Camera1Rectification => camera1Rectification;
-        public Matrix<double> Camera1Projection => camera1Projection;
-
-        public Matrix<double> Camera2Matrix => camera2Matrix;
-        public Matrix<double> Camera2DistortionCoeffs => camera2DistortionCoeffs;
-        public Matrix<double> Camera2Rectification => camera2Rectification;
-        public Matrix<double> Camera2Projection => camera2Projection;
-
-        public Matrix<double> DisparityToDepth => disparityToDepth;
-        public RotationVector3D Rotation => rotation;
-        public Matrix<double> Translation => translation;
-        public Matrix<double> Fundamental => fundamental;
-        public Matrix<double> Essential => essential;
-        public Rectangle Image1ROI => image1ROI;
-        public Rectangle Image2ROI => image2ROI;
+        private Rectangle rightImageRoi;
+        private Rectangle leftImageRoi;
 
         public void Calibrate(VectorOfVectorOfPointF cornersPointsLeft, VectorOfVectorOfPointF cornersPointsRight,
             int innerCornersPerChessboardCols, int innerCornersPerChessboardRows, Size imageSize)
         {
-            if (cornersPointsLeft.Size != cornersPointsRight.Size)
-            {
-                throw new Exception(
-                    $"cornersPointsLeft.Size: {cornersPointsLeft.Size} should be equal to cornersPointsRight.Size: {cornersPointsRight.Size}");
-            }
-
-            CreateModelPoints(cornersPointsLeft.Size, innerCornersPerChessboardCols, innerCornersPerChessboardRows);
+            Initialize(cornersPointsLeft.Size, cornersPointsRight.Size, innerCornersPerChessboardCols,
+                innerCornersPerChessboardRows, imageSize);
 
             CvInvoke.StereoCalibrate(modelPoints, cornersPointsLeft.ToArrayOfArray(),
-                cornersPointsRight.ToArrayOfArray(), camera1Matrix,
-                camera1DistortionCoeffs, camera2Matrix, camera2DistortionCoeffs, imageSize, rotation, translation,
-                essential, fundamental, CalibType.Default, new MCvTermCriteria(0.1e5));
+                cornersPointsRight.ToArrayOfArray(), LeftCameraMatrix,
+                LeftCameraDistortionCoeffs, RightCameraMatrix, RightCameraDistortionCoeffs, imageSize, Rotation,
+                Translation,
+                Essential, Fundamental, CalibType.Default, new MCvTermCriteria(0.1e5));
 
-            CvInvoke.StereoRectify(camera1Matrix, camera1DistortionCoeffs, camera2Matrix, camera2DistortionCoeffs,
-                imageSize, rotation, translation, camera1Rectification, camera2Rectification, camera1Projection,
-                camera2Projection, disparityToDepth, StereoRectifyType.Default, 0, imageSize, ref image1ROI,
-                ref image2ROI);
+            CvInvoke.StereoRectify(LeftCameraMatrix, LeftCameraDistortionCoeffs,
+                RightCameraMatrix, RightCameraDistortionCoeffs, imageSize,
+                Rotation, Translation, LeftCameraRectification, RightCameraRectification,
+                LeftCameraProjection, RightCameraProjection, DisparityToDepth, StereoRectifyType.Default, 0, imageSize,
+                ref rightImageRoi,
+                ref rightImageRoi);
+
+            CvInvoke.InitUndistortRectifyMap(LeftCameraMatrix, LeftCameraDistortionCoeffs,
+                null, LeftCameraMatrix, imageSize, DepthType.Cv32F, LeftMapX, LeftMapY);
+
+            CvInvoke.InitUndistortRectifyMap(RightCameraMatrix, RightCameraDistortionCoeffs,
+                null, RightCameraMatrix, imageSize, DepthType.Cv32F, RightMapX, RightMapY);
+        }
+
+        private void Initialize(int cornersPointsLeft, int cornersPointsRight, int innerCornersPerChessboardCols,
+            int innerCornersPerChessboardRows, Size imageSize)
+        {
+            if (cornersPointsLeft != cornersPointsRight)
+            {
+                throw new Exception(
+                    $"cornersPointsLeft.Size: {cornersPointsLeft} should be equal to cornersPointsRight.Size: {cornersPointsRight}");
+            }
+
+            CreateModelPoints(cornersPointsLeft, innerCornersPerChessboardCols, innerCornersPerChessboardRows);
+
+            LeftCameraDistortionCoeffs = new Matrix<double>(5, 1);
+            LeftCameraMatrix = new Matrix<double>(3, 3);
+
+            RightCameraDistortionCoeffs = new Matrix<double>(5, 1);
+            RightCameraMatrix = new Matrix<double>(3, 3);
+
+            Essential = new Matrix<double>(3, 3);
+            Fundamental = new Matrix<double>(3, 3);
+
+            Rotation = new Matrix<double>(3, 3);
+            Translation = new Matrix<double>(3, 1);
+
+            LeftCameraProjection = new Matrix<double>(3, 4);
+            LeftCameraRectification = new Matrix<double>(3, 3);
+            RightCameraProjection = new Matrix<double>(3, 4);
+            RightCameraRectification = new Matrix<double>(3, 3);
+            DisparityToDepth = new Matrix<double>(4, 4);
+
+            LeftImageROI = new Rectangle(0, 0, imageSize.Width, imageSize.Height);
+            RightImageROI = new Rectangle(0, 0, imageSize.Width, imageSize.Height);
+
+            LeftMapX = new Matrix<float>(imageSize);
+            LeftMapY = new Matrix<float>(imageSize);
+            RightMapX = new Matrix<float>(imageSize);
+            RightMapY = new Matrix<float>(imageSize);
         }
 
         private void CreateModelPoints(int length, int innerCornersPerChessboardCols, int innerCornersPerChessboardRows)

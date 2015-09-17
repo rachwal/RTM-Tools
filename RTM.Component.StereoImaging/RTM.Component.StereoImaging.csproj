@@ -153,8 +153,12 @@
     <Compile Include="CameraCalibration\Calibration.cs" />
     <Compile Include="CameraCalibration\ICalibration.cs" />
     <Compile Include="Component\StereoImagingComponent.cs" />
+    <Compile Include="Disparity\CudaDisparitySolver.cs" />
     <Compile Include="Disparity\DisparitySolver.cs" />
     <Compile Include="Disparity\IDisparitySolver.cs" />
+    <Compile Include="Settings\View\CudaSettingsView.xaml.cs">
+      <DependentUpon>CudaSettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StereoImagingBootstrapper.cs" />
     <Compile Include="Stereo\StereoImaging.cs" />
     <Compile Include="Stereo\IStereoImaging.cs" />
@@ -197,6 +201,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Settings\View\CudaSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Settings\View\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
