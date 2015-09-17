@@ -66,7 +66,8 @@ namespace RTM.Component.CameraMovementDetector.MovementDetector
             var bitmap = converter.ToBitmap(cameraImage);
             var greyImage = new Image<Gray, byte>(bitmap);
 
-            var cornerPoints = cornersDetector.Detect(greyImage, configuration.InnerCornersPerChessboardCols, configuration.InnerCornersPerChessboardRows);
+            var cornerPoints = cornersDetector.Detect(greyImage, configuration.InnerCornersPerChessboardCols,
+                configuration.InnerCornersPerChessboardRows);
 
             if (cornerPoints.Size > 1)
             {
@@ -87,11 +88,11 @@ namespace RTM.Component.CameraMovementDetector.MovementDetector
 
             var colorImage = new Image<Bgr, byte>(bitmap);
             colorImage.Draw(new LineSegment2DF(corners[0], corners[width - 1]), new Bgr(Color.Lime), 2);
-            colorImage.Draw(new LineSegment2DF(corners[width - 1], corners[width * height - 1]), new Bgr(Color.Lime),
+            colorImage.Draw(new LineSegment2DF(corners[width - 1], corners[width*height - 1]), new Bgr(Color.Lime),
                 2);
-            colorImage.Draw(new LineSegment2DF(corners[width * height - 1], corners[width * (height - 1)]),
+            colorImage.Draw(new LineSegment2DF(corners[width*height - 1], corners[width*(height - 1)]),
                 new Bgr(Color.Lime), 2);
-            colorImage.Draw(new LineSegment2DF(corners[width * (height - 1)], corners[0]), new Bgr(Color.Lime), 2);
+            colorImage.Draw(new LineSegment2DF(corners[width*(height - 1)], corners[0]), new Bgr(Color.Lime), 2);
 
             return colorImage;
         }

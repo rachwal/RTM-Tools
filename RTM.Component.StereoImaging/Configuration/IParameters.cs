@@ -17,8 +17,6 @@ namespace RTM.Component.StereoImaging.Configuration
         int Disp12MaxDiff { get; set; }
         int PreFilterCap { get; set; }
         int UniquenessRatio { get; set; }
-        int SpeckleWindowSize { get; set; }
-        int SpeckleRange { get; set; }
         int NumCalibFrames { get; set; }
     }
 }

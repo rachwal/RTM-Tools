@@ -1,6 +1,6 @@
 ﻿// RTM.Tools
 // RTM.Component.StereoImaging
-// IDisparitySolver.cs
+// ICalibration.cs
 // 
 // Created by Bartosz Rachwal. 
 // Copyright (c) 2015 Bartosz Rachwal. The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
@@ -8,10 +8,10 @@
 using Emgu.CV;
 using Emgu.CV.Structure;
 
-namespace RTM.Component.StereoImaging.Disparity
+namespace RTM.Component.StereoImaging.CameraCalibration
 {
-    public interface IDisparitySolver
+    public interface ICalibration
     {
-        Image<Gray, short> Solve(Image<Gray, byte> left, Image<Gray, byte> right);
+        void Calibrate(Image<Gray, byte> leftGrayImage, Image<Gray, byte> rightGrayImage);
     }
 }

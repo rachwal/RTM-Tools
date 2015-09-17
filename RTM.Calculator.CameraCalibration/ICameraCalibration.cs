@@ -18,6 +18,7 @@ namespace RTM.Calculator.CameraCalibration
         RotationVector3D Rotation { get; }
         Matrix<double> Translation { get; }
 
-        void Calibrate(VectorOfVectorOfPointF cornersPoints, Size imageSize, int innerCornersPerChessboardCols, int innerCornersPerChessboardRows);
+        void Calibrate(VectorOfVectorOfPointF cornersPoints, Size imageSize, int innerCornersPerChessboardCols,
+            int innerCornersPerChessboardRows);
     }
 }

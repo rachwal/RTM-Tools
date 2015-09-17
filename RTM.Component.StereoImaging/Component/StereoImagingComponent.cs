@@ -23,20 +23,19 @@ namespace RTM.Component.StereoImaging.Component
     [CustomProfile("Author", "Bartosz Rachwal")]
     public class StereoImagingComponent : DataFlowComponent
     {
-        [InPort(PortName = "camera1")]
-        private readonly InPort<CameraImage> camera1In = new InPort<CameraImage>();
+        [InPort(PortName = "leftCamera")] private readonly InPort<CameraImage> leftCameraIn = new InPort<CameraImage>();
 
-        [OutPort(PortName = "camera1")]
-        private readonly OutPort<CameraImage> camera1Out = new OutPort<CameraImage>();
+        [OutPort(PortName = "leftCamera")] private readonly OutPort<CameraImage> leftCameraOut =
+            new OutPort<CameraImage>();
 
-        [InPort(PortName = "camera2")]
-        private readonly InPort<CameraImage> camera2In = new InPort<CameraImage>();
+        [InPort(PortName = "rightCamera")] private readonly InPort<CameraImage> rightCameraIn =
+            new InPort<CameraImage>();
 
-        [OutPort(PortName = "camera2")]
-        private readonly OutPort<CameraImage> camera2Out = new OutPort<CameraImage>();
+        [OutPort(PortName = "rightCamera")] private readonly OutPort<CameraImage> rightCameraOut =
+            new OutPort<CameraImage>();
 
-        [OutPort(PortName = "disparityMap")]
-        private readonly OutPort<CameraImage> disparityMap = new OutPort<CameraImage>();
+        [OutPort(PortName = "disparityMap")] private readonly OutPort<CameraImage> disparityMap =
+            new OutPort<CameraImage>();
 
         private IStereoImaging stereoImaging;
 
@@ -51,19 +50,19 @@ namespace RTM.Component.StereoImaging.Component
                     return;
                 }
                 StereoImaging.NewDisparityMap += OnNewDisparityMap;
-                StereoImaging.NewCamera1Image += OnNewCamera1Image;
-                stereoImaging.NewCamera2Image += OnNewCamera2Image;
+                StereoImaging.NewLeftCameraImage += OnNewLeftCameraImage;
+                stereoImaging.NewRightCameraImage += OnNewRightCameraImage;
             }
         }
 
-        private void OnNewCamera2Image(object sender, EventArgs e)
+        private void OnNewRightCameraImage(object sender, EventArgs e)
         {
-            camera2Out.Write(StereoImaging.Camera2Image);
+            rightCameraOut.Write(StereoImaging.RightCameraImage);
         }
 
-        private void OnNewCamera1Image(object sender, EventArgs e)
+        private void OnNewLeftCameraImage(object sender, EventArgs e)
         {
-            camera1Out.Write(StereoImaging.Camera1Image);
+            leftCameraOut.Write(StereoImaging.LeftCameraImage);
         }
 
         private void OnNewDisparityMap(object sender, EventArgs e)
@@ -73,25 +72,25 @@ namespace RTM.Component.StereoImaging.Component
 
         protected override ReturnCode_t OnActivated(int execHandle)
         {
-            camera1In.OnWrite += ProcessCamera1;
-            camera2In.OnWrite += ProcessCamera2;
+            leftCameraIn.OnWrite += ProcessLeftCamera;
+            rightCameraIn.OnWrite += ProcessRightCamera;
             return base.OnActivated(execHandle);
         }
 
-        private void ProcessCamera2(CameraImage image)
+        private void ProcessRightCamera(CameraImage image)
         {
-            StereoImaging.ProcessImage1(image);
+            StereoImaging.ProcessRightImage(image);
         }
 
-        private void ProcessCamera1(CameraImage image)
+        private void ProcessLeftCamera(CameraImage image)
         {
-            StereoImaging.ProcessImage2(image);
+            StereoImaging.ProcessLeftImage(image);
         }
 
         protected override ReturnCode_t OnDeactivated(int execHandle)
         {
-            camera1In.OnWrite -= ProcessCamera1;
-            camera2In.OnWrite -= ProcessCamera2;
+            leftCameraIn.OnWrite -= ProcessLeftCamera;
+            rightCameraIn.OnWrite -= ProcessRightCamera;
             return base.OnDeactivated(execHandle);
         }
     }

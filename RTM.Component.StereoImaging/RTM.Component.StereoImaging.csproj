@@ -150,6 +150,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CameraCalibration\Calibration.cs" />
+    <Compile Include="CameraCalibration\ICalibration.cs" />
     <Compile Include="Component\StereoImagingComponent.cs" />
     <Compile Include="Disparity\DisparitySolver.cs" />
     <Compile Include="Disparity\IDisparitySolver.cs" />

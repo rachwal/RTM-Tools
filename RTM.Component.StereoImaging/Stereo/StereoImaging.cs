@@ -8,13 +8,11 @@
 using System;
 using Emgu.CV;
 using Emgu.CV.Structure;
-using Emgu.CV.Util;
 using OpenRTM.Core;
-using RTM.Calculator.StereoCalibration;
+using RTM.Component.StereoImaging.CameraCalibration;
 using RTM.Component.StereoImaging.Configuration;
 using RTM.Component.StereoImaging.Disparity;
 using RTM.Converter.CameraImage;
-using RTM.Detector.ChessboardCorners;
 
 namespace RTM.Component.StereoImaging.Stereo
 {
@@ -22,39 +20,32 @@ namespace RTM.Component.StereoImaging.Stereo
     {
         private readonly IComponentConfiguration configuration;
         private readonly ICameraImageConverter converter;
-        private readonly IChessboardCornersDetector detector;
-        private readonly IStereoCalibration stereo;
         private readonly IDisparitySolver disparity;
-
-        private CameraImage camera1Image;
-        private CameraImage camera2Image;
-        private CameraImage disparityMap;
-
-        private CameraImage leftCameraImage;
-        private CameraImage rightCameraImage;
-
-        private readonly VectorOfVectorOfPointF cornersPointsLeft = new VectorOfVectorOfPointF();
-        private readonly VectorOfVectorOfPointF cornersPointsRight = new VectorOfVectorOfPointF();
+        private readonly ICalibration calibration;
 
         private volatile bool processing;
 
-        public CameraImage Camera1Image
+        private CameraImage rightCameraImage;
+        private CameraImage leftCameraImage;
+        private CameraImage disparityMap;
+
+        public CameraImage RightCameraImage
         {
-            get { return camera1Image; }
+            get { return rightCameraImage; }
             set
             {
-                camera1Image = value;
-                NewCamera1Image?.Invoke(this, EventArgs.Empty);
+                rightCameraImage = value;
+                NewRightCameraImage?.Invoke(this, EventArgs.Empty);
             }
         }
 
-        public CameraImage Camera2Image
+        public CameraImage LeftCameraImage
         {
-            get { return camera2Image; }
+            get { return leftCameraImage; }
             set
             {
-                camera2Image = value;
-                NewCamera2Image?.Invoke(this, EventArgs.Empty);
+                leftCameraImage = value;
+                NewLeftCameraImage?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -68,127 +59,75 @@ namespace RTM.Component.StereoImaging.Stereo
             }
         }
 
-        public event EventHandler NewCamera1Image;
-        public event EventHandler NewCamera2Image;
+        public event EventHandler NewRightCameraImage;
+        public event EventHandler NewLeftCameraImage;
         public event EventHandler NewDisparityMap;
 
-        public StereoImaging(IChessboardCornersDetector chessboardCornersDetector, IStereoCalibration stereoStereo, IDisparitySolver disparitySolver,
+        public StereoImaging(IDisparitySolver disparitySolver, ICalibration cameraCalibration,
             ICameraImageConverter cameraImageConverter, IComponentConfiguration componentConfiguration)
         {
+            calibration = cameraCalibration;
             disparity = disparitySolver;
-            stereo = stereoStereo;
-            detector = chessboardCornersDetector;
             converter = cameraImageConverter;
+
             configuration = componentConfiguration;
-            configuration.CalibratedChanged += OnCalibratedChanged;
+
+            NewLeftCameraImage += OnNewCameraImage;
+            NewRightCameraImage += OnNewCameraImage;
+            NewDisparityMap += OnNewDisparityMap;
         }
 
-        private void OnCalibratedChanged(object sender, EventArgs e)
+        private void OnNewDisparityMap(object sender, EventArgs e)
         {
-            if (configuration.Calibrated)
+            processing = false;
+        }
+
+        public void ProcessLeftImage(CameraImage cameraImage)
+        {
+            LeftCameraImage = cameraImage;
+        }
+
+        public void ProcessRightImage(CameraImage cameraImage)
+        {
+            RightCameraImage = cameraImage;
+        }
+
+        private void OnNewCameraImage(object sender, EventArgs e)
+        {
+            if (processing || LeftCameraImage == null || RightCameraImage == null)
             {
                 return;
             }
-            cornersPointsLeft.Clear();
-            cornersPointsRight.Clear();
-        }
 
-        public void ProcessImage2(CameraImage cameraImage)
-        {
-            if (leftCameraImage == null)
-            {
-                leftCameraImage = cameraImage.Copy();
-                return;
-            }
-
-            Camera2Image = cameraImage;
-
-            if (!processing && rightCameraImage != null)
-            {
-                Process();
-            }
-        }
-
-        public void ProcessImage1(CameraImage cameraImage)
-        {
-            if (rightCameraImage == null)
-            {
-                rightCameraImage = cameraImage.Copy();
-                return;
-            }
-
-            Camera1Image = cameraImage;
-
-            if (!processing && leftCameraImage != null)
-            {
-                Process();
-            }
-        }
-
-        private void Process()
-        {
             processing = true;
 
-            var bitmap1 = converter.ToBitmap(leftCameraImage);
-            var bitmap2 = converter.ToBitmap(rightCameraImage);
+            var leftBitmap = converter.ToBitmap(LeftCameraImage.Copy());
+            var rightBitmap = converter.ToBitmap(RightCameraImage.Copy());
 
-            var grayImage1 = new Image<Gray, byte>(bitmap1);
-            var grayImage2 = new Image<Gray, byte>(bitmap2);
+            var leftGrayImage = new Image<Gray, byte>(leftBitmap);
+            var rightGrayImage = new Image<Gray, byte>(rightBitmap);
 
-            if (cornersPointsLeft.Size < configuration.NumCalibFrames)
+            if (configuration.CalibrationStatus == CalibrationStatus.CollectingFrames)
             {
-                CollectFrame(grayImage1, grayImage2);
+                calibration.Calibrate(leftGrayImage, rightGrayImage);
+                processing = false;
                 return;
             }
 
-            if (!configuration.Calibrated)
-            {
-                stereo.Calibrate(cornersPointsLeft, cornersPointsRight, configuration.InnerCornersPerChessboardCols,
-                    configuration.InnerCornersPerChessboardRows, grayImage1.Size);
-                configuration.Calibrated = true;
-            }
+            Process(leftGrayImage, rightGrayImage);
+        }
 
-            Image<Gray, short> disparityImage;
-            MCvPoint3D32f[] points;
-            disparity.Solve(grayImage1, grayImage2, out disparityImage, out points);
-
+        private void Process(Image<Gray, byte> left, Image<Gray, byte> right)
+        {
+            var disparityImage = disparity.Solve(left, right);
             UpdateResult(disparityImage);
         }
 
-        private void UpdateResult(Image<Gray, short> disparityImage)
+        private void UpdateResult(IImage disparityImage)
         {
             var result = converter.Convert(disparityImage.Bitmap);
             result.Format = "Gray8";
             DisparityMap = result;
-
-            ResetProcessing();
-        }
-
-        private void CollectFrame(Image<Gray, byte> leftImage, Image<Gray, byte> rightImage)
-        {
-            var cornersLeft = detector.Detect(leftImage, configuration.InnerCornersPerChessboardCols, configuration.InnerCornersPerChessboardRows);
-            var cornersRight = detector.Detect(rightImage, configuration.InnerCornersPerChessboardCols, configuration.InnerCornersPerChessboardRows);
-
-            var expectedSize = configuration.InnerCornersPerChessboardCols * configuration.InnerCornersPerChessboardRows;
-            if (cornersLeft.Size != expectedSize || cornersRight.Size != expectedSize)
-            {
-                ResetProcessing();
-                return;
-            }
-
-            cornersPointsLeft.Push(cornersLeft);
-            cornersPointsRight.Push(cornersRight);
-
-            configuration.CalibratedFrames = cornersPointsRight.Size;
-
-            ResetProcessing();
-        }
-
-        private void ResetProcessing()
-        {
-            processing = false;
-            leftCameraImage = null;
-            rightCameraImage = null;
         }
     }
 }

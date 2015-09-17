@@ -29,6 +29,7 @@ namespace RTM.Calculator.StereoCalibration
         Rectangle Image1ROI { get; }
         Rectangle Image2ROI { get; }
 
-        void Calibrate(VectorOfVectorOfPointF cornersPointsLeft, VectorOfVectorOfPointF cornersPointsRight, int innerCornersPerChessboardCols, int innerCornersPerChessboardRows, Size imageSize);
+        void Calibrate(VectorOfVectorOfPointF cornersPointsLeft, VectorOfVectorOfPointF cornersPointsRight,
+            int innerCornersPerChessboardCols, int innerCornersPerChessboardRows, Size imageSize);
     }
 }

@@ -31,7 +31,7 @@ namespace RTM.Calculator.StereoCalibration
         private Matrix<double> essential = new Matrix<double>(3, 3);
 
         private Matrix<double> fundamental = new Matrix<double>(3, 3);
-       
+
         private Rectangle image1ROI;
         private Rectangle image2ROI;
 
@@ -57,8 +57,9 @@ namespace RTM.Calculator.StereoCalibration
         public Matrix<double> Essential => essential;
         public Rectangle Image1ROI => image1ROI;
         public Rectangle Image2ROI => image2ROI;
-        
-        public void Calibrate(VectorOfVectorOfPointF cornersPointsLeft, VectorOfVectorOfPointF cornersPointsRight, int innerCornersPerChessboardCols, int innerCornersPerChessboardRows, Size imageSize)
+
+        public void Calibrate(VectorOfVectorOfPointF cornersPointsLeft, VectorOfVectorOfPointF cornersPointsRight,
+            int innerCornersPerChessboardCols, int innerCornersPerChessboardRows, Size imageSize)
         {
             if (cornersPointsLeft.Size != cornersPointsRight.Size)
             {

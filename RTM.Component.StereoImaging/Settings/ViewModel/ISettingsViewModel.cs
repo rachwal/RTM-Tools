@@ -22,8 +22,6 @@ namespace RTM.Component.StereoImaging.Settings.ViewModel
         string Disp12MaxDiffLabel { get; }
         string PreFilterCapLabel { get; }
         string UniquenessRatioLabel { get; }
-        string SpeckleWindowSizeLabel { get; }
-        string SpeckleRangeLabel { get; }
         string CalibrationStatusLabel { get; }
     }
 }

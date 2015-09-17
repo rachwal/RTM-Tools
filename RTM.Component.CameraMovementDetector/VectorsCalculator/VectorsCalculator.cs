@@ -27,10 +27,11 @@ namespace RTM.Component.CameraMovementDetector.VectorsCalculator
             vectorsFilter = filter;
             configuration = componentConfiguration;
         }
-        
+
         public Vectors Calculate(VectorOfPointF cornerPoints, Size imageSize)
         {
-            cameraCalibration.Calibrate(new VectorOfVectorOfPointF(cornerPoints), imageSize, configuration.InnerCornersPerChessboardCols, configuration.InnerCornersPerChessboardRows);
+            cameraCalibration.Calibrate(new VectorOfVectorOfPointF(cornerPoints), imageSize,
+                configuration.InnerCornersPerChessboardCols, configuration.InnerCornersPerChessboardRows);
 
             var vectors = vectorsFilter.Correct(cameraCalibration.Rotation, cameraCalibration.Translation);
 

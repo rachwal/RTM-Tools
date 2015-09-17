@@ -11,23 +11,17 @@ namespace RTM.Component.CameraMovementDetector.Configuration
     {
         private int innerCornersPerChessboardRows = 9;
         private int innerCornersPerChessboardCols = 6;
-        
+
         public int InnerCornersPerChessboardRows
         {
             get { return innerCornersPerChessboardRows; }
-            set
-            {
-                innerCornersPerChessboardRows = value;
-            }
+            set { innerCornersPerChessboardRows = value; }
         }
 
         public int InnerCornersPerChessboardCols
         {
             get { return innerCornersPerChessboardCols; }
-            set
-            {
-                innerCornersPerChessboardCols = value;
-            }
+            set { innerCornersPerChessboardCols = value; }
         }
     }
 }

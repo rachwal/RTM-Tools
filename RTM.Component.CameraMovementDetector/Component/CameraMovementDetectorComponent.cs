@@ -24,14 +24,11 @@ namespace RTM.Component.CameraMovementDetector.Component
     [CustomProfile("Author", "Bartosz Rachwal")]
     public class CameraMovementDetectorComponent : DataFlowComponent
     {
-        [InPort(PortName = "camera")]
-        private readonly InPort<CameraImage> inport = new InPort<CameraImage>();
+        [InPort(PortName = "camera")] private readonly InPort<CameraImage> inport = new InPort<CameraImage>();
 
-        [OutPort(PortName = "camera")]
-        private readonly OutPort<CameraImage> outportCamera = new OutPort<CameraImage>();
+        [OutPort(PortName = "camera")] private readonly OutPort<CameraImage> outportCamera = new OutPort<CameraImage>();
 
-        [OutPort(PortName = "vectors")]
-        private readonly OutPort<Vectors> outportVectors = new OutPort<Vectors>();
+        [OutPort(PortName = "vectors")] private readonly OutPort<Vectors> outportVectors = new OutPort<Vectors>();
 
         private ICameraMovementDetector cameraMovementDetector;
 

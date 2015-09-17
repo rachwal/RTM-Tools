@@ -20,17 +20,19 @@ namespace RTM.Calculator.CameraCalibration
         public Matrix<double> CameraDistortionCoeffs => cameraDistortionCoeffs;
         public RotationVector3D Rotation => rotation;
         public Matrix<double> Translation => translation;
-        
+
         private Matrix<double> cameraDistortionCoeffs = new Matrix<double>(5, 1);
         private Matrix<double> cameraMatrix = new Matrix<double>(3, 3);
         private RotationVector3D rotation = new RotationVector3D();
         private Matrix<double> translation = new Matrix<double>(3, 1);
 
         private VectorOfVectorOfPoint3D32F modelPoints;
-        
-        public void Calibrate(VectorOfVectorOfPointF cornersPoints, Size imageSize, int innerCornersPerChessboardCols, int innerCornersPerChessboardRows)
+
+        public void Calibrate(VectorOfVectorOfPointF cornersPoints, Size imageSize, int innerCornersPerChessboardCols,
+            int innerCornersPerChessboardRows)
         {
-            modelPoints = CreateModelPoints(cornersPoints.Size, innerCornersPerChessboardCols, innerCornersPerChessboardRows);
+            modelPoints = CreateModelPoints(cornersPoints.Size, innerCornersPerChessboardCols,
+                innerCornersPerChessboardRows);
 
             var rotationVectors = new VectorOfMat();
             var translationVectors = new VectorOfMat();
@@ -46,7 +48,7 @@ namespace RTM.Calculator.CameraCalibration
 
             rotation = new RotationVector3D(new[] {rotationMatrix[0, 0], rotationMatrix[1, 0], rotationMatrix[2, 0]});
         }
-        
+
         private VectorOfVectorOfPoint3D32F CreateModelPoints(int length, int chessboardCols, int chessboardRows)
         {
             modelPoints = new VectorOfVectorOfPoint3D32F();

@@ -22,8 +22,7 @@ namespace RTM.Component.CameraImageViewer.Component
     [CustomProfile("Author", "Bartosz Rachwal")]
     public class CameraImageViewer : DataFlowComponent
     {
-        [InPort(PortName = "camera")]
-        private readonly InPort<CameraImage> inport = new InPort<CameraImage>();
+        [InPort(PortName = "camera")] private readonly InPort<CameraImage> inport = new InPort<CameraImage>();
 
         public IImageProvider ImageProvider { get; set; }
 

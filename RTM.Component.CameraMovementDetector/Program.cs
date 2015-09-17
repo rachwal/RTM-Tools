@@ -33,11 +33,13 @@ namespace RTM.Component.CameraMovementDetector
             container.RegisterType<ICameraImageConverter, CameraImageConverter>();
             container.RegisterType<IVectorsFilter, VectorFilter>();
             container.RegisterType<IFiltersFactory, FiltersFactory>();
-            container.RegisterType<ICameraMovementDetector, MovementDetector.CameraMovementDetector>(new ContainerControlledLifetimeManager());
+            container.RegisterType<ICameraMovementDetector, MovementDetector.CameraMovementDetector>(
+                new ContainerControlledLifetimeManager());
             container.RegisterType<IChessboardCornersDetector, ChessboardCornersDetector>();
             container.RegisterType<IVectorsCalculator, VectorsCalculator.VectorsCalculator>();
             container.RegisterType<ICameraCalibration, CameraCalibration>();
-            container.RegisterType<IComponentConfiguration, ComponentConfiguration>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IComponentConfiguration, ComponentConfiguration>(
+                new ContainerControlledLifetimeManager());
             container.RegisterType<IComponentManager, ComponentManager>(new ContainerControlledLifetimeManager());
             container.Resolve<IComponentManager>().Start(args);
         }

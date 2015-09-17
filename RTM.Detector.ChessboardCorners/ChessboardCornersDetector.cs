@@ -14,13 +14,15 @@ namespace RTM.Detector.ChessboardCorners
 {
     public class ChessboardCornersDetector : IChessboardCornersDetector
     {
-        public VectorOfPointF Detect(Image<Gray, byte> image, int innerCornersPerChessboardCols, int innerCornersPerChessboardRows)
+        public VectorOfPointF Detect(Image<Gray, byte> image, int innerCornersPerChessboardCols,
+            int innerCornersPerChessboardRows)
         {
             var corners = new VectorOfPointF();
 
-            CvInvoke.FindChessboardCorners(image, new Size(innerCornersPerChessboardCols, innerCornersPerChessboardRows), corners);
+            CvInvoke.FindChessboardCorners(image, new Size(innerCornersPerChessboardCols, innerCornersPerChessboardRows),
+                corners);
 
-            if (corners.Size != innerCornersPerChessboardCols * innerCornersPerChessboardRows)
+            if (corners.Size != innerCornersPerChessboardCols*innerCornersPerChessboardRows)
             {
                 return new VectorOfPointF(new[] {new PointF(0, 0)});
             }

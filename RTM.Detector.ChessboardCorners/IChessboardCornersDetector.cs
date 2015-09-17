@@ -13,6 +13,7 @@ namespace RTM.Detector.ChessboardCorners
 {
     public interface IChessboardCornersDetector
     {
-        VectorOfPointF Detect(Image<Gray, byte> image, int innerCornersPerChessboardCols, int innerCornersPerChessboardRows);
+        VectorOfPointF Detect(Image<Gray, byte> image, int innerCornersPerChessboardCols,
+            int innerCornersPerChessboardRows);
     }
 }

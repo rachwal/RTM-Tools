@@ -9,12 +9,22 @@ using System;
 
 namespace RTM.Component.StereoImaging.Configuration
 {
+    public enum CalibrationStatus
+    {
+        NotCalibrated,
+        CollectingFrames,
+        Calibrating,
+        Calibrated
+    }
+
     public interface IComponentConfiguration : IParameters
     {
         int InnerCornersPerChessboardRows { get; set; }
         int InnerCornersPerChessboardCols { get; set; }
-        bool Calibrated { get; set; }
-        event EventHandler CalibratedChanged;
+
+        CalibrationStatus CalibrationStatus { get; set; }
+        event EventHandler CalibrationStatusChanged;
+
         int CalibratedFrames { get; set; }
         event EventHandler CalibratedFramesChanged;
         void Initialize();

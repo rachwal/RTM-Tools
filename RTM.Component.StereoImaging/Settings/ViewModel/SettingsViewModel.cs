@@ -5,6 +5,7 @@
 // Created by Bartosz Rachwal. 
 // Copyright (c) 2015 Bartosz Rachwal. The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
 
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -20,11 +21,11 @@ namespace RTM.Component.StereoImaging.Settings.ViewModel
         public SettingsViewModel(IComponentConfiguration componentConfiguration)
         {
             configuration = componentConfiguration;
-            configuration.CalibratedFramesChanged += OnCalibratedFramesChanged;
-            configuration.CalibratedChanged += OnCalibratedFramesChanged;
+            configuration.CalibratedFramesChanged += OnCalibrationStatusFramesChanged;
+            configuration.CalibrationStatusChanged += OnCalibrationStatusFramesChanged;
         }
 
-        private void OnCalibratedFramesChanged(object sender, System.EventArgs e)
+        private void OnCalibrationStatusFramesChanged(object sender, System.EventArgs e)
         {
             OnPropertyChanged(nameof(CalibrationStatusLabel));
         }
@@ -46,11 +47,11 @@ namespace RTM.Component.StereoImaging.Settings.ViewModel
             get { return configuration.NumDisparities; }
             set
             {
-                var val = (value / 16) * 16;
+                var val = (value/16)*16;
 
                 configuration.NumDisparities = val;
 
-                if (val * 16 != value)
+                if (val*16 != value)
                 {
                     OnPropertyChanged(nameof(NumDisparities));
                 }
@@ -64,7 +65,7 @@ namespace RTM.Component.StereoImaging.Settings.ViewModel
             get { return configuration.BlockSize; }
             set
             {
-                if (value % 2 == 0)
+                if (value%2 == 0)
                 {
                     value++;
                 }
@@ -129,26 +130,6 @@ namespace RTM.Component.StereoImaging.Settings.ViewModel
             }
         }
 
-        public int SpeckleWindowSize
-        {
-            get { return configuration.SpeckleWindowSize; }
-            set
-            {
-                configuration.SpeckleWindowSize = value;
-                OnPropertyChanged(nameof(SpeckleWindowSizeLabel));
-            }
-        }
-
-        public int SpeckleRange
-        {
-            get { return configuration.SpeckleRange; }
-            set
-            {
-                configuration.SpeckleRange = value;
-                OnPropertyChanged(nameof(SpeckleRangeLabel));
-            }
-        }
-
         public int NumCalibFrames
         {
             get { return configuration.NumCalibFrames; }
@@ -163,17 +144,28 @@ namespace RTM.Component.StereoImaging.Settings.ViewModel
         {
             get
             {
-                if (configuration.Calibrated)
+                switch (configuration.CalibrationStatus)
                 {
-                    return "Calibrated";
+                    case CalibrationStatus.NotCalibrated:
+                        return "Not Calibrated";
+                    case CalibrationStatus.Calibrated:
+                        return "Calibrated";
+                    case CalibrationStatus.CollectingFrames:
+                        return $"{configuration.CalibratedFrames} of {configuration.NumCalibFrames} frames ready";
+                    case CalibrationStatus.Calibrating:
+                        return "Calibrating";
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
-                return $"{configuration.CalibratedFrames} of {configuration.NumCalibFrames} frames ready";
             }
         }
 
         public ICommand Calibrate
         {
-            get { return new DelegateCommand(() => { configuration.Calibrated = false; }); }
+            get
+            {
+                return new DelegateCommand(() => { configuration.CalibrationStatus = CalibrationStatus.NotCalibrated; });
+            }
         }
 
         public string CalibrationFramesLabel => $"Calibration Frames: {NumCalibFrames}";
@@ -185,8 +177,6 @@ namespace RTM.Component.StereoImaging.Settings.ViewModel
         public string Disp12MaxDiffLabel => $"Disp12MaxDiff: {Disp12MaxDiff}";
         public string PreFilterCapLabel => $"PreFilterCap: {PreFilterCap}";
         public string UniquenessRatioLabel => $"UniquenessRatio: {UniquenessRatio}";
-        public string SpeckleWindowSizeLabel => $"SpeckleWindowSize: {SpeckleWindowSize}";
-        public string SpeckleRangeLabel => $"SpeckleRange: {SpeckleRange}";
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

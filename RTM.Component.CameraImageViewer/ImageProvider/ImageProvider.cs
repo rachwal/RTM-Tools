@@ -24,7 +24,7 @@ namespace RTM.Component.CameraImageViewer.ImageProvider
         {
             converter = cameraImageConverter;
         }
-        
+
         public Image Image
         {
             get { return image; }

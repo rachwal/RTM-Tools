@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        Height="620" Width="300"
+        Height="540" Width="300"
         Title="Stereo Imaging Settings">
     <Grid>
         <ScrollViewer>
@@ -32,12 +32,12 @@
 
                 <StackPanel>
                     <Label Content="{Binding P2Label}" />
-                    <Slider Minimum="0" Maximum="2000" SmallChange="1" Value="{Binding P2}" />
+                    <Slider Minimum="0" Maximum="4000" SmallChange="1" Value="{Binding P2}" />
                 </StackPanel>
 
                 <StackPanel>
                     <Label Content="{Binding Disp12MaxDiffLabel}" />
-                    <Slider Minimum="-1" Maximum="100" SmallChange="1" Value="{Binding Disp12MaxDiff}" />
+                    <Slider Minimum="-1" Maximum="200" SmallChange="1" Value="{Binding Disp12MaxDiff}" />
                 </StackPanel>
 
                 <StackPanel>
@@ -50,25 +50,16 @@
                     <Slider Minimum="0" Maximum="100" SmallChange="1" Value="{Binding UniquenessRatio}" />
                 </StackPanel>
 
-                <StackPanel>
-                    <Label Content="{Binding SpeckleWindowSizeLabel}" />
-                    <Slider Minimum="0" Maximum="400" SmallChange="20" Value="{Binding SpeckleWindowSize}" />
-                </StackPanel>
-
-                <StackPanel>
-                    <Label Content="{Binding SpeckleRangeLabel}" />
-                    <Slider Minimum="1" Maximum="10" SmallChange="1" Value="{Binding SpeckleRange}" />
-                </StackPanel>
-
-                <Separator Margin="10,10,0,01" />
+                <Separator Margin="10,10,0,1" />
                 <StackPanel>
                     <Label Content="{Binding CalibrationFramesLabel}" />
-                    <Slider Minimum="1" Maximum="100" SmallChange="5" Value="{Binding NumCalibFrames, Mode=TwoWay}" />
+                    <Slider Minimum="1" Maximum="30" SmallChange="2" Value="{Binding NumCalibFrames, Mode=TwoWay}" />
                 </StackPanel>
                 <StackPanel>
                     <Label Content="{Binding CalibrationStatusLabel}" />
                     <Button Margin="10" Content="Calibrate" Command="{Binding Calibrate}" />
                 </StackPanel>
+
             </StackPanel>
         </ScrollViewer>
     </Grid>
