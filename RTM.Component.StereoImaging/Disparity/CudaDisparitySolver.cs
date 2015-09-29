@@ -24,19 +24,27 @@ namespace RTM.Component.StereoImaging.Disparity
         public Image<Gray, byte> Solve(Image<Gray, byte> left, Image<Gray, byte> right)
         {
             var stereo = new CudaStereoBM(configuration.NumDisparities, configuration.BlockSize);
+
             var leftGpu = new CudaImage<Gray, byte>(left.Size);
-            var rightGpu = new CudaImage<Gray, byte>(right.Size);
-            var gpuDisparity = new CudaImage<Gray, byte>(leftGpu.Size);
-
-            var cudaDisparity = new Image<Gray, byte>(gpuDisparity.Size);
-
             leftGpu.Upload(left.Mat);
+
+            var rightGpu = new CudaImage<Gray, byte>(right.Size);
             rightGpu.Upload(right.Mat);
 
-            stereo.FindStereoCorrespondence(leftGpu, rightGpu, gpuDisparity);
-            gpuDisparity.Download(cudaDisparity);
+            var gpuDisparity = new CudaImage<Gray, byte>(leftGpu.Size);
 
-            return cudaDisparity;
+            stereo.FindStereoCorrespondence(leftGpu, rightGpu, gpuDisparity);
+
+            var cudaDisparityBilateralFilter = new CudaDisparityBilateralFilter(configuration.FilterDisparities,
+                configuration.FilterRadius, configuration.FilterIterations);
+
+            var cudaFilteredDisparity = new CudaImage<Gray, byte>(leftGpu.Size);
+            cudaDisparityBilateralFilter.Apply(gpuDisparity, leftGpu, cudaFilteredDisparity);
+
+            var filteredDisparity = new Image<Gray, byte>(gpuDisparity.Size);
+            cudaFilteredDisparity.Download(filteredDisparity);
+
+            return filteredDisparity;
         }
     }
 }

@@ -33,32 +33,12 @@ namespace RTM.Component.StereoImaging.Configuration
         public int PreFilterCap { get; set; }
         public int UniquenessRatio { get; set; }
         public int SpeckleWindowSize { get; set; }
-        public int SpeckleRange { get; set; } = 1;
+        public int SpeckleRange { get; set; }
+        public int FilterDisparities { get; set; }
+        public int FilterRadius { get; set; }
+        public int FilterIterations { get; set; }
         public int NumCalibFrames { get; set; }
 
-        public double DisplayLimitMin
-        {
-            get { return displayLimitMin; }
-            set
-            {
-                displayLimitMin = value;
-                DisplayLimitMinChanged?.Invoke(this, EventArgs.Empty);
-            }
-        }
-
-        public event EventHandler DisplayLimitMinChanged;
-
-        public double DisplayLimitMax
-        {
-            get { return displayLimitMax; }
-            set
-            {
-                displayLimitMax = value;
-                DisplayLimitMaxChanged?.Invoke(this, EventArgs.Empty);
-            }
-        }
-
-        public event EventHandler DisplayLimitMaxChanged;
         public int InnerCornersPerChessboardRows { get; set; }
         public int InnerCornersPerChessboardCols { get; set; }
 
@@ -75,8 +55,6 @@ namespace RTM.Component.StereoImaging.Configuration
         }
 
         private int calibratedFrames;
-        private double displayLimitMin;
-        private double displayLimitMax;
 
         public int CalibratedFrames
         {
@@ -89,20 +67,21 @@ namespace RTM.Component.StereoImaging.Configuration
         }
 
         public event EventHandler CalibratedFramesChanged;
-
         public event EventHandler CalibrationStatusChanged;
 
         public void Initialize()
         {
             MinDisparity = 0;
-            NumDisparities = 128;
-            BlockSize = 7;
+            NumDisparities = 256;
+            BlockSize = 3;
             Disp12MaxDiff = -1;
             PreFilterCap = 0;
             UniquenessRatio = 0;
             SpeckleWindowSize = 0;
             SpeckleRange = 1;
-
+            FilterDisparities = 256;
+            FilterRadius = 5;
+            FilterIterations = 5;
             NumCalibFrames = 20;
 
             InnerCornersPerChessboardCols = 9;

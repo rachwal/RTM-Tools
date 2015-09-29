@@ -23,5 +23,8 @@ namespace RTM.Component.StereoImaging.Settings.ViewModel
         string PreFilterCapLabel { get; }
         string UniquenessRatioLabel { get; }
         string CalibrationStatusLabel { get; }
+        string FilterDisparitiesLabel { get; }
+        string FilterRadiusLabel { get; }
+        string FilterIterationsLabel { get; }
     }
 }

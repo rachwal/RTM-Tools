@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        Height="280" Width="300"
+        Height="400" Width="300"
         Title="Stereo Imaging Settings">
     <Grid>
         <ScrollViewer>
@@ -17,7 +17,22 @@
 
                 <StackPanel>
                     <Label Content="{Binding BlockSizeLabel}" />
-                    <Slider Minimum="3" Maximum="21" SmallChange="1" Value="{Binding BlockSize}" />
+                    <Slider Minimum="3" Maximum="21" SmallChange="2" Value="{Binding BlockSize}" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="{Binding FilterDisparitiesLabel}" />
+                    <Slider Minimum="16" Maximum="512" SmallChange="16" Value="{Binding FilterDisparities}" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="{Binding FilterRadiusLabel}" />
+                    <Slider Minimum="1" Maximum="49" SmallChange="1" Value="{Binding FilterRadius}" />
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="{Binding FilterIterationsLabel}" />
+                    <Slider Minimum="1" Maximum="100" SmallChange="1" Value="{Binding FilterIterations}" />
                 </StackPanel>
 
                 <Separator Margin="10,10,0,1" />

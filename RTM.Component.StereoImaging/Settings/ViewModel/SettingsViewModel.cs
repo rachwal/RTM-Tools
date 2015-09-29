@@ -140,6 +140,36 @@ namespace RTM.Component.StereoImaging.Settings.ViewModel
             }
         }
 
+        public int FilterDisparities
+        {
+            get { return configuration.FilterDisparities; }
+            set
+            {
+                configuration.FilterDisparities = value;
+                OnPropertyChanged(nameof(FilterDisparitiesLabel));
+            }
+        }
+
+        public int FilterRadius
+        {
+            get { return configuration.FilterRadius; }
+            set
+            {
+                configuration.FilterRadius = value;
+                OnPropertyChanged(nameof(FilterRadiusLabel));
+            }
+        }
+
+        public int FilterIterations
+        {
+            get { return configuration.FilterIterations; }
+            set
+            {
+                configuration.FilterIterations = value;
+                OnPropertyChanged(nameof(FilterIterationsLabel));
+            }
+        }
+
         public string CalibrationStatusLabel
         {
             get
@@ -177,6 +207,9 @@ namespace RTM.Component.StereoImaging.Settings.ViewModel
         public string Disp12MaxDiffLabel => $"Disp12MaxDiff: {Disp12MaxDiff}";
         public string PreFilterCapLabel => $"PreFilterCap: {PreFilterCap}";
         public string UniquenessRatioLabel => $"UniquenessRatio: {UniquenessRatio}";
+        public string FilterDisparitiesLabel => $"Filter Disparities: {FilterDisparities}";
+        public string FilterRadiusLabel => $"Filter Radius: {FilterRadius}";
+        public string FilterIterationsLabel => $"Filter Iterations: {FilterIterations}";
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

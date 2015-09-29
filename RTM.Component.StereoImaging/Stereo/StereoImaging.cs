@@ -102,8 +102,8 @@ namespace RTM.Component.StereoImaging.Stereo
 
             processing = true;
 
-            var leftBitmap = converter.ToBitmap(LeftCameraImage.Copy());
-            var rightBitmap = converter.ToBitmap(RightCameraImage.Copy());
+            var leftBitmap = converter.ToBitmap(leftCameraImage.Copy());
+            var rightBitmap = converter.ToBitmap(rightCameraImage.Copy());
 
             var leftGrayImage = new Image<Gray, byte>(leftBitmap);
             var rightGrayImage = new Image<Gray, byte>(rightBitmap);
@@ -133,7 +133,7 @@ namespace RTM.Component.StereoImaging.Stereo
 
             var disparityImage = disparity.Solve(left, right);
 
-            UpdateResult(disparityImage.Copy());
+            UpdateResult(disparityImage);
         }
 
         private void UpdateResult(IImage disparityImage)

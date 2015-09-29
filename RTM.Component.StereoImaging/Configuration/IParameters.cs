@@ -18,5 +18,8 @@ namespace RTM.Component.StereoImaging.Configuration
         int PreFilterCap { get; set; }
         int UniquenessRatio { get; set; }
         int NumCalibFrames { get; set; }
+        int FilterDisparities { get; set; }
+        int FilterRadius { get; set; }
+        int FilterIterations { get; set; }
     }
 }
