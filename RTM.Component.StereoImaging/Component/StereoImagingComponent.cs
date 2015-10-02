@@ -5,7 +5,6 @@
 // Created by Bartosz Rachwal. 
 // Copyright (c) 2015 Bartosz Rachwal. The National Institute of Advanced Industrial Science and Technology, Japan. All rights reserved. 
 
-using System;
 using OpenRTM.Core;
 using RTM.Component.StereoImaging.Stereo;
 
@@ -50,24 +49,12 @@ namespace RTM.Component.StereoImaging.Component
                     return;
                 }
                 StereoImaging.NewDisparityMap += OnNewDisparityMap;
-                StereoImaging.NewLeftCameraImage += OnNewLeftCameraImage;
-                stereoImaging.NewRightCameraImage += OnNewRightCameraImage;
             }
         }
 
-        private void OnNewRightCameraImage(object sender, EventArgs e)
+        private void OnNewDisparityMap(object sender, CameraImage cameraImage)
         {
-            rightCameraOut.Write(StereoImaging.RightCameraImage);
-        }
-
-        private void OnNewLeftCameraImage(object sender, EventArgs e)
-        {
-            leftCameraOut.Write(StereoImaging.LeftCameraImage);
-        }
-
-        private void OnNewDisparityMap(object sender, EventArgs e)
-        {
-            disparityMap.Write(StereoImaging.DisparityMap);
+            disparityMap.Write(cameraImage);
         }
 
         protected override ReturnCode_t OnActivated(int execHandle)
@@ -77,16 +64,18 @@ namespace RTM.Component.StereoImaging.Component
             return base.OnActivated(execHandle);
         }
 
-        private void ProcessRightCamera(CameraImage image)
-        {
-            StereoImaging.ProcessRightImage(image);
-        }
-
         private void ProcessLeftCamera(CameraImage image)
         {
+            leftCameraOut.Write(image);
             StereoImaging.ProcessLeftImage(image);
         }
 
+        private void ProcessRightCamera(CameraImage image)
+        {
+            rightCameraOut.Write(image);
+            StereoImaging.ProcessRightImage(image);
+        }
+        
         protected override ReturnCode_t OnDeactivated(int execHandle)
         {
             leftCameraIn.OnWrite -= ProcessLeftCamera;

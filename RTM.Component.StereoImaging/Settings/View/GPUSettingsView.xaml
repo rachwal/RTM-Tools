@@ -1,19 +1,14 @@
-﻿<Window x:Class="RTM.Component.StereoImaging.Settings.View.SettingsView"
+﻿<Window x:Class="RTM.Component.StereoImaging.Settings.View.GPUSettingsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        Height="540" Width="300"
+        Height="440" Width="300"
         Title="Stereo Imaging Settings">
     <Grid>
         <ScrollViewer>
             <StackPanel Margin="10">
-
-                <StackPanel>
-                    <Label Content="{Binding MinDisparityLabel}" />
-                    <Slider Minimum="0" Maximum="100" SmallChange="1" Value="{Binding MinDisparity, Mode=TwoWay}" />
-                </StackPanel>
 
                 <StackPanel>
                     <Label Content="{Binding NumDisparitiesLabel}" />
@@ -21,33 +16,23 @@
                 </StackPanel>
 
                 <StackPanel>
-                    <Label Content="{Binding BlockSizeLabel}" />
-                    <Slider Minimum="3" Maximum="21" SmallChange="1" Value="{Binding BlockSize}" />
+                    <Label Content="{Binding AlgorithmIterationsLabel}" />
+                    <Slider Minimum="1" Maximum="100" SmallChange="1" Value="{Binding AlgorithmIterations}" />
                 </StackPanel>
 
                 <StackPanel>
-                    <Label Content="{Binding P1Label}" />
-                    <Slider Minimum="0" Maximum="2000" SmallChange="1" Value="{Binding P1}" />
+                    <Label Content="{Binding LevelsLabel}" />
+                    <Slider Minimum="1" Maximum="8" SmallChange="1" Value="{Binding Levels}" />
                 </StackPanel>
 
                 <StackPanel>
-                    <Label Content="{Binding P2Label}" />
-                    <Slider Minimum="0" Maximum="4000" SmallChange="1" Value="{Binding P2}" />
+                    <Label Content="{Binding FilterRadiusLabel}" />
+                    <Slider Minimum="1" Maximum="49" SmallChange="1" Value="{Binding FilterRadius}" />
                 </StackPanel>
 
                 <StackPanel>
-                    <Label Content="{Binding Disp12MaxDiffLabel}" />
-                    <Slider Minimum="-1" Maximum="200" SmallChange="1" Value="{Binding Disp12MaxDiff}" />
-                </StackPanel>
-
-                <StackPanel>
-                    <Label Content="{Binding PreFilterCapLabel}" />
-                    <Slider Minimum="0" Maximum="255" SmallChange="1" Value="{Binding PreFilterCap}" />
-                </StackPanel>
-
-                <StackPanel>
-                    <Label Content="{Binding UniquenessRatioLabel}" />
-                    <Slider Minimum="0" Maximum="100" SmallChange="1" Value="{Binding UniquenessRatio}" />
+                    <Label Content="{Binding FilterIterationsLabel}" />
+                    <Slider Minimum="1" Maximum="100" SmallChange="1" Value="{Binding FilterIterations}" />
                 </StackPanel>
 
                 <Separator Margin="10,10,0,1" />

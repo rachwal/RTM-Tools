@@ -12,15 +12,7 @@ namespace RTM.Component.StereoImaging.Stereo
 {
     public interface IStereoImaging
     {
-        CameraImage DisparityMap { get; set; }
-        CameraImage LeftCameraImage { get; set; }
-        CameraImage RightCameraImage { get; set; }
-
-        event EventHandler NewDisparityMap;
-
-        event EventHandler NewRightCameraImage;
-
-        event EventHandler NewLeftCameraImage;
+        event EventHandler<CameraImage> NewDisparityMap;
 
         void ProcessRightImage(CameraImage image);
         void ProcessLeftImage(CameraImage image);

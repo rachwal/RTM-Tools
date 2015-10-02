@@ -12,6 +12,7 @@ using Emgu.CV.Structure;
 using OpenRTM.Core;
 using RTM.Component.StereoImaging.CameraCalibration;
 using RTM.Component.StereoImaging.Configuration;
+using RTM.Component.StereoImaging.Configuration.Parameters;
 using RTM.Component.StereoImaging.Disparity;
 using RTM.Converter.CameraImage;
 
@@ -28,41 +29,8 @@ namespace RTM.Component.StereoImaging.Stereo
 
         private CameraImage rightCameraImage;
         private CameraImage leftCameraImage;
-        private CameraImage disparityMap;
 
-        public CameraImage RightCameraImage
-        {
-            get { return rightCameraImage; }
-            set
-            {
-                rightCameraImage = value;
-                NewRightCameraImage?.Invoke(this, EventArgs.Empty);
-            }
-        }
-
-        public CameraImage LeftCameraImage
-        {
-            get { return leftCameraImage; }
-            set
-            {
-                leftCameraImage = value;
-                NewLeftCameraImage?.Invoke(this, EventArgs.Empty);
-            }
-        }
-
-        public CameraImage DisparityMap
-        {
-            get { return disparityMap; }
-            set
-            {
-                disparityMap = value;
-                NewDisparityMap?.Invoke(this, EventArgs.Empty);
-            }
-        }
-
-        public event EventHandler NewRightCameraImage;
-        public event EventHandler NewLeftCameraImage;
-        public event EventHandler NewDisparityMap;
+        public event EventHandler<CameraImage> NewDisparityMap;
 
         public StereoImaging(IDisparitySolver disparitySolver, ICalibration cameraCalibration,
             ICameraImageConverter cameraImageConverter, IComponentConfiguration componentConfiguration)
@@ -72,30 +40,29 @@ namespace RTM.Component.StereoImaging.Stereo
             converter = cameraImageConverter;
 
             configuration = componentConfiguration;
-
-            NewLeftCameraImage += OnNewCameraImage;
-            NewRightCameraImage += OnNewCameraImage;
             NewDisparityMap += OnNewDisparityMap;
         }
 
-        private void OnNewDisparityMap(object sender, EventArgs e)
+        private void OnNewDisparityMap(object sender, CameraImage cameraImage)
         {
             processing = false;
         }
 
         public void ProcessLeftImage(CameraImage cameraImage)
         {
-            LeftCameraImage = cameraImage;
+            leftCameraImage = cameraImage;
+            Process();
         }
 
         public void ProcessRightImage(CameraImage cameraImage)
         {
-            RightCameraImage = cameraImage;
+            rightCameraImage = cameraImage;
+            Process();
         }
 
-        private void OnNewCameraImage(object sender, EventArgs e)
+        private void Process()
         {
-            if (processing || LeftCameraImage == null || RightCameraImage == null)
+            if (processing || leftCameraImage == null || rightCameraImage == null)
             {
                 return;
             }
@@ -131,16 +98,16 @@ namespace RTM.Component.StereoImaging.Stereo
                     Inter.Linear);
             }
 
-            var disparityImage = disparity.Solve(left, right);
+            var disparityMap = disparity.Solve(left, right);
 
-            UpdateResult(disparityImage);
+            UpdateResult(disparityMap);
         }
 
-        private void UpdateResult(IImage disparityImage)
+        private void UpdateResult(IImage image)
         {
-            var result = converter.Convert(disparityImage.Bitmap);
+            var result = converter.Convert(image.Bitmap);
             result.Format = "Gray8";
-            DisparityMap = result;
+            NewDisparityMap?.Invoke(this, result);
         }
     }
 }

@@ -173,11 +173,22 @@
     <Compile Include="CameraCalibration\Calibration.cs" />
     <Compile Include="CameraCalibration\ICalibration.cs" />
     <Compile Include="Component\StereoImagingComponent.cs" />
-    <Compile Include="Disparity\CudaDisparitySolver.cs" />
-    <Compile Include="Disparity\DisparitySolver.cs" />
+    <Compile Include="Configuration\GPUComponentConfiguration.cs" />
+    <Compile Include="Configuration\ICPUComponentConfiguration.cs" />
+    <Compile Include="Configuration\IGPUComponentConfiguration.cs" />
+    <Compile Include="Configuration\Parameters\IDisparityBilateralFilterParameters.cs" />
+    <Compile Include="Configuration\Parameters\IParameters.cs" />
+    <Compile Include="Configuration\Parameters\ISGBMParameters.cs" />
+    <Compile Include="Configuration\Parameters\IStereoCalibrationParameters.cs" />
+    <Compile Include="Disparity\GPUDisparitySolver.cs" />
+    <Compile Include="Disparity\CPUDisparitySolver.cs" />
     <Compile Include="Disparity\IDisparitySolver.cs" />
-    <Compile Include="Settings\View\CudaSettingsView.xaml.cs">
-      <DependentUpon>CudaSettingsView.xaml</DependentUpon>
+    <Compile Include="Configuration\Parameters\IConstantSpaceBPParameters.cs" />
+    <Compile Include="Settings\ViewModel\GPUSettingsViewModel.cs" />
+    <Compile Include="Settings\ViewModel\ICPUSettingsViewModel.cs" />
+    <Compile Include="Settings\ViewModel\IGPUSettingsViewModel.cs" />
+    <Compile Include="Settings\View\GPUSettingsView.xaml.cs">
+      <DependentUpon>GPUSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="StereoImagingBootstrapper.cs" />
     <Compile Include="Stereo\StereoImaging.cs" />
@@ -185,13 +196,11 @@
     <Compile Include="Manager\ComponentManager.cs" />
     <Compile Include="Manager\IComponentManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Configuration\ComponentConfiguration.cs" />
+    <Compile Include="Configuration\CPUComponentConfiguration.cs" />
     <Compile Include="Configuration\IComponentConfiguration.cs" />
-    <Compile Include="Configuration\IParameters.cs" />
-    <Compile Include="Settings\ViewModel\ISettingsViewModel.cs" />
-    <Compile Include="Settings\ViewModel\SettingsViewModel.cs" />
-    <Compile Include="Settings\View\SettingsView.xaml.cs">
-      <DependentUpon>SettingsView.xaml</DependentUpon>
+    <Compile Include="Settings\ViewModel\CPUSettingsViewModel.cs" />
+    <Compile Include="Settings\View\CPUSettingsView.xaml.cs">
+      <DependentUpon>CPUSettingsView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -221,11 +230,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Settings\View\CudaSettingsView.xaml">
+    <Page Include="Settings\View\GPUSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings\View\SettingsView.xaml">
+    <Page Include="Settings\View\CPUSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

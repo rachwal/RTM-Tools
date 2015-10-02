@@ -11,6 +11,7 @@ using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using RTM.Calculator.StereoCalibration;
 using RTM.Component.StereoImaging.Configuration;
+using RTM.Component.StereoImaging.Configuration.Parameters;
 using RTM.Detector.ChessboardCorners;
 
 namespace RTM.Component.StereoImaging.CameraCalibration
