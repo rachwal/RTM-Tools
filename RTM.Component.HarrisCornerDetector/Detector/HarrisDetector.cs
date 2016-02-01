@@ -88,9 +88,6 @@ namespace RTM.Component.HarrisCornerDetector.Detector
                     oldPoints.Clear();
                     oldPoints.AddRange(featurePoints.AsReadOnly());
                 }
-                catch (Exception)
-                {
-                }
                 finally
                 {
                     sourceBitmap.Dispose();
